@@ -1,5 +1,0 @@
-Error: Failed to parse course YAML: while scanning for the next token
-found character '@' that cannot start any token
-  in "<unicode string>", line 288, column 9:
-          - @router.get
-            ^
