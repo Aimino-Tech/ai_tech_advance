@@ -1,9 +1,141 @@
 skill: architect
-total_traces: 0
+total_traces: 271
 stats:
-  cot: {}
-  tool_usage: {}
-  behaviors: {}
-patterns: []
-anti_patterns: []
-steps: []
+  cot:
+    total_traces: 271
+    cot_present: 80
+    cot_rate: 0.2952
+    avg_tokens: 368.29
+    avg_paragraphs: 5.54
+    avg_sentences: 16.25
+    avg_chars: 2392.79
+    median_tokens: 296.0
+    max_tokens: 1351
+    min_tokens: 83
+    opener_words:
+      The: 0.5375
+      Alright: 0.3125
+      I’ve: 0.075
+      Okay: 0.0375
+      I need to: 0.025
+      All: 0.0125
+    pronoun_first_pct: 0.4693
+    pronoun_second_pct: 0.0246
+    pronoun_third_pct: 0.5061
+    self_correction_rate: 0.925
+    avg_self_corrections: 5.975
+    reasoning_connectors_per_turn: 1.75
+    top_connectors:
+    - therefore
+    - thus
+    - since
+    - because
+    - hence
+  tool_usage:
+    total_traces: 271
+    traces_with_tools: 70
+    tool_calls_per_trace:
+      '0': 0.7417
+      '1': 0.2583
+    tool_type_frequency:
+      Bash: 0.1439
+      Read: 0.0923
+      Search: 0.0074
+      Web: 0.0074
+      Glob: 0.0074
+    top_tool_calls:
+    - 'sh '
+    - read
+    - shell
+    - view
+    - 'ls '
+    - terminal
+    - search
+    - http
+    - look at
+    - web
+    - glob
+    - bash
+    transition_matrix: {}
+    read_before_edit_rate: 0.0
+    verify_after_action_rate: 0.0
+    tool_to_text_ratio: 0.7692
+    avg_tool_calls: 0.26
+    max_tool_calls: 1
+  behaviors:
+    total_traces: 271
+    self_correction_rate: 0.925
+    avg_self_corrections: 5.9625
+    hypothesis_driven_rate: 0.425
+    avg_hypotheses: 0.6625
+    multi_investigation_rate: 0.0
+    step_coverage:
+      ACKNOWLEDGE: 0.75
+      SCOPE: 0.0625
+      GATHER: 0.0125
+      PLAN: 1.1125
+      EXECUTE: 0.1375
+      VERIFY: 0.125
+      ITERATE: 0.0
+    step_transition_matrix:
+      ACKNOWLEDGE:
+        PLAN: 0.4082
+        EXECUTE: 0.0306
+        SCOPE: 0.0306
+        VERIFY: 0.0102
+      PLAN:
+        ACKNOWLEDGE: 0.1837
+        VERIFY: 0.0816
+        EXECUTE: 0.0306
+        SCOPE: 0.0204
+      EXECUTE:
+        PLAN: 0.0714
+        ACKNOWLEDGE: 0.0102
+      VERIFY:
+        PLAN: 0.0306
+        EXECUTE: 0.0306
+        ACKNOWLEDGE: 0.0102
+      SCOPE:
+        PLAN: 0.0306
+        ACKNOWLEDGE: 0.0102
+      GATHER:
+        PLAN: 0.0102
+    same_turn_fix_rate: 0.05
+patterns:
+- name: common-openers
+  description: 'Frequent utterance starters: The, Alright, I’ve, Okay, I need to'
+  frequency: 0.2952
+- name: self-correction
+  description: Frequently corrects reasoning mid-turn
+  frequency: 0.925
+- name: hypothesis-driven-debugging
+  description: Forms and tests hypotheses before fixing
+  frequency: 0.425
+- name: acknowledge-then-execute
+  description: Always acknowledges context before acting
+  frequency: 0.75
+- name: reasoning-chaining
+  description: Uses connectors like therefore, thus, since
+  frequency: 0.35
+anti_patterns:
+- name: acting-without-scope
+  description: Proceeding without confirming requirements
+  frequency: 0.9375
+- name: no-verification
+  description: Completes work without verification step
+  frequency: 0.875
+steps:
+- name: ACKNOWLEDGE
+  frequency: 0.75
+- name: SCOPE
+  frequency: 0.0625
+- name: GATHER
+  frequency: 0.0125
+- name: PLAN
+  frequency: 1.1125
+- name: EXECUTE
+  frequency: 0.1375
+- name: VERIFY
+  frequency: 0.125
+- name: ITERATE
+  frequency: 0.0

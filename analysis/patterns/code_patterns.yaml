@@ -1,98 +1,163 @@
 skill: code
-total_traces: 3
+total_traces: 6835
 stats:
   cot:
-    total_traces: 3
-    cot_present: 3
-    cot_rate: 1.0
-    avg_tokens: 323.33
-    avg_paragraphs: 6
-    avg_sentences: 12.67
-    avg_chars: 2049.33
-    median_tokens: 308
-    max_tokens: 376
-    min_tokens: 286
+    total_traces: 6835
+    cot_present: 3203
+    cot_rate: 0.4686
+    avg_tokens: 413.82
+    avg_paragraphs: 7.32
+    avg_sentences: 17.08
+    avg_chars: 2720.07
+    median_tokens: 373
+    max_tokens: 1402
+    min_tokens: 55
     opener_words:
-      Alright: 0.6667
-      Okay: 0.3333
-    pronoun_first_pct: 0.5882
-    pronoun_second_pct: 0.0
-    pronoun_third_pct: 0.4118
-    self_correction_rate: 1.0
-    avg_self_corrections: 5.6667
-    reasoning_connectors_per_turn: 2.0
+      Alright: 0.537
+      The: 0.1645
+      Okay: 0.1086
+      I’ve: 0.099
+      I need to: 0.0393
+      All: 0.0353
+      I: 0.0087
+      I've: 0.005
+      I’m: 0.0025
+    pronoun_first_pct: 0.3419
+    pronoun_second_pct: 0.0163
+    pronoun_third_pct: 0.6418
+    self_correction_rate: 0.9756
+    avg_self_corrections: 6.1714
+    reasoning_connectors_per_turn: 2.0534
     top_connectors:
+    - thus
+    - because
     - since
     - therefore
-    - because
-    - thus
+    - given that
   tool_usage:
-    total_traces: 3
-    traces_with_tools: 0
+    total_traces: 6835
+    traces_with_tools: 96
     tool_calls_per_trace:
-      '0': 1.0
-    tool_type_frequency: {}
-    top_tool_calls: []
+      '0': 0.986
+      '1': 0.014
+    tool_type_frequency:
+      Bash: 0.0067
+      Read: 0.006
+      Search: 0.0006
+      Web: 0.0003
+      Edit: 0.0003
+      Glob: 0.0001
+    top_tool_calls:
+    - 'sh '
+    - read
+    - view
+    - shell
+    - fetch
+    - search
+    - write
+    - bash
+    - grep
+    - execute
+    - 'ls '
+    - find
     transition_matrix: {}
     read_before_edit_rate: 0.0
     verify_after_action_rate: 0.0
-    tool_to_text_ratio: 0.0
-    avg_tool_calls: 0
-    max_tool_calls: 0
+    tool_to_text_ratio: 0.1486
+    avg_tool_calls: 0.01
+    max_tool_calls: 1
   behaviors:
-    total_traces: 3
-    self_correction_rate: 1.0
-    avg_self_corrections: 5.6667
-    hypothesis_driven_rate: 1.0
-    avg_hypotheses: 1.6667
+    total_traces: 6835
+    self_correction_rate: 0.9756
+    avg_self_corrections: 6.1714
+    hypothesis_driven_rate: 0.2966
+    avg_hypotheses: 0.4746
     multi_investigation_rate: 0.0
     step_coverage:
-      ACKNOWLEDGE: 1.0
-      SCOPE: 0.0
-      GATHER: 0.0
-      PLAN: 1.0
-      EXECUTE: 0.0
-      VERIFY: 0.0
-      ITERATE: 0.0
+      ACKNOWLEDGE: 0.9091
+      SCOPE: 0.0943
+      GATHER: 0.0421
+      PLAN: 1.1305
+      EXECUTE: 0.2813
+      VERIFY: 0.5848
+      ITERATE: 0.0047
     step_transition_matrix:
       ACKNOWLEDGE:
-        PLAN: 1.0
-    same_turn_fix_rate: 0.0
+        PLAN: 0.237
+        VERIFY: 0.0951
+        EXECUTE: 0.0452
+        SCOPE: 0.0113
+        GATHER: 0.0061
+        ITERATE: 0.0011
+      VERIFY:
+        PLAN: 0.142
+        ACKNOWLEDGE: 0.0341
+        EXECUTE: 0.0256
+        SCOPE: 0.007
+        GATHER: 0.003
+        ITERATE: 0.0002
+      PLAN:
+        VERIFY: 0.1199
+        ACKNOWLEDGE: 0.0735
+        EXECUTE: 0.0545
+        SCOPE: 0.0164
+        GATHER: 0.007
+        ITERATE: 0.0003
+      EXECUTE:
+        PLAN: 0.0387
+        VERIFY: 0.0154
+        ACKNOWLEDGE: 0.0116
+        SCOPE: 0.0018
+        GATHER: 0.0003
+        ITERATE: 0.0002
+      SCOPE:
+        PLAN: 0.0209
+        VERIFY: 0.0062
+        ACKNOWLEDGE: 0.0047
+        EXECUTE: 0.0029
+        GATHER: 0.0006
+      GATHER:
+        PLAN: 0.0107
+        ACKNOWLEDGE: 0.0021
+        VERIFY: 0.002
+        EXECUTE: 0.0006
+        SCOPE: 0.0003
+      ITERATE:
+        PLAN: 0.0009
+        ACKNOWLEDGE: 0.0005
+        EXECUTE: 0.0002
+        SCOPE: 0.0002
+        VERIFY: 0.0002
+    same_turn_fix_rate: 0.212
 patterns:
 - name: common-openers
-  description: 'Frequent utterance starters: Alright, Okay'
-  frequency: 1.0
+  description: 'Frequent utterance starters: Alright, The, Okay, I’ve, I need to'
+  frequency: 0.4686
 - name: self-correction
   description: Frequently corrects reasoning mid-turn
-  frequency: 1.0
-- name: hypothesis-driven-debugging
-  description: Forms and tests hypotheses before fixing
-  frequency: 1.0
+  frequency: 0.9756
 - name: acknowledge-then-execute
   description: Always acknowledges context before acting
-  frequency: 1.0
+  frequency: 0.9091
 - name: reasoning-chaining
-  description: Uses connectors like since, therefore, because
-  frequency: 0.4
+  description: Uses connectors like thus, because, since
+  frequency: 0.4107
 anti_patterns:
 - name: acting-without-scope
   description: Proceeding without confirming requirements
-  frequency: 1.0
-- name: no-verification
-  description: Completes work without verification step
-  frequency: 1.0
+  frequency: 0.9057
 steps:
 - name: ACKNOWLEDGE
-  frequency: 1.0
+  frequency: 0.9091
 - name: SCOPE
-  frequency: 0.0
+  frequency: 0.0943
 - name: GATHER
-  frequency: 0.0
+  frequency: 0.0421
 - name: PLAN
-  frequency: 1.0
+  frequency: 1.1305
 - name: EXECUTE
-  frequency: 0.0
+  frequency: 0.2813
 - name: VERIFY
-  frequency: 0.0
+  frequency: 0.5848
 - name: ITERATE
-  frequency: 0.0
+  frequency: 0.0047

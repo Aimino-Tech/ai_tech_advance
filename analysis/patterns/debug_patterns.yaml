@@ -1,9 +1,152 @@
 skill: debug
-total_traces: 0
+total_traces: 520
 stats:
-  cot: {}
-  tool_usage: {}
-  behaviors: {}
-patterns: []
+  cot:
+    total_traces: 520
+    cot_present: 190
+    cot_rate: 0.3654
+    avg_tokens: 402.85
+    avg_paragraphs: 7.15
+    avg_sentences: 16.89
+    avg_chars: 2541.75
+    median_tokens: 374.0
+    max_tokens: 1072
+    min_tokens: 147
+    opener_words:
+      Alright: 0.4737
+      The: 0.2632
+      I’ve: 0.1053
+      Okay: 0.0842
+      All: 0.0316
+      I need to: 0.0316
+      I: 0.0105
+    pronoun_first_pct: 0.3497
+    pronoun_second_pct: 0.02
+    pronoun_third_pct: 0.6302
+    self_correction_rate: 0.9947
+    avg_self_corrections: 6.9158
+    reasoning_connectors_per_turn: 2.1895
+    top_connectors:
+    - thus
+    - because
+    - therefore
+    - since
+    - given that
+  tool_usage:
+    total_traces: 520
+    traces_with_tools: 88
+    tool_calls_per_trace:
+      '0': 0.8308
+      '1': 0.1692
+    tool_type_frequency:
+      Bash: 0.0769
+      Read: 0.0731
+      Edit: 0.0058
+      Search: 0.0038
+      Write: 0.0038
+      Web: 0.0019
+      Think: 0.0019
+      Glob: 0.0019
+    top_tool_calls:
+    - 'sh '
+    - read
+    - bash
+    - view
+    - write
+    - terminal
+    - save
+    - search
+    - look at
+    - web
+    - find
+    - reflect
+    - 'ls '
+    transition_matrix: {}
+    read_before_edit_rate: 0.0
+    verify_after_action_rate: 0.0
+    tool_to_text_ratio: 0.6377
+    avg_tool_calls: 0.17
+    max_tool_calls: 1
+  behaviors:
+    total_traces: 520
+    self_correction_rate: 0.9947
+    avg_self_corrections: 6.9158
+    hypothesis_driven_rate: 0.3632
+    avg_hypotheses: 0.5
+    multi_investigation_rate: 0.0
+    step_coverage:
+      ACKNOWLEDGE: 0.8421
+      SCOPE: 0.2368
+      GATHER: 0.0421
+      PLAN: 1.2368
+      EXECUTE: 0.2789
+      VERIFY: 0.5316
+      ITERATE: 0.0105
+    step_transition_matrix:
+      ACKNOWLEDGE:
+        PLAN: 0.2005
+        VERIFY: 0.0652
+        EXECUTE: 0.0386
+        SCOPE: 0.0217
+        GATHER: 0.0072
+        ITERATE: 0.0024
+      VERIFY:
+        PLAN: 0.1232
+        ACKNOWLEDGE: 0.0266
+        EXECUTE: 0.0266
+        SCOPE: 0.0097
+      PLAN:
+        VERIFY: 0.1159
+        ACKNOWLEDGE: 0.07
+        EXECUTE: 0.0531
+        SCOPE: 0.0435
+        GATHER: 0.0097
+        ITERATE: 0.0024
+      SCOPE:
+        PLAN: 0.0483
+        VERIFY: 0.0169
+        ACKNOWLEDGE: 0.0169
+        GATHER: 0.0024
+      EXECUTE:
+        PLAN: 0.0435
+        ACKNOWLEDGE: 0.0169
+        VERIFY: 0.0145
+        SCOPE: 0.0048
+      GATHER:
+        PLAN: 0.0121
+        VERIFY: 0.0024
+      ITERATE:
+        PLAN: 0.0048
+    same_turn_fix_rate: 0.1947
+patterns:
+- name: common-openers
+  description: 'Frequent utterance starters: Alright, The, I’ve, Okay, All'
+  frequency: 0.3654
+- name: self-correction
+  description: Frequently corrects reasoning mid-turn
+  frequency: 0.9947
+- name: hypothesis-driven-debugging
+  description: Forms and tests hypotheses before fixing
+  frequency: 0.3632
+- name: acknowledge-then-execute
+  description: Always acknowledges context before acting
+  frequency: 0.8421
+- name: reasoning-chaining
+  description: Uses connectors like thus, because, therefore
+  frequency: 0.4379
 anti_patterns: []
-steps: []
+steps:
+- name: ACKNOWLEDGE
+  frequency: 0.8421
+- name: SCOPE
+  frequency: 0.2368
+- name: GATHER
+  frequency: 0.0421
+- name: PLAN
+  frequency: 1.2368
+- name: EXECUTE
+  frequency: 0.2789
+- name: VERIFY
+  frequency: 0.5316
+- name: ITERATE
+  frequency: 0.0105

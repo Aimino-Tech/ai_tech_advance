@@ -1,80 +1,80 @@
 {
   "pipeline_version": "0.1.0",
   "dataset": "Crownelius/Complete-FABLE.5-traces-2M",
-  "total_traces": 5,
-  "max_samples": 5,
+  "total_traces": 50000,
+  "max_samples": 50000,
   "skill_distribution": {
     "think": {
-      "count": 2,
-      "fraction": 0.4,
-      "avg_confidence": 0.0
+      "count": 40583,
+      "fraction": 0.8117,
+      "avg_confidence": 0.0033
     },
     "code": {
-      "count": 3,
-      "fraction": 0.6,
-      "avg_confidence": 0.4074
+      "count": 6835,
+      "fraction": 0.1367,
+      "avg_confidence": 0.6322
     },
     "debug": {
-      "count": 0,
-      "fraction": 0.0,
-      "avg_confidence": 0.0
+      "count": 520,
+      "fraction": 0.0104,
+      "avg_confidence": 0.5074
     },
     "architect": {
-      "count": 0,
-      "fraction": 0.0,
-      "avg_confidence": 0.0
+      "count": 271,
+      "fraction": 0.0054,
+      "avg_confidence": 0.5262
     },
     "verify": {
-      "count": 0,
-      "fraction": 0.0,
-      "avg_confidence": 0.0
+      "count": 1791,
+      "fraction": 0.0358,
+      "avg_confidence": 0.5005
     }
   },
   "per_skill": {
     "think": {
-      "trace_count": 2,
-      "cot_rate": 0.0,
-      "avg_tokens": 0.0,
-      "self_correction_rate": 0.0,
-      "avg_tool_calls": 0,
+      "trace_count": 40583,
+      "cot_rate": 0.001,
+      "avg_tokens": 383.45,
+      "self_correction_rate": 0.9762,
+      "avg_tool_calls": 0.0,
       "read_before_edit_rate": 0.0,
       "verify_after_action_rate": 0.0
     },
     "code": {
-      "trace_count": 3,
-      "cot_rate": 1.0,
-      "avg_tokens": 323.33,
-      "self_correction_rate": 1.0,
-      "avg_tool_calls": 0,
+      "trace_count": 6835,
+      "cot_rate": 0.4686,
+      "avg_tokens": 413.82,
+      "self_correction_rate": 0.9756,
+      "avg_tool_calls": 0.01,
       "read_before_edit_rate": 0.0,
       "verify_after_action_rate": 0.0
     },
     "debug": {
-      "trace_count": 0,
-      "cot_rate": 0,
-      "avg_tokens": 0,
-      "self_correction_rate": 0,
-      "avg_tool_calls": 0,
-      "read_before_edit_rate": 0,
-      "verify_after_action_rate": 0
+      "trace_count": 520,
+      "cot_rate": 0.3654,
+      "avg_tokens": 402.85,
+      "self_correction_rate": 0.9947,
+      "avg_tool_calls": 0.17,
+      "read_before_edit_rate": 0.0,
+      "verify_after_action_rate": 0.0
     },
     "architect": {
-      "trace_count": 0,
-      "cot_rate": 0,
-      "avg_tokens": 0,
-      "self_correction_rate": 0,
-      "avg_tool_calls": 0,
-      "read_before_edit_rate": 0,
-      "verify_after_action_rate": 0
+      "trace_count": 271,
+      "cot_rate": 0.2952,
+      "avg_tokens": 368.29,
+      "self_correction_rate": 0.925,
+      "avg_tool_calls": 0.26,
+      "read_before_edit_rate": 0.0,
+      "verify_after_action_rate": 0.0
     },
     "verify": {
-      "trace_count": 0,
-      "cot_rate": 0,
-      "avg_tokens": 0,
-      "self_correction_rate": 0,
-      "avg_tool_calls": 0,
-      "read_before_edit_rate": 0,
-      "verify_after_action_rate": 0
+      "trace_count": 1791,
+      "cot_rate": 0.5221,
+      "avg_tokens": 391.01,
+      "self_correction_rate": 0.9872,
+      "avg_tool_calls": 0.03,
+      "read_before_edit_rate": 0.0,
+      "verify_after_action_rate": 0.0
     }
   }
 }
