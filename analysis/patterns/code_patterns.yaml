@@ -1,33 +1,41 @@
 skill: code
-total_traces: 3
+total_traces: 367
 stats:
   cot:
-    total_traces: 3
-    cot_present: 3
+    total_traces: 367
+    cot_present: 367
     cot_rate: 1.0
-    avg_tokens: 323.33
-    avg_paragraphs: 6
-    avg_sentences: 12.67
-    avg_chars: 2049.33
-    median_tokens: 308
-    max_tokens: 376
-    min_tokens: 286
+    avg_tokens: 417.53
+    avg_paragraphs: 7.79
+    avg_sentences: 16.91
+    avg_chars: 2674.68
+    median_tokens: 378
+    max_tokens: 950
+    min_tokens: 139
     opener_words:
-      Alright: 0.6667
-      Okay: 0.3333
-    pronoun_first_pct: 0.5882
-    pronoun_second_pct: 0.0
-    pronoun_third_pct: 0.4118
-    self_correction_rate: 1.0
-    avg_self_corrections: 5.6667
-    reasoning_connectors_per_turn: 2.0
+      Alright: 0.6131
+      The: 0.1689
+      Okay: 0.0954
+      All: 0.0599
+      I’ve: 0.0354
+      I: 0.0109
+      I need to: 0.0082
+      I’m: 0.0054
+      I've: 0.0027
+    pronoun_first_pct: 0.333
+    pronoun_second_pct: 0.0037
+    pronoun_third_pct: 0.6633
+    self_correction_rate: 0.9782
+    avg_self_corrections: 5.8992
+    reasoning_connectors_per_turn: 1.8801
     top_connectors:
-    - since
-    - therefore
     - because
+    - since
     - thus
+    - therefore
+    - given that
   tool_usage:
-    total_traces: 3
+    total_traces: 367
     traces_with_tools: 0
     tool_calls_per_trace:
       '0': 1.0
@@ -40,59 +48,89 @@ stats:
     avg_tool_calls: 0
     max_tool_calls: 0
   behaviors:
-    total_traces: 3
-    self_correction_rate: 1.0
-    avg_self_corrections: 5.6667
-    hypothesis_driven_rate: 1.0
-    avg_hypotheses: 1.6667
+    total_traces: 367
+    self_correction_rate: 0.9782
+    avg_self_corrections: 5.8992
+    hypothesis_driven_rate: 0.2725
+    avg_hypotheses: 0.436
     multi_investigation_rate: 0.0
     step_coverage:
-      ACKNOWLEDGE: 1.0
-      SCOPE: 0.0
-      GATHER: 0.0
-      PLAN: 1.0
-      EXECUTE: 0.0
-      VERIFY: 0.0
-      ITERATE: 0.0
+      ACKNOWLEDGE: 0.97
+      SCOPE: 0.1117
+      GATHER: 0.0354
+      PLAN: 1.0845
+      EXECUTE: 0.3106
+      VERIFY: 0.6267
+      ITERATE: 0.0054
     step_transition_matrix:
       ACKNOWLEDGE:
-        PLAN: 1.0
-    same_turn_fix_rate: 0.0
+        PLAN: 0.2405
+        VERIFY: 0.1127
+        EXECUTE: 0.0304
+        SCOPE: 0.0127
+        GATHER: 0.0038
+        ITERATE: 0.0025
+      VERIFY:
+        PLAN: 0.1342
+        EXECUTE: 0.0354
+        ACKNOWLEDGE: 0.0342
+        SCOPE: 0.0076
+        GATHER: 0.0038
+      PLAN:
+        VERIFY: 0.1291
+        EXECUTE: 0.062
+        ACKNOWLEDGE: 0.0582
+        SCOPE: 0.0228
+        GATHER: 0.0063
+      EXECUTE:
+        PLAN: 0.038
+        ACKNOWLEDGE: 0.0089
+        VERIFY: 0.0063
+        SCOPE: 0.0013
+      SCOPE:
+        PLAN: 0.0177
+        VERIFY: 0.0063
+        ACKNOWLEDGE: 0.0063
+        EXECUTE: 0.0051
+      GATHER:
+        PLAN: 0.0063
+        ACKNOWLEDGE: 0.0013
+        SCOPE: 0.0013
+        VERIFY: 0.0013
+        EXECUTE: 0.0013
+      ITERATE:
+        PLAN: 0.0013
+        EXECUTE: 0.0013
+    same_turn_fix_rate: 0.1662
 patterns:
 - name: common-openers
-  description: 'Frequent utterance starters: Alright, Okay'
+  description: 'Frequent utterance starters: Alright, The, Okay, All, I’ve'
   frequency: 1.0
 - name: self-correction
   description: Frequently corrects reasoning mid-turn
-  frequency: 1.0
-- name: hypothesis-driven-debugging
-  description: Forms and tests hypotheses before fixing
-  frequency: 1.0
+  frequency: 0.9782
 - name: acknowledge-then-execute
   description: Always acknowledges context before acting
-  frequency: 1.0
+  frequency: 0.97
 - name: reasoning-chaining
-  description: Uses connectors like since, therefore, because
-  frequency: 0.4
+  description: Uses connectors like because, since, thus
+  frequency: 0.376
 anti_patterns:
 - name: acting-without-scope
   description: Proceeding without confirming requirements
-  frequency: 1.0
-- name: no-verification
-  description: Completes work without verification step
-  frequency: 1.0
+  frequency: 0.8883
 steps:
 - name: ACKNOWLEDGE
-  frequency: 1.0
+  frequency: 0.97
 - name: SCOPE
-  frequency: 0.0
+  frequency: 0.1117
 - name: GATHER
-  frequency: 0.0
+  frequency: 0.0354
 - name: PLAN
-  frequency: 1.0
+  frequency: 1.0845
 - name: EXECUTE
-  frequency: 0.0
+  frequency: 0.3106
 - name: VERIFY
-  frequency: 0.0
+  frequency: 0.6267
 - name: ITERATE
-  frequency: 0.0
+  frequency: 0.0054

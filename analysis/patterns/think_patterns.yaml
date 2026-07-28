@@ -1,27 +1,33 @@
 skill: think
-total_traces: 2
+total_traces: 6
 stats:
   cot:
-    total_traces: 2
-    cot_present: 0
-    cot_rate: 0.0
-    avg_tokens: 0.0
-    avg_paragraphs: 0.0
-    avg_sentences: 0.0
-    avg_chars: 0.0
-    median_tokens: 0.0
-    max_tokens: 0
-    min_tokens: 0
-    opener_words: {}
-    pronoun_first_pct: 0.0
+    total_traces: 6
+    cot_present: 4
+    cot_rate: 0.6667
+    avg_tokens: 393.25
+    avg_paragraphs: 6.5
+    avg_sentences: 16
+    avg_chars: 2430.25
+    median_tokens: 291.5
+    max_tokens: 773
+    min_tokens: 217
+    opener_words:
+      The: 0.75
+      Alright: 0.25
+    pronoun_first_pct: 0.5
     pronoun_second_pct: 0.0
-    pronoun_third_pct: 0.0
-    self_correction_rate: 0.0
-    avg_self_corrections: 0.0
-    reasoning_connectors_per_turn: 0.0
-    top_connectors: []
+    pronoun_third_pct: 0.5
+    self_correction_rate: 1.0
+    avg_self_corrections: 2.5
+    reasoning_connectors_per_turn: 1.75
+    top_connectors:
+    - therefore
+    - since
+    - given that
+    - because
   tool_usage:
-    total_traces: 2
+    total_traces: 6
     traces_with_tools: 0
     tool_calls_per_trace:
       '0': 1.0
@@ -34,39 +40,60 @@ stats:
     avg_tool_calls: 0
     max_tool_calls: 0
   behaviors:
-    total_traces: 2
-    self_correction_rate: 0.0
-    avg_self_corrections: 0.0
-    hypothesis_driven_rate: 0.0
-    avg_hypotheses: 0.0
+    total_traces: 6
+    self_correction_rate: 1.0
+    avg_self_corrections: 2.5
+    hypothesis_driven_rate: 0.25
+    avg_hypotheses: 0.5
     multi_investigation_rate: 0.0
     step_coverage:
-      ACKNOWLEDGE: 0.0
-      SCOPE: 0.0
+      ACKNOWLEDGE: 0.75
+      SCOPE: 0.25
       GATHER: 0.0
-      PLAN: 0.0
-      EXECUTE: 0.0
-      VERIFY: 0.0
+      PLAN: 1.25
+      EXECUTE: 0.25
+      VERIFY: 0.5
       ITERATE: 0.0
-    step_transition_matrix: {}
-    same_turn_fix_rate: 0.0
-patterns: []
-anti_patterns:
-- name: no-verification
-  description: Completes work without verification step
+    step_transition_matrix:
+      PLAN:
+        VERIFY: 0.125
+        ACKNOWLEDGE: 0.125
+      VERIFY:
+        PLAN: 0.125
+        ACKNOWLEDGE: 0.125
+      ACKNOWLEDGE:
+        PLAN: 0.125
+        VERIFY: 0.125
+        SCOPE: 0.125
+      SCOPE:
+        EXECUTE: 0.125
+    same_turn_fix_rate: 0.25
+patterns:
+- name: common-openers
+  description: 'Frequent utterance starters: The, Alright'
+  frequency: 0.6667
+- name: self-correction
+  description: Frequently corrects reasoning mid-turn
   frequency: 1.0
+- name: acknowledge-then-execute
+  description: Always acknowledges context before acting
+  frequency: 0.75
+- name: reasoning-chaining
+  description: Uses connectors like therefore, since, given that
+  frequency: 0.35
+anti_patterns: []
 steps:
 - name: ACKNOWLEDGE
-  frequency: 0.0
+  frequency: 0.75
 - name: SCOPE
-  frequency: 0.0
+  frequency: 0.25
 - name: GATHER
   frequency: 0.0
 - name: PLAN
-  frequency: 0.0
+  frequency: 1.25
 - name: EXECUTE
-  frequency: 0.0
+  frequency: 0.25
 - name: VERIFY
-  frequency: 0.0
+  frequency: 0.5
 - name: ITERATE
   frequency: 0.0
