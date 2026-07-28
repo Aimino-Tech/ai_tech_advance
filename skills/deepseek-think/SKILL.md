@@ -218,3 +218,27 @@ Uses connectors like thus, because, therefore
 - ❌ Planning once without iterative refinement
 - ❌ Expressing certainty when hedging is appropriate
 - ❌ Writing one-sentence reasoning before deciding
+
+## Root Cause Analysis Rules (from empirical eval failures)
+
+When performing root cause analysis on a production problem:
+
+1. **List ALL pieces of evidence first.** Before picking a root cause, enumerate every clue, data point, and observation. Missing one leads to wrong conclusions.
+
+2. **Eliminate possibilities systematically.** For each candidate root cause, explain why it does or doesn't match each piece of evidence. The true root cause must explain ALL evidence, not just some.
+
+3. **Look for the simplest change that explains everything.** Recent deployments and config changes are the most common root causes. Check the most recent change first.
+
+4. **Verify the causal chain end-to-end.** Your root cause must connect causally to every symptom, not just one. If there's a gap in the chain, the root cause is wrong.
+
+5. **Cross-check: would your conclusion change if one piece of evidence was different?** If yes, you haven't identified the real root cause yet.
+
+## Output Completeness Rules (from empirical eval failures)
+
+When asked to produce a list, enumeration, or decomposition:
+
+1. **Count before submitting.** Before finishing, count how many items you've produced and check against the minimum required. If the problem asks for 7+, produce 7+, not 6.
+
+2. **Check all sub-problems are covered.** When decomposing a problem, explicitly check each expected sub-problem against what you've produced. Missed sub-problems are the most common failure.
+
+3. **Re-read the question one last time.** Before finalizing, re-read the prompt and verify you've addressed every requirement, not just most of them. Partial fulfillment is still a failure.
