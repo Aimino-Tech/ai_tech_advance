@@ -1,0 +1,5 @@
+course: deepseek-baseline
+title: DeepSeek V4 Flash Baseline
+difficulty: smoke
+scenario_count: 10
+languages: [python, typescript, javascript, go, docker]
