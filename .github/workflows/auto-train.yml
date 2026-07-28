@@ -1,0 +1,49 @@
+name: Auto-Train
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install deps
+        run: pip install -r benchmark/requirements.txt 2>/dev/null || echo "no requirements yet"
+      - name: Run training
+        run: |
+          if [ -z "$DOJO_API_KEY" ]; then
+            echo "DOJO_API_KEY not set, skipping training"
+            exit 0
+          fi
+          python -m benchmark.eval train \
+            --course deepseek-baseline \
+            --model "${DOJO_MODEL}" \
+            --db benchmark/db/dojo.db
+        env:
+          DOJO_API_KEY: ${{ secrets.DOJO_API_KEY }}
+          DOJO_MODEL: ${{ vars.DOJO_MODEL || 'deepseek-v4-flash' }}
+      - name: Generate report
+        run: python -m benchmark.report dashboard --db benchmark/db/dojo.db --output benchmark/results/dashboard.html || true
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: train-report
+          path: benchmark/results/
+      - name: Commit results
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "ai-tech-advance-bot"
+          git config user.email "bot@aimino.io"
+          git add benchmark/db/dojo.db benchmark/results/
+          git diff --cached --quiet || git commit -m "chore: update training results [skip ci]"
+          git push

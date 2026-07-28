@@ -1,0 +1,41 @@
+name: Generate Report
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_a:
+        description: "Baseline run identifier"
+        required: true
+        type: string
+      run_b:
+        description: "Comparison run identifier"
+        required: true
+        type: string
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install deps
+        run: pip install -r benchmark/requirements.txt 2>/dev/null || echo "no requirements yet"
+      - name: Generate comparison report
+        run: |
+          python -m benchmark.report compare \
+            --run-a "${{ inputs.run_a }}" \
+            --run-b "${{ inputs.run_b }}" \
+            --db benchmark/db/dojo.db \
+            --output benchmark/results/comparison.html || \
+          echo "comparison report generation failed (benchmark.report.compare may not be implemented yet)"
+      - name: Upload comparison report
+        uses: actions/upload-artifact@v4
+        with:
+          name: comparison-report
+          path: benchmark/results/comparison.html
