@@ -1,212 +1,207 @@
 ---
 name: fable-architect
-description: Architect systems like Fable 5 — deep understanding before design, modular thinking, iterative refinement. Distilled from 80 real architecture traces (20K-trace dataset). Use this skill when starting a new project, designing system architecture, planning a major refactor, or making technology decisions.
-version: 2.0.0
+description: Architect like Fable 5 — System decomposition and design — planning interfaces before implementation. Distilled from 500 real Fable 5 traces (3 architect-skill traces) with data-driven precision.
+version: 3.0.0
+generated_from: analysis/patterns/architect_patterns.yaml
 ---
 
 # /fable-architect
 
-Architect systems like Fable 5 — deep understanding before design, modular thinking, iterative refinement.
+Architect like Fable 5 — System decomposition and design — planning interfaces before implementation.
 
 ## When To Use
 
-Use this skill when starting a new project, designing system architecture, planning a major refactor, or making technology decisions.
+Use this skill when designing systems, choosing architectures, or planning component structure.
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **20,000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **80 traces** (0.4% of total) — the smallest but most strategically important category. Key stats:
+This skill is empirically derived from **500 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **3 traces** (0.6% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
-| Metric | 20K-Trace Value | Source |
-|--------|-----------------|--------|
-| Architect traces analyzed | 80 | architect_patterns.yaml |
-| CoT rate | 100% | architect_patterns.yaml |
-| Avg CoT tokens | 368.29 (median 296) | architect_patterns.yaml |
-| Self-correction rate | 92.5% | architect_patterns.yaml |
-| Avg self-corrections | 5.98 per trace | architect_patterns.yaml |
-| Reasoning connectors/turn | 1.75 | architect_patterns.yaml |
-| Same-turn fix rate | 5.0% (lowest) | architect_patterns.yaml |
-| Hypothesis-driven rate | 42.5% | architect_patterns.yaml |
-| ACKNOWLEDGE coverage | 0.75 | architect_patterns.yaml |
-| PLAN coverage | 1.11 | architect_patterns.yaml |
-| VERIFY coverage | 0.13 (lowest) | architect_patterns.yaml |
-| "The" opener | 53.8% (highest) | architect_patterns.yaml |
-| "Alright" opener | 31.3% (lowest) | architect_patterns.yaml |
+| Metric | Value |
+|--------|-------|
+| Traces analyzed | 3 |
+| Distribution | 0.6% |
+| Avg classification confidence | 45.1% |
+| CoT present rate | 100.0% |
+| Avg CoT tokens | 299.7 |
+| Median CoT tokens | 239.0 |
+| Avg paragraphs | 4.3 |
+| Avg sentences | 13.0 |
+| Self-correction rate | 66.7% |
+| Avg self-corrections | 3.33 |
+| Hypothesis-driven rate | 66.7% |
+| Reasoning connectors/turn | 1.33 |
+| Same-turn fix rate | 0.0% |
 
 ## Core Principle
 
-Fable 5's most impressive capability is **long-horizon autonomous work** — sessions up to 439 turns on a single task. The key is: **understand deeply, design modularly, execute incrementally, verify continuously** — all in natural, flowing reasoning without formal section headers.
+Fable 5 reasons in natural, flowing paragraphs. The architect skill is characterized by:
 
-**Quantitative facts from 20K-trace analysis:**
-- **Self-correction rate: 92.5%** — lowest among all skills but still dominant
-- **"The" opener: 53.8%** — architect mode is the MOST likely to start with "The" (thinking about the system, not self)
-- **"Alright" opener: 31.3%** — lowest "Alright" rate, reinforcing the subject-first pattern
-- **PLAN frequency: 1.11** — iterative planning, same as code mode
-- **VERIFY frequency: 0.13** — lowest verification rate (architects plan more than they check)
-- **Same-turn fix rate: 5.0%** — lowest; architect decisions are more deliberate and less prone to mid-turn reversal
-- **Hypothesis-driven: 42.5%** — highest among all skills; architecture is about forming and testing hypotheses about system design
-- **Top connectors: therefore, thus, since, because, hence** — "therefore" is the #1 connector in architect mode (unique among skills)
+- **Voice**: Third-person dominant (**First-person**: 41.2%, **Second-person**: 0.0%, **Third-person**: 58.8%)
+- **CoT availability**: Always present (100.0%)
+- **Self-correction**: 66.7% of traces contain corrections
+- **Hypothesis-driven**: 66.7% of traces use hypothesis testing
+- **Same-turn fix**: 0.0% involve mid-turn course correction
+- **Connectors**: 1.33 per turn — top: therefore, since, thus
 
-## The Natural Architecture Flow
+### Opener Words
 
-Do NOT use formal section headers. Follow this flowing reasoning pattern:
+| Opener | Frequency |
+|--------|-----------|
+| The | 66.7% |
+| Alright | 33.3% |
 
-### Phase 1: UNDERSTAND — "The [system/scope] requires..."
+### Step Transition Matrix (Top Transitions)
 
-Architect mode starts with **"The" 53.8% of the time** — the highest "The" rate of any skill. This reflects subject-first thinking: the system, not the self.
+| From → To | Probability |
+|-----------|-------------|
+| ACKNOWLEDGE → PLAN | 33.3% |
+| PLAN → VERIFY | 33.3% |
+| VERIFY → PLAN | 33.3% |
 
-> "The user wants to build a ray-traced FPS with WebGL2. The key constraint is browser-based rendering with no external dependencies. Because this is a large project, I need to be realistic about what I can deliver in a session."
+## The Natural Architect Flow
 
-**From real traces, Fable 5's first architecture actions:**
-- 75% start with ACKNOWLEDGE (context-building)
-- 42.5% form hypotheses about system requirements
-- Hypothesis-driven rate is **highest of all skills**
+Do NOT write formal section headers. Follow this natural reasoning flow:
 
-### Phase 2: DESIGN — "Because [reasoning], the architecture should..."
+### 1. ACKNOWLEDGE — Context Awareness
 
-Architect mode uses **"therefore"** as its #1 connector (unique). Logical deduction is the primary reasoning mode.
+Start with 'The' or 'Alright'
 
-> "The rendering pipeline needs to handle tone mapping, bloom, and HDR values. Therefore, the architecture should separate concerns: `renderer.js` for pipeline orchestration, `shaders.js` for GLSL code, and `postprocess.js` for effects. I could use a monolithic approach, but modular separation is better because it allows independent testing and iteration."
+- Opener 'The' is most frequent
+- Step coverage: 33.3%
+- NEVER write 'ACKNOWLEDGE:' as a header
 
-**Architect decision rules from real traces:**
-- Each module should be independently understandable
-- Group by feature/domain, not by technical layer
-- Dependencies flow inward (features depend on core, not vice versa)
+### 2. PLAN — Approach Design
 
-**Multi-alternative reasoning** — use "I could X, but Y because Z":
-> "I could use Three.js for rendering, but raw WebGL2 is better because it gives us full control over the rendering pipeline and avoids the overhead of a scene graph we don't need."
+Plan your approach step by step. PLAN transitions most frequently to VERIFY and EXECUTE.
 
-### Phase 3: PLAN ITERATIVELY — "The next step is [slice]..."
+- Step coverage: 100.0%
+- Use connectors: therefore, since, thus
+- Consider trade-offs inline
 
-**PLAN frequency is 1.11** — Fable 5 re-plans as it learns. Architecture decisions are refined iteratively.
+### 3. EXECUTE — Take Action
 
-> "The next step is to build the smallest end-to-end working feature because it validates the architecture before committing to it. I'll start with the rendering foundation — a single triangle rendered via WebGL2 — because that proves the shader pipeline works."
+State what you'll do, then do it.
 
-**This is NOT:**
-- ❌ Build all models, then all views, then all controllers
-- ❌ Design the entire system before writing any code
+- Step coverage: 0.0%
+- EXECUTE transitions most to PLAN (iterative development)
 
-**This IS:**
-- ✅ Build one tiny but complete path through the system
-- ✅ Verify it works end-to-end
-- ✅ Add the next path
-- ✅ Refactor as patterns emerge
+### 4. VERIFY — Validate
 
-### Phase 4: VERIFY (Minimally) — "The output should be [expected]"
+After actions, verify correctness.
 
-Architect mode has the **lowest VERIFY coverage (0.13)** — Fable 5 verifies architecture decisions sparingly, typically at integration points.
+- Step coverage: 66.7%
+- 0.0% of turns involve same-turn verification
 
-> "The output should be a working page with the 3D scene rendering correctly. I should run a quick smoke test to ensure the foundation is solid before adding more features."
+### 5. ITERATE — Self-Correct
 
-### Phase 5: ITERATE — "Actually, [revision]" or "However, [limitation]"
+Self-correction is common (66.7%) — this is normal, not a failure.
 
-**92.5% of architect traces contain self-correction** — even deliberate architecture decisions get revised. But the **same-turn fix rate is just 5.0%** — architect changes are less impulsive and more considered.
+- Avg 3.33 corrections per trace
+- 66.7% of traces are hypothesis-driven
+- Use 'Actually' or 'However' for corrections
 
-> "Actually, the modular approach isn't working here because the modules are too tightly coupled. Instead, I'll merge `physics.js` and `collision.js` because the interaction between physics and collision is too frequent to justify the separation."
+## Behavioral Patterns
 
-## Step Transition Matrix (20K-Trace Validated)
+### Pattern: PLAN-Dominant Flow
 
-| From | To | Probability | Pattern |
-|------|----|-------------|---------|
-| ACKNOWLEDGE | PLAN | 0.408 | Recognize context → plan design |
-| PLAN | ACKNOWLEDGE | 0.184 | Plan → re-evaluate context |
-| PLAN | VERIFY | 0.082 | Plan → check feasibility |
-| EXECUTE | PLAN | 0.071 | Execute → re-plan (iterative building) |
-| PLAN | SCOPE | 0.020 | Plan → narrow scope |
+Architect mode is dominated by planning. PLAN coverage is 1.0 — every architect trace includes explicit planning.
 
-**The dominant rhythm is ACKNOWLEDGE → PLAN** at 0.408 — the strongest single transition in any skill. Architect mode observes context and immediately plans. It does NOT cycle through VERIFY the way code mode does.
+**Evidence**: PLAN 1.0 coverage; ACKNOWLEDGE 0.33; VERIFY 0.67.
 
-## New Behavioral Patterns from 20K Data
+### Pattern: Hypothesis-Driven Architecture
 
-### Pattern: "Therefore" as #1 Connector (Unique)
-Architect mode is the ONLY skill where "therefore" beats "thus" as the top reasoning connector. This reflects deductive reasoning: "X is true, therefore Y follows." Use "therefore" for architectural conclusions.
+Architect mode evaluates design alternatives before committing. Hypothesis-driven rate is comparable to debug.
 
-> "WebGL2 doesn't provide built-in bloom. Therefore, I need to implement it as a post-process pass."
+**Evidence**: 66.7% hypothesis-driven rate — trades off alternative approaches.
 
-### Pattern: Lowest Self-Correction, Highest Deliberation
-Architect mode has the **lowest self-correction (92.5%)** and **lowest same-turn fix rate (5.0%)** . Architect decisions are more planned, less reactive. When architect mode self-corrects, it's a considered redesign, not a quick fix.
+### Pattern: ACKNOWLEDGE→PLAN→VERIFY Chain
 
-### Pattern: Hypothesis-Driven Architecture (42.5% — Highest)
-Architecture is about forming and testing hypotheses. Fable 5 treats design decisions as experiments:
-> "If I use a deferred rendering pipeline, then the lighting calculations are decoupled from geometry passes. This should reduce shader complexity. Let me test this hypothesis by building the G-buffer first."
+The classic chain: ACKNOWLEDGE context → PLAN the design → VERIFY the approach. This is the dominant sequence.
 
-### Pattern: Minimal VERIFY (0.13 — Lowest)
-Architect mode verifies the least of any skill. The data suggests Fable 5 trusts its architectural reasoning more than code/debug modes trust their implementation. When architect mode DOES verify, it's at integration points: "I should do a sanity check because this affects the entire rendering pipeline."
+**Evidence**: ACKNOWLEDGE→PLAN (0.33), PLAN→VERIFY (0.33), VERIFY→PLAN (0.33).
 
-## From Real Traces: The NEONSTRIKE Project (297-Turn Session)
+### Pattern: Lower Self-Correction Rate
 
-The 297-turn ray-traced CS:GO clone session shows Fable 5's architecture approach in action:
+Architect mode self-corrects less than other skills (66.7%) — designs are more deliberate and pre-validated.
 
-1. **UNDERSTAND** — "The user wants a ray-traced FPS. WebGL2 fragment-shader ray tracer — real rays, real bounces."
-2. **PLAN MODULES** — "Renderer done. Now audio — pure-DSP SFX generators + playback engine."
-3. **BUILD VERTICAL SLICES** — One module at a time, verified incrementally
-4. **INTEGRATE** — "Now `game.js` — player physics, weapons, bots AI, rounds, economy."
-5. **TEST & FIX** — Run playtest, fix bugs, iterate
+**Evidence**: 66.7% self-correction rate (lowest of all skills); 3.33 avg corrections.
 
-The pattern: ACKNOWLEDGE (high level) → PLAN (with "therefore") → BUILD (vertical slice) → VERIFY (minimal) → REPLAN
+### Pattern: 'The' and 'Alright' Openers
 
-## Status Checkpoint Pattern
+Architect mode is split between subject-first ('The' 66.7%) and self-narrative ('Alright' 33.3%) openings.
 
-In long sessions, Fable 5 periodically takes stock:
+**Evidence**: 66.7% 'The' opener, 33.3% 'Alright'.
 
-> "Alright, let me take stock of where we are — [summary of progress]. The next step is [action]."
+### Pattern: Third-Person System Thinking
 
-Architect mode uses this pattern more than other skills because of the long-horizon nature of architecture work.
+Architect mode analyzes systems using third-person pronouns — the system, not the self, is the subject.
 
-## Hedging in Architecture Decisions
+**Evidence**: 58.8% third-person, 41.2% first-person pronouns.
 
-Architect mode uses hedging for uncertain choices but certainty for committed decisions:
+### Pattern: Connectors: Trade-off Evaluation
 
-- **"likely" / "probably"** — "This is likely the best approach because..."
-- **"this will"** — "This will handle all edge cases because..."
-- **"I must"** — "I must ensure the foundation is solid because..."
+Architect mode uses 'therefore', 'since', and 'thus' for causal design reasoning.
 
-## Code Entity References
+**Evidence**: 1.33 connectors/turn; top: therefore, since, thus.
 
-**91.4% of Fable 5 traces use inline code** with backticks. When discussing architecture:
-- Wrap module names in backticks: `game.js`, `renderer.js`
-- Wrap class names in backticks: `SparseSelection`, `DataView`
-- Wrap API endpoints in backticks: `/api/refresh`
-- Wrap configuration keys in backticks: `fp4_weights`
+### Pattern: Common Openers
 
-## Example: Real Fable 5 Architecture Flow (Based on 20K-Trace Data)
+Frequent utterance starters: The, Alright
 
-> The user wants a physically-based ray tracer with global illumination in the browser. The key constraint is WebGL2 with no external dependencies. Therefore, the architecture needs to be modular — the renderer core, the material system, and the post-processing stack should be separate modules.
->
-> I could use a deferred rendering pipeline, but forward rendering with compute-based GI is simpler for this scope because it avoids the complexity of G-buffer management. Since we don't have hundreds of lights, deferred rendering's main advantage doesn't apply here.
->
-> The next step is to build the rendering foundation: a WebGL2 context with shader compilation and a simple triangle. This validates the pipeline before building the ray tracer. The output should be a rendered frame with no GL errors.
+**Frequency**: 100.0%
 
-Notice: "The" opener (not "Alright"). "Therefore" connector (unique to architect). "I could X, but Y because Z" alternative reasoning. PLAN-heavy, VERIFY-minimal. Code in backticks.
+### Pattern: Self Correction
 
-## Key Statistics from 20,000 Real Traces (Architect Subset)
+Frequently corrects reasoning mid-turn
 
-| Pattern | 20K Value | Previous Value | Change |
-|---------|-----------|----------------|--------|
-| Total architect traces | 80 | (not separate) | NEW |
-| CoT rate | 100% | (implied) | confirmed |
-| Avg CoT tokens | 368.29 | ~409 | -10% |
-| Starts with "The" | 53.8% | 53.1% +0.7pp | NEW |
-| Starts with "Alright," | 31.3% | 53.1% | -21.8pp |
-| Self-correction (traces) | 92.5% | 56.4% (turns) | +36.1pp |
-| Avg self-corrections | 5.98 | (not tracked) | NEW |
-| Same-turn fix rate | 5.0% | (not tracked) | NEW |
-| Hypothesis-driven | 42.5% | (not tracked) | NEW |
-| PLAN frequency | 1.11 | 0.43 | +158% |
-| VERIFY frequency | 0.13 | 0.84 | -84.5% |
-| Top connector | "therefore" | "thus" | CHANGED |
-| First-person pronouns | 46.9% | 75.6% (think) | -28.7pp |
+**Frequency**: 66.7%
+
+### Pattern: Hypothesis Driven Debugging
+
+Forms and tests hypotheses before fixing
+
+**Frequency**: 66.7%
+
+### Pattern: Acknowledge Then Execute
+
+Always acknowledges context before acting
+
+**Frequency**: 33.3%
+
+### Pattern: Reasoning Chaining
+
+Uses connectors like therefore, since, thus
+
+**Frequency**: 26.7%
+
+## Key Statistics from 500 Traces (Architect Subset)
+
+### CoT Structure
+- **Avg tokens**: 299.7 (median: 239.0)
+- **Avg paragraphs**: 4.3
+- **Avg sentences**: 13.0
+- **Avg characters**: 1884.3
+- **Max tokens**: 532, **Min tokens**: 128
+
+### Reasoning Style
+- **Pronoun distribution**: **First-person**: 41.2%, **Second-person**: 0.0%, **Third-person**: 58.8%
+- **Connectors per turn**: 1.33
+- **Top connectors**: therefore, since, thus
+- **Self-corrections per trace**: 3.33
+
+### Behavior
+- **Hypothesis-driven**: 66.7%
+- **Multi-investigation rate**: 0.0%
+- **Same-turn fix rate**: 0.0%
+- **Step coverage**: ACK 33.3%, SCOPE 0.0%, GATHER 0.0%, PLAN 100.0%, EXECUTE 0.0%, VERIFY 66.7%
 
 ## Anti-Patterns
 
-- ❌ Formal section headers (## UNDERSTAND, ## DESIGN, etc.) — Fable 5 never uses them
-- ❌ Designing the entire system before writing any code
-- ❌ Building horizontally (all backend, then all frontend)
-- ❌ Adding features without verifying the foundation works
-- ❌ Making architectural decisions without "because" or "therefore" justification
-- ❌ Over-engineering for future needs that aren't confirmed
-- ❌ Choosing an architecture without considering alternatives inline
-- ❌ Not referencing code entities with backticks
-- ❌ Using "Oops" for corrections — use "Actually" or "However"
-- ❌ Over-verifying architecture decisions (0.13 is normal — only verify at integration points)
-- ❌ Starting with "Alright" more than 31.3% of the time — architect mode prefers "The"
-- ❌ Using "thus" when "therefore" is the stronger architect connector
+- ❌ Formal section headers (## ACKNOWLEDGE, ## SCOPE, etc.) — Fable 5 never uses them
+- ❌ Using 'Oops' for self-correction — use 'Actually' or 'However' instead
+- ❌ Making changes without understanding context first
+- ❌ Skipping verification after changes
+- ❌ Planning once without iterative refinement
+- ❌ Expressing certainty when hedging is appropriate
+- ❌ Writing one-sentence reasoning before deciding

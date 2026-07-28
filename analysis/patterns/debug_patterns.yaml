@@ -1,9 +1,117 @@
 skill: debug
-total_traces: 0
+total_traces: 21
 stats:
-  cot: {}
-  tool_usage: {}
-  behaviors: {}
-patterns: []
-anti_patterns: []
-steps: []
+  cot:
+    total_traces: 21
+    cot_present: 21
+    cot_rate: 1.0
+    avg_tokens: 387.76
+    avg_paragraphs: 7.14
+    avg_sentences: 14.81
+    avg_chars: 2373.14
+    median_tokens: 309
+    max_tokens: 874
+    min_tokens: 173
+    opener_words:
+      Alright: 0.6667
+      All: 0.0952
+      Okay: 0.0952
+      The: 0.0952
+      I: 0.0476
+    pronoun_first_pct: 0.4444
+    pronoun_second_pct: 0.0
+    pronoun_third_pct: 0.5556
+    self_correction_rate: 1.0
+    avg_self_corrections: 5.7619
+    reasoning_connectors_per_turn: 2.1905
+    top_connectors:
+    - because
+    - thus
+    - since
+    - therefore
+    - given that
+  tool_usage:
+    total_traces: 21
+    traces_with_tools: 0
+    tool_calls_per_trace:
+      '0': 1.0
+    tool_type_frequency: {}
+    top_tool_calls: []
+    transition_matrix: {}
+    read_before_edit_rate: 0.0
+    verify_after_action_rate: 0.0
+    tool_to_text_ratio: 0.0
+    avg_tool_calls: 0
+    max_tool_calls: 0
+  behaviors:
+    total_traces: 21
+    self_correction_rate: 1.0
+    avg_self_corrections: 5.7619
+    hypothesis_driven_rate: 0.4286
+    avg_hypotheses: 0.4762
+    multi_investigation_rate: 0.0
+    step_coverage:
+      ACKNOWLEDGE: 1.1429
+      SCOPE: 0.1905
+      GATHER: 0.0
+      PLAN: 1.0476
+      EXECUTE: 0.2857
+      VERIFY: 0.5238
+      ITERATE: 0.0
+    step_transition_matrix:
+      ACKNOWLEDGE:
+        PLAN: 0.2609
+        VERIFY: 0.1087
+        SCOPE: 0.0652
+        EXECUTE: 0.0217
+      PLAN:
+        VERIFY: 0.1087
+        ACKNOWLEDGE: 0.0652
+        EXECUTE: 0.0435
+        SCOPE: 0.0217
+      VERIFY:
+        ACKNOWLEDGE: 0.0652
+        PLAN: 0.0435
+        EXECUTE: 0.0435
+      EXECUTE:
+        PLAN: 0.0652
+        ACKNOWLEDGE: 0.0435
+      SCOPE:
+        VERIFY: 0.0217
+        PLAN: 0.0217
+    same_turn_fix_rate: 0.2381
+patterns:
+- name: common-openers
+  description: 'Frequent utterance starters: Alright, All, Okay, The, I'
+  frequency: 1.0
+- name: self-correction
+  description: Frequently corrects reasoning mid-turn
+  frequency: 1.0
+- name: hypothesis-driven-debugging
+  description: Forms and tests hypotheses before fixing
+  frequency: 0.4286
+- name: acknowledge-then-execute
+  description: Always acknowledges context before acting
+  frequency: 1.1429
+- name: reasoning-chaining
+  description: Uses connectors like because, thus, since
+  frequency: 0.4381
+anti_patterns:
+- name: acting-without-scope
+  description: Proceeding without confirming requirements
+  frequency: 0.8095
+steps:
+- name: ACKNOWLEDGE
+  frequency: 1.1429
+- name: SCOPE
+  frequency: 0.1905
+- name: GATHER
+  frequency: 0.0
+- name: PLAN
+  frequency: 1.0476
+- name: EXECUTE
+  frequency: 0.2857
+- name: VERIFY
+  frequency: 0.5238
+- name: ITERATE
+  frequency: 0.0

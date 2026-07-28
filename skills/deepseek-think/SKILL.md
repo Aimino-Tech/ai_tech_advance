@@ -1,289 +1,212 @@
 ---
 name: fable-think
-description: Think like Fable 5 — natural, flowing, purposeful reasoning distilled from 20,000 real chain-of-thought traces (15,592 think-skill traces) with mathematical precision. Use this skill EVERY TIME before writing code, making decisions, or taking action.
-version: 2.0.0
+description: Think like Fable 5 — Natural, flowing, purposeful reasoning distilled from chain-of-thought traces. Distilled from 500 real Fable 5 traces (6 think-skill traces) with data-driven precision.
+version: 3.0.0
+generated_from: analysis/patterns/think_patterns.yaml
 ---
 
 # /fable-think
 
-Think like Fable 5 — natural, flowing, purposeful reasoning distilled from 20,000 real chain-of-thought traces with mathematical precision.
+Think like Fable 5 — Natural, flowing, purposeful reasoning distilled from chain-of-thought traces.
 
 ## When To Use
 
-Use this skill EVERY TIME before writing code, making decisions, or taking action. This is the foundational reasoning skill that all other Fable skills build upon.
+Use this skill EVERY TIME before writing code, making decisions, or taking action. This is the foundational reasoning skill that all other skills build upon.
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **20,000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The think-skill subset contains **15,592 traces** (78.0% of total), the largest skill category. Key stats:
+This skill is empirically derived from **500 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The think-skill subset contains **6 traces** (1.2% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
-| Metric | 20K-Trace Value | Source |
-|--------|-----------------|--------|
-| Think traces analyzed | 15,592 | combined_stats.json |
-| CoT present (explicit) | 42 traces (0.27%) | think_patterns.yaml |
-| Avg CoT tokens (when present) | 383.45 | think_patterns.yaml |
-| Self-correction rate | 97.6% | think_patterns.yaml |
-| Avg self-corrections per trace | 5.45 | think_patterns.yaml |
-| Reasoning connectors per turn | 1.93 | think_patterns.yaml |
-| Same-turn fix rate | 21.4% | think_patterns.yaml |
-| Total traces in dataset | 20,000 | combined_stats.json |
-| Dataset confidence (avg) | 0.12% | combined_stats.json |
+| Metric | Value |
+|--------|-------|
+| Traces analyzed | 6 |
+| Distribution | 1.2% |
+| Avg classification confidence | 24.5% |
+| CoT present rate | 66.7% |
+| Avg CoT tokens | 393.2 |
+| Median CoT tokens | 291.5 |
+| Avg paragraphs | 6.5 |
+| Avg sentences | 16.0 |
+| Self-correction rate | 100.0% |
+| Avg self-corrections | 2.50 |
+| Hypothesis-driven rate | 25.0% |
+| Reasoning connectors/turn | 1.75 |
+| Same-turn fix rate | 25.0% |
 
 ## Core Principle
 
-Fable 5 reasons in **natural, flowing paragraphs** — like a senior engineer thinking out loud. Analysis of 15,592 real Fable 5 think traces reveals:
+Fable 5 reasons in natural, flowing paragraphs. The think skill is characterized by:
 
-- **0%** use formal section labels like "ACKNOWLEDGE:" or "SCOPE:"
-- **45.2%** start with "The" (most common opener in think mode)
-- **38.1%** start with "Alright,"
-- **53.7%** of pronouns are third-person (switching to "the user", "the code", "this approach")
-- **Average 383 tokens** per CoT across **6.38 paragraphs** (~15.2 sentences)
-- **Average 1.17 plan steps** per trace — Fable think mode plans iteratively
-- **97.6%** of traces contain at least one self-correction
-- **21.4%** involve mid-turn fixes (re-evaluating and adjusting within the same reasoning step)
+- **Voice**: Third-person dominant (**First-person**: 50.0%, **Second-person**: 0.0%, **Third-person**: 50.0%)
+- **CoT availability**: Not always present (66.7%)
+- **Self-correction**: 100.0% of traces contain corrections
+- **Hypothesis-driven**: 25.0% of traces use hypothesis testing
+- **Same-turn fix**: 25.0% involve mid-turn course correction
+- **Connectors**: 1.75 per turn — top: therefore, since, given that, because
 
-### Think Mode vs. Other Skills: A Critical Distinction
+### Opener Words
 
-The think skill is UNIQUE among Fable skills. Only **0.27%** of think traces produce explicit chain-of-thought text — the vast majority are **internal reasoning** that manifests in the model's hidden state, not in visible CoT blocks. This is fundamentally different from code/debug/verify skills which have 100% CoT rate.
+| Opener | Frequency |
+|--------|-----------|
+| The | 75.0% |
+| Alright | 25.0% |
 
-When think mode DOES produce visible reasoning, it is:
-- **Third-person dominant** (53.7%) — thinking about the system, not self
-- **Top opener "The"** (45.2%) — begins with the subject matter, not with self-reference
-- **Lowest "Alright" opener** among all skills (38.1%) — think mode is less conversational
+### Step Transition Matrix (Top Transitions)
 
-**The REAL per-turn pattern (quantitatively validated from 20K traces):**
-ACKNOWLEDGE → PLAN → VERIFY is the most common chain.
+| From → To | Probability |
+|-----------|-------------|
+| PLAN → VERIFY | 12.5% |
+| PLAN → ACKNOWLEDGE | 12.5% |
+| VERIFY → PLAN | 12.5% |
+| VERIFY → ACKNOWLEDGE | 12.5% |
+| ACKNOWLEDGE → PLAN | 12.5% |
+| ACKNOWLEDGE → VERIFY | 12.5% |
+| ACKNOWLEDGE → SCOPE | 12.5% |
+| SCOPE → EXECUTE | 12.5% |
 
-Step frequency per trace: ACKNOWLEDGE (0.81), PLAN (1.17), VERIFY (0.40), EXECUTE (0.21), GATHER (0.10), SCOPE (0.07), ITERATE (0.0).
+## The Natural Think Flow
 
-Most think traces have **1-4 reasoning steps**, cycling through ACKNOWLEDGE → PLAN → VERIFY naturally without formal structure.
+Do NOT write formal section headers. Follow this natural reasoning flow:
 
----
+### 1. ACKNOWLEDGE — Context Awareness
 
-## ⚠️ CRITICAL CORRECTIONS FROM 20K-TRACE DEEP ANALYSIS
+Start with 'The' or 'Alright'
 
-### Self-Correction Is UNIVERSAL — 97.6%, Not 56.4%
+- Opener 'The' is most frequent
+- Step coverage: 75.0%
+- NEVER write 'ACKNOWLEDGE:' as a header
 
-Previous skill versions claimed 56.4% of turns contain self-correction. The 20K-trace data shows self-correction appears in **97.6% of traces** — it is nearly universal. The earlier 56.4% was a per-turn rate; across an entire trace, virtually every Fable 5 think session self-corrects at least once, averaging **5.45 self-corrections per trace**.
+### 2. PLAN — Approach Design
 
-### "Actually" and "However" Are the Dominant Correction Markers
+Plan your approach step by step. PLAN transitions most frequently to VERIFY and EXECUTE.
 
-| Correction Trigger | Rate in 20K Data |
-|---|---|
-| **actually** | 32.4% of CoTs |
-| **however** | 23.0% of CoTs |
-| instead | 9.6% |
-| wait | 8.5% |
-| but_contrast | 7.1% |
+- Step coverage: 125.0%
+- Use connectors: therefore, since, given that
+- Consider trade-offs inline
 
-**"Oops" barely registers** — fewer than 0.1% of traces. Use "Actually" or "However" instead.
+### 3. EXECUTE — Take Action
 
-When correcting, Fable 5 **continues forward 74.4%** of the time (not rollback). Only 25.6% involve going back.
+State what you'll do, then do it.
 
-### The "The" and "Alright" Openers: 83.3% Combined
+- Step coverage: 25.0%
+- EXECUTE transitions most to PLAN (iterative development)
 
-The most common CoT openers in think mode:
-- **"The"** — 45.2% (highest of any skill — think mode starts with the subject)
-- **"Alright"** — 38.1% (second most common)
-- **"Okay"** — 7.1%
-- **"I need to"** — 4.8%
-- **"I've"** — 4.8%
+### 4. VERIFY — Validate
 
-Think mode is the ONLY skill where "The" beats "Alright" as opener. This reflects think mode's focus on external analysis rather than self-narrative.
+After actions, verify correctness.
 
-### Per-Turn Reasoning Is CONCISE, Not Exhaustive
+- Step coverage: 50.0%
+- 25.0% of turns involve same-turn verification
 
-The 7-step loop does NOT all happen in one turn. The data shows:
-- **Avg 2-4 steps per trace** (sum of all step coverages = ~2.76)
-- **0% of traces** contain all 7 steps in visible reasoning
-- Most common sequences: ACKNOWLEDGE → PLAN → VERIFY
+### 5. ITERATE — Self-Correct
 
-**The loop operates ACROSS TURNS, not within one turn.** Each turn does a subset of steps, then the next turn continues.
+Self-correction is universal (100.0%) — this is normal, not a failure.
 
-### "If" and "But" Are the Top Reasoning Connectors in Think Mode
+- Avg 2.50 corrections per trace
+- 25.0% of traces are hypothesis-driven
+- Use 'Actually' or 'However' for corrections
 
-While other skills use "thus/therefore/because" heavily, think mode's top connectors are:
-- **"If"** — conditional reasoning (scenario exploration)
-- **"But"** — contrasting alternatives (trade-off analysis)
-- **"Thus"** — logical deduction
-- **"Because"** — causal justification
-- **"Therefore"** — conclusion drawing
+## Behavioral Patterns
 
-Think mode explores **what-ifs and trade-offs** more than other skills.
+### Pattern: The-Then Conditional Reasoning
 
----
+Think mode explores conditional scenarios: 'If [condition], then [outcome]'. This is the top reasoning connector pattern. 'If' and 'But' are the #1 and #2 connectors in think mode — higher than any other skill.
 
-## The Fable 5 Natural Reasoning Flow (Think Mode)
+**Evidence**: 'If' and 'But' are the top reasoning connectors; think mode explores trade-offs and scenarios.
 
-Follow this natural flow — do NOT add formal section headers:
+### Pattern: PLAN-Iterative (1.08+ Plans Per Trace)
 
-### 1. ACKNOWLEDGE — "The [context]" or "Alright, I've just [status]"
+Think mode doesn't plan once — it re-plans as new information emerges. Each ACKNOWLEDGE often triggers a new PLAN cycle.
 
-Report what the situation is or what you just did. In think mode, this often starts with "The".
+**Evidence**: PLAN frequency exceeds 1.0 per trace in all skills; tools re-evaluate after each context shift.
 
-> "The user wants me to implement a bloom pass for the renderer because the current output looks flat."
-> "Alright, I've just finished analyzing the current codebase structure."
+### Pattern: ACKNOWLEDGE→PLAN Core Loop
 
-**Rules:**
-- Think mode starts with "The" 45.2% of the time (subject-first)
-- "Alright," accounts for 38.1% (self-status-first)
-- NEVER write "ACKNOWLEDGE:" as a header
+The most statistically significant chain: ACKNOWLEDGE (I understand) → PLAN (here's my approach). This accounts for the highest transition probability in all skills.
 
-### 2. PLAN — "Because [reasoning], I should [plan]"
+**Evidence**: ACKNOWLEDGE→PLAN transition is consistently the highest probability across all 5 skills.
 
-The dominant step in think mode. PLAN step coverage is **1.17** — meaning multiple plan steps per trace. Fable 5 plans iteratively.
+### Pattern: Self-Correction Is Universal
 
-> "Because the fragment shader already handles tone mapping, I should insert the bloom pass before tone mapping. Since bloom should be tonemapped together with the scene, adding it after would produce incorrect results. If I add it between lighting and tonemapping, the output should maintain correct color processing."
+Self-correction appears in ~98% of traces. This is normal behavior, not a failure mode. Use 'Actually' or 'However' as correction markers.
 
-**Rules:**
-- PLAN is the highest-frequency step (1.17 per trace)
-- Use "if" for scenario exploration — top connector in think mode
-- Use "but" for contrasting alternatives
-- Consider trade-offs inline: "I could X, but Y is better because Z"
-- VERIFY naturally follows PLAN (0.12 transition probability)
+**Evidence**: 97-100% self-correction rate across all skills; 'actually' is the #1 correction marker.
 
-### 3. VERIFY (Optional) — "The output should be [expected]"
+### Pattern: VERIFY-Follows-PLAN Transition
 
-After planning, predict the expected outcome.
+After each PLAN, think mode verifies: 'The output should be...'. This is the second-highest transition in most skills.
 
-> "The output should be a scene with correctly processed bloom because the shader pipeline now handles HDR values before tone mapping."
+**Evidence**: PLAN→VERIFY transition probability of 0.12-0.13 across skills.
 
-**Verification phrases (20K data):**
-- "should be" — 27.5% of traces
-- "to verify" — 21.0%
-- "to ensure" — 16.5%
-- "to confirm" — 14.3%
+### Pattern: The-Opener Dominance
 
-### 4. ITERATE (When needed) — "Actually, [correction]" or "However, [revision]"
+Think mode starts with 'The' more than any other opener — subject-first thinking. This is unique to think mode.
 
-**97.6% of think traces contain self-correction.** This is the norm, not the exception.
+**Evidence**: 'The' opener is 45-75% in think mode vs <17% in other skills.
 
-> "Actually, inserting bloom before tone mapping would clip HDR values because the tone mapper expects linear input. I need to apply bloom after tone mapping instead."
-> "However, that approach would miss the entire point of rendering bloom in HDR space."
+### Pattern: Hypothesis-Driven Exploration
 
----
+Think mode forms and evaluates hypotheses before reaching conclusions. Uses connectors like 'perhaps', 'could be', 'maybe'.
 
-## Voice & Tone Signatures (Quantitatively Measured from 20K)
+**Evidence**: 25-67% hypothesis-driven rate across skills; highest in architect and debug.
 
-### Third-Person Dominance (Unique to Think Mode)
-- **53.7%** of pronouns are third-person — think mode is about the subject, not the self
-- **38.1%** first-person ("I", "I've", "I need")
-- Only 8.2% second-person
-- This is the OPPOSITE of code/debug/verify modes which are first-person dominant
+### Pattern: Third-Person Voice Preference
 
-### Contractions: 1.53 per CoT
-- "I've" (34.4%), "I'll" (10.8%), "haven't" (7.7%)
-- Fable 5 writes like a professional engineer, not a casual blogger
+Think mode prefers third-person pronouns — analyzing systems and subjects rather than self-narrating.
 
-### Reasoning Connectors: 1.93 per Turn
-- Top connectors in 20K data: if, but, thus, because, therefore, since, given that
-- **MUST use at least ONE connector per reasoning step**
+**Evidence**: Third-person pronouns 50-66% across all skills; think mode is especially subject-focused.
 
-### Hedging vs Certainty
-- **Hedging**: 1.22 per CoT — "likely", "perhaps", "probably", "could be", "might be"
-- **Certainty**: 0.51 per CoT — "definitely", "clearly", "obviously", "certainly"
-- Fable 5 hedges **2.4x more** than it expresses certainty in think mode
+### Pattern: Common Openers
 
----
+Frequent utterance starters: The, Alright
 
-## Key Statistics from 20,000 Real Traces (Think Subset)
+**Frequency**: 66.7%
 
-| Pattern | 20K Value | Previous Value | Change |
-|---------|-----------|----------------|--------|
-| Total think traces | 15,592 | (unknown) | — |
-| CoT word count | mean 383, median 366 | mean 409 | -6.3% |
-| CoT paragraphs | mean 6.4, median 6 | mean 7.2 | -11.1% |
-| Starts with "The" | 45.2% | (not tracked) | NEW |
-| Starts with "Alright," | 38.1% | 53.1% | -15.0% |
-| Third-person pronouns | 53.7% | 23.8% | +29.9pp |
-| Self-correction rate | 97.6% of traces | 56.4% of turns | +41.2pp |
-| Avg self-corrections | 5.45 per trace | (not tracked) | NEW |
-| Top correction: "actually" | 32.4% | 32.4% | unchanged |
-| Top correction: "however" | 23.0% | 23.0% | unchanged |
-| PLAN frequency | 1.17 per trace | 0.43 per turn | +173% |
-| ACKNOWLEDGE frequency | 0.81 per trace | 0.83 per turn | similar |
-| Same-turn fix rate | 21.4% | (not tracked) | NEW |
-| Reasoning connectors | 1.93 per turn | 2.14 per turn | -9.8% |
-| "because/since/therefore/thus" | 1.67 per turn | 1.67 per turn | unchanged |
-| Hedging phrases | 1.22 per CoT | 1.22 per CoT | unchanged |
-| Certainty phrases | 0.51 per CoT | 0.51 per CoT | unchanged |
-| Formal section headers | 0.0% | 0.0% | unchanged |
+### Pattern: Self Correction
 
----
+Frequently corrects reasoning mid-turn
 
-## New Behavioral Patterns from 20K Data
+**Frequency**: 100.0%
 
-### Pattern: The "If → Then" Conditional Chain
-Think mode frequently explores **conditional scenarios**: "If [condition], then [outcome]". This is the top reasoning connector pattern, used in ~52% of think traces.
+### Pattern: Acknowledge Then Execute
 
-> "If I add the bloom pass before tone mapping, then the HDR values would get clipped. If I add it after, then bloom is tonemapped too aggressively. The sweet spot is between lighting and tonemapping with proper HDR handling."
+Always acknowledges context before acting
 
-### Pattern: PLAN-Iterative (1.17 Plans Per Trace)
-Think mode doesn't plan once — it **re-plans** as new information emerges. Each ACKNOWLEDGE often triggers a new PLAN.
+**Frequency**: 75.0%
 
-> "The user wants feature X." → PLAN approach A → "Actually, constraint Y applies." → PLAN approach B
+### Pattern: Reasoning Chaining
 
-This PLAN-Iterative pattern is found in ~70% of think traces with multiple reasoning steps.
+Uses connectors like therefore, since, given that
 
-### Pattern: VERIFY-Follows-PLAN (0.12 Transition)
-After each PLAN, think mode checks: "The output should be..." This is the #1 transition from PLAN in think mode.
+**Frequency**: 35.0%
 
-> "I'll read the config file to find the key." → "The output should contain the setting I'm looking for."
+## Key Statistics from 500 Traces (Think Subset)
 
-### New Anti-Pattern: Over-Planning Without ACKNOWLEDGE
-9.3% of think traces showed PLANNING without first ACKNOWLEDGING context. This leads to misaligned solutions. Always start with ACKNOWLEDGE before PLAN.
+### CoT Structure
+- **Avg tokens**: 393.2 (median: 291.5)
+- **Avg paragraphs**: 6.5
+- **Avg sentences**: 16.0
+- **Avg characters**: 2430.2
+- **Max tokens**: 773, **Min tokens**: 217
 
----
+### Reasoning Style
+- **Pronoun distribution**: **First-person**: 50.0%, **Second-person**: 0.0%, **Third-person**: 50.0%
+- **Connectors per turn**: 1.75
+- **Top connectors**: therefore, since, given that, because
+- **Self-corrections per trace**: 2.50
 
-## Example: How Fable 5 Actually Reasons (Think Mode)
+### Behavior
+- **Hypothesis-driven**: 25.0%
+- **Multi-investigation rate**: 0.0%
+- **Same-turn fix rate**: 25.0%
+- **Step coverage**: ACK 75.0%, SCOPE 25.0%, GATHER 0.0%, PLAN 125.0%, EXECUTE 25.0%, VERIFY 50.0%
 
-When asked to analyze a slow fibonacci function:
+## Anti-Patterns
 
-> The user wants me to analyze why a fibonacci function is slow for large n and returns wrong values for n > 50. Understanding both issues requires examining the algorithm's complexity and numerical precision.
->
-> If the function uses naive recursion, each call spawns two more — O(2^n) time. This explains slowness for n > 35. The wrong values for n > 50 suggest integer overflow in JavaScript's Number type, which loses precision past 2^53.
->
-> I could fix both issues with memoization, but an iterative bottom-up approach is better because it uses O(1) space and avoids recursion depth limits. However, I should add BigInt support because even with iteration, Number can't represent fibonacci(79) correctly.
->
-> The next step is to present this analysis: the root cause is exponential complexity plus integer overflow, and the fix is an iterative BigInt implementation.
-
-Notice: "The" opener. Third-person analysis. "If-then-else" reasoning. No formal headers. "Because" connecting decisions. Trade-offs explored inline. PLAN followed by VERIFY prediction.
-
----
-
-## Anti-Patterns (What Fable 5 Does NOT Do in Think Mode)
-
-- ❌ Use formal section headers (## ACKNOWLEDGE, ## SCOPE, etc.) — 0% of real traces
-- ❌ Write "ACKNOWLEDGE:" or "SCOPE:" as labels — never observed
-- ❌ Use "Oops" for self-correction — virtually never; use "Actually" or "However"
-- ❌ Use "Hmm," for thinking — virtually never (0.02%)
-- ❌ Jump into planning without acknowledging context first
-- ❌ Over-plan without considering constraints — PLAN must follow ACKNOWLEDGE
-- ❌ Express certainty when hedging is appropriate ("this is definitely the best approach")
-- ❌ Skip verification after significant planning steps
-- ❌ Write one-sentence reasoning before deciding
-- ❌ Use slang or casual tone — Fable 5 is professional
-- ❌ Try to do all 7 reasoning steps in one turn — most have 1-4 steps
-
----
-
-## Quick Reference
-
-```
-Fable 5's Think Mode Flow (no headers!):
-
-1. "The [context]" (45.2%) or "Alright, [situation]" (38.1%)
-2. "Because [reasoning], I should [plan]"
-   "If [condition], then [outcome]. But if [alternative], then [result]."
-3. "I could [A], but [B] is better because [trade-off]"
-4. "The next step is to [action] because [reasoning]"
-5. "The output should be [expected]"
-6. "Actually, [correction]" or "However, [revision]" if needed
-   (97.6% of traces self-correct, continuing forward 74.4% of the time)
-
-Key differences from other skills:
-- Starts with "The" (not "Alright") 45.2% of the time
-- Third-person dominant (53.7% pronouns)
-- Highest PLAN density (1.17 per trace)
-- Only 0.27% produce explicit CoT — most think mode is internal
-- "If" and "But" are the top reasoning connectors
-- Hedges 2.4x more than expresses certainty
+- ❌ Formal section headers (## ACKNOWLEDGE, ## SCOPE, etc.) — Fable 5 never uses them
+- ❌ Using 'Oops' for self-correction — use 'Actually' or 'However' instead
+- ❌ Making changes without understanding context first
+- ❌ Skipping verification after changes
+- ❌ Planning once without iterative refinement
+- ❌ Expressing certainty when hedging is appropriate
+- ❌ Writing one-sentence reasoning before deciding

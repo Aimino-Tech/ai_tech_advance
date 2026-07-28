@@ -1,9 +1,128 @@
 skill: verify
-total_traces: 0
+total_traces: 103
 stats:
-  cot: {}
-  tool_usage: {}
-  behaviors: {}
-patterns: []
-anti_patterns: []
-steps: []
+  cot:
+    total_traces: 103
+    cot_present: 103
+    cot_rate: 1.0
+    avg_tokens: 417.72
+    avg_paragraphs: 7.47
+    avg_sentences: 15.97
+    avg_chars: 2632
+    median_tokens: 390
+    max_tokens: 947
+    min_tokens: 199
+    opener_words:
+      Alright: 0.6602
+      Okay: 0.1456
+      All: 0.1165
+      The: 0.068
+      I: 0.0097
+    pronoun_first_pct: 0.3864
+    pronoun_second_pct: 0.0
+    pronoun_third_pct: 0.6136
+    self_correction_rate: 1.0
+    avg_self_corrections: 7.5049
+    reasoning_connectors_per_turn: 1.8932
+    top_connectors:
+    - because
+    - since
+    - thus
+    - therefore
+    - given that
+  tool_usage:
+    total_traces: 103
+    traces_with_tools: 0
+    tool_calls_per_trace:
+      '0': 1.0
+    tool_type_frequency: {}
+    top_tool_calls: []
+    transition_matrix: {}
+    read_before_edit_rate: 0.0
+    verify_after_action_rate: 0.0
+    tool_to_text_ratio: 0.0
+    avg_tool_calls: 0
+    max_tool_calls: 0
+  behaviors:
+    total_traces: 103
+    self_correction_rate: 1.0
+    avg_self_corrections: 7.5049
+    hypothesis_driven_rate: 0.2718
+    avg_hypotheses: 0.3883
+    multi_investigation_rate: 0.0
+    step_coverage:
+      ACKNOWLEDGE: 1.0388
+      SCOPE: 0.1456
+      GATHER: 0.068
+      PLAN: 0.9417
+      EXECUTE: 0.2718
+      VERIFY: 0.7961
+      ITERATE: 0.0097
+    step_transition_matrix:
+      ACKNOWLEDGE:
+        VERIFY: 0.1538
+        PLAN: 0.1538
+        SCOPE: 0.0385
+        EXECUTE: 0.0385
+        GATHER: 0.0085
+      VERIFY:
+        PLAN: 0.141
+        ACKNOWLEDGE: 0.0513
+        EXECUTE: 0.0256
+        GATHER: 0.0085
+        SCOPE: 0.0085
+      PLAN:
+        VERIFY: 0.1325
+        EXECUTE: 0.047
+        ACKNOWLEDGE: 0.0427
+        ITERATE: 0.0043
+        SCOPE: 0.0043
+        GATHER: 0.0043
+      SCOPE:
+        PLAN: 0.0299
+        VERIFY: 0.0128
+        ACKNOWLEDGE: 0.0085
+        GATHER: 0.0043
+      EXECUTE:
+        VERIFY: 0.0256
+        PLAN: 0.0214
+        ACKNOWLEDGE: 0.0171
+        GATHER: 0.0043
+      ITERATE:
+        ACKNOWLEDGE: 0.0043
+      GATHER:
+        VERIFY: 0.0043
+        ACKNOWLEDGE: 0.0043
+    same_turn_fix_rate: 0.2427
+patterns:
+- name: common-openers
+  description: 'Frequent utterance starters: Alright, Okay, All, The, I'
+  frequency: 1.0
+- name: self-correction
+  description: Frequently corrects reasoning mid-turn
+  frequency: 1.0
+- name: acknowledge-then-execute
+  description: Always acknowledges context before acting
+  frequency: 1.0388
+- name: reasoning-chaining
+  description: Uses connectors like because, since, thus
+  frequency: 0.3786
+anti_patterns:
+- name: acting-without-scope
+  description: Proceeding without confirming requirements
+  frequency: 0.8544
+steps:
+- name: ACKNOWLEDGE
+  frequency: 1.0388
+- name: SCOPE
+  frequency: 0.1456
+- name: GATHER
+  frequency: 0.068
+- name: PLAN
+  frequency: 0.9417
+- name: EXECUTE
+  frequency: 0.2718
+- name: VERIFY
+  frequency: 0.7961
+- name: ITERATE
+  frequency: 0.0097

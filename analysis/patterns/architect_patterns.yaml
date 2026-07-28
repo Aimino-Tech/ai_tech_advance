@@ -1,9 +1,95 @@
 skill: architect
-total_traces: 0
+total_traces: 3
 stats:
-  cot: {}
-  tool_usage: {}
-  behaviors: {}
-patterns: []
+  cot:
+    total_traces: 3
+    cot_present: 3
+    cot_rate: 1.0
+    avg_tokens: 299.67
+    avg_paragraphs: 4.33
+    avg_sentences: 13
+    avg_chars: 1884.33
+    median_tokens: 239
+    max_tokens: 532
+    min_tokens: 128
+    opener_words:
+      The: 0.6667
+      Alright: 0.3333
+    pronoun_first_pct: 0.4118
+    pronoun_second_pct: 0.0
+    pronoun_third_pct: 0.5882
+    self_correction_rate: 0.6667
+    avg_self_corrections: 3.3333
+    reasoning_connectors_per_turn: 1.3333
+    top_connectors:
+    - therefore
+    - since
+    - thus
+  tool_usage:
+    total_traces: 3
+    traces_with_tools: 0
+    tool_calls_per_trace:
+      '0': 1.0
+    tool_type_frequency: {}
+    top_tool_calls: []
+    transition_matrix: {}
+    read_before_edit_rate: 0.0
+    verify_after_action_rate: 0.0
+    tool_to_text_ratio: 0.0
+    avg_tool_calls: 0
+    max_tool_calls: 0
+  behaviors:
+    total_traces: 3
+    self_correction_rate: 0.6667
+    avg_self_corrections: 3.3333
+    hypothesis_driven_rate: 0.6667
+    avg_hypotheses: 2.3333
+    multi_investigation_rate: 0.0
+    step_coverage:
+      ACKNOWLEDGE: 0.3333
+      SCOPE: 0.0
+      GATHER: 0.0
+      PLAN: 1.0
+      EXECUTE: 0.0
+      VERIFY: 0.6667
+      ITERATE: 0.0
+    step_transition_matrix:
+      ACKNOWLEDGE:
+        PLAN: 0.3333
+      PLAN:
+        VERIFY: 0.3333
+      VERIFY:
+        PLAN: 0.3333
+    same_turn_fix_rate: 0.0
+patterns:
+- name: common-openers
+  description: 'Frequent utterance starters: The, Alright'
+  frequency: 1.0
+- name: self-correction
+  description: Frequently corrects reasoning mid-turn
+  frequency: 0.6667
+- name: hypothesis-driven-debugging
+  description: Forms and tests hypotheses before fixing
+  frequency: 0.6667
+- name: acknowledge-then-execute
+  description: Always acknowledges context before acting
+  frequency: 0.3333
+- name: reasoning-chaining
+  description: Uses connectors like therefore, since, thus
+  frequency: 0.2667
 anti_patterns: []
-steps: []
+steps:
+- name: ACKNOWLEDGE
+  frequency: 0.3333
+- name: SCOPE
+  frequency: 0.0
+- name: GATHER
+  frequency: 0.0
+- name: PLAN
+  frequency: 1.0
+- name: EXECUTE
+  frequency: 0.0
+- name: VERIFY
+  frequency: 0.6667
+- name: ITERATE
+  frequency: 0.0
