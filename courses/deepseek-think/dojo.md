@@ -23,8 +23,9 @@ scenarios:
 
       Show your reasoning step by step, then state the final mapping.
     expected_behaviors:
-      - "Enumerates each clue and deduces consequences step by step"
-      - "Arrives at a unique mapping without contradiction"
+      - S1
+      - S2
+      - Auth
     judge_criteria:
       - "All five clues are used in the reasoning"
       - "Final mapping is correct and consistent"
@@ -53,9 +54,9 @@ scenarios:
       Find an assignment that minimizes the makespan (time when all jobs finish).
       Show your reasoning.
     expected_behaviors:
-      - "Considers GPU memory constraints alongside dependencies"
-      - "Reasons about parallel vs sequential placement"
-      - "Produces a feasible schedule with makespan ≤ 10h"
+      - GPU
+      - makespan
+      - memory
     judge_criteria:
       - "All constraints are satisfied"
       - "Schedule minimizes makespan (8h or 9h is optimal)"
@@ -114,9 +115,9 @@ scenarios:
       within budget. Consider retry strategies: retry all failures immediately, or
       conditionally retry only some steps. Show the expected cost and success probability.
     expected_behaviors:
-      - "Considers dependency chain and failure probabilities"
-      - "Evaluates at least two retry strategies quantitatively"
-      - "Recommends a strategy with expected success probability > 70% within budget"
+      - retry
+      - probability
+      - pipeline
     judge_criteria:
       - "Dependency graph is correctly identified"
       - "Cost model is applied consistently"
@@ -169,9 +170,9 @@ scenarios:
       Estimate the latency P50 and P99 for each option. Recommend one and explain why.
       State any assumptions you make about cache server overhead.
     expected_behaviors:
-      - "Estimates latency for each option with explicit arithmetic"
-      - "Considers cache hit ratios, read costs, and overhead"
-      - "Recommends one option with clear rationale"
+      - latency
+      - cache
+      - Option
     judge_criteria:
       - "Latency estimates are consistent with the given costs"
       - "Recommendation addresses both average and tail latency"
@@ -221,9 +222,9 @@ scenarios:
       Trace through the causal chain. What was the root cause? What three things should
       the team do to prevent a recurrence?
     expected_behaviors:
-      - "Identifies the causal chain from deploy to symptom"
-      - "Differentiates root cause from proximate trigger"
-      - "Recommends specific, actionable prevention measures"
+      - root cause
+      - retry
+      - DB connection
     judge_criteria:
       - "Correctly identifies the payment-gateway retry change as root cause"
       - "Explains the DB connection exhaustion mechanism"
@@ -263,9 +264,9 @@ scenarios:
       Content-Type. Yet it passed. Explain how this counterfactual is possible.
       Then design a test (in any language) that would have caught the bug.
     expected_behaviors:
-      - "Explains why the fuzz test passed despite exercising the buggy path"
-      - "Provides a concrete test that catches the empty-Content-Type case"
-      - "Test code is syntactically valid"
+      - Content-Type
+      - fuzz
+      - KeyError
     judge_criteria:
       - "Explanation identifies the test's error checking (no exception check)"
       - "Test explicitly sends a POST without Content-Type"
@@ -305,9 +306,9 @@ scenarios:
       Show your risk scoring for each, then the ranked priority list. Explain any
       dependencies among fixes (e.g., F depends on B being fixed first).
     expected_behaviors:
-      - "Assigns explicit likelihood × impact scores"
-      - "Considers dependency chains between vulnerabilities"
-      - "Produces a ranked list with rationale"
+      - likelihood
+      - impact
+      - priority
     judge_criteria:
       - "Scoring is consistent with the descriptions"
       - "Dependency between B and F is identified"
@@ -355,9 +356,9 @@ scenarios:
       mitigation. Finally, evaluate whether a blue-green or rolling cutover is safer
       and why.
     expected_behaviors:
-      - "Lists 5+ concrete risks with specific failure scenarios"
-      - "Each risk has severity and a concrete mitigation"
-      - "Makes a justified recommendation on cutover strategy"
+      - risk
+      - severity
+      - mitigation
     judge_criteria:
       - "Risks are specific (e.g., 'replication lag during Phase 2 validation')"
       - "Mitigations are actionable, not platitudes"
@@ -388,9 +389,9 @@ scenarios:
       Then write the clarified, unambiguous version of the spec (as a single
       paragraph a developer could implement from).
     expected_behaviors:
-      - "Identifies 6+ distinct ambiguities"
-      - "For each, gives two interpretations and one clear question"
-      - "Produces an unambiguous spec paragraph"
+      - ambiguity
+      - retry
+      - exponential backoff
     judge_criteria:
       - "Ambiguities cover: retry scope, error classification, backoff params,
          notification method, idempotency, timeout interaction"
@@ -447,9 +448,9 @@ scenarios:
 
       After decomposition, produce a ranked action plan with estimated total impact.
     expected_behaviors:
-      - "Decomposes the endpoint into at least 4 sub-problems"
-      - "Each sub-problem has 3+ possible causes with diagnostic experiments"
-      - "Action plan is ranked by estimated impact and effort"
+      - sub-problem
+      - latency
+      - diagnostic
     judge_criteria:
       - "Sub-problems include: sequential service calls, DB query performance,
          cache miss penalty, N+1 patterns, serialization overhead"

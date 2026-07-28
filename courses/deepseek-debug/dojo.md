@@ -244,9 +244,9 @@ scenarios:
       to read, while the parent is waiting to start more processes. Fix by reading
       from each process as it's started, or by using `subprocess.run()`.
     expected_behaviors:
-      - "Identifies the deadlock: all processes spawn before any pipes are drained"
-      - "Explains OS pipe buffer size limit"
-      - "Fixes by draining pipes per-process or using subprocess.run"
+      - pipe buffer
+      - Popen
+      - subprocess.run
     judge_criteria:
       - "Root cause: pipe buffer fills when all processes run before any communicate()"
       - "Fix uses either per-process drain or subprocess.run()"
@@ -322,10 +322,9 @@ scenarios:
       Then rewrite the query to use parameterized queries (and parameterized
       ORDER BY requires a different approach — handle that too).
     expected_behaviors:
-      - "Identifies that backslash escaping bypasses single-quote replacement"
-      - "Shows a concrete injection string that works despite sanitization"
-      - "Fixes LIKE clauses with parameterized queries"
-      - "Handles ORDER BY safely (not with string interpolation)"
+      - injection
+      - parameterized query
+      - placeholder
     judge_criteria:
       - "Attack string demonstrated (e.g., using backslash to escape the closing quote)"
       - "LIKE clauses use ? placeholders with db.Query"
@@ -396,9 +395,9 @@ scenarios:
       and don't leak memory. The fix should not require the caller to remember
       to call `destroy()`.
     expected_behaviors:
-      - "Identifies listener registration without cleanup as the primary leak"
-      - "Identifies the 10MB response buffer allocation as a secondary issue"
-      - "Fixes by auto-unregistering or using WeakRef/once patterns"
+      - listener
+      - emitter.on
+      - memory leak
     judge_criteria:
       - "Explains the reference chain keeping DataProcessor alive"
       - "Fix ensures listeners are removed when request ends"
@@ -449,9 +448,9 @@ scenarios:
       (lock accounts in order of their memory address, or use a hierarchical
       approach). Write the fixed version.
     expected_behaviors:
-      - "Traces the deadlock cycle between the two goroutines"
-      - "Fixes by locking in a consistent global order"
-      - "Preserves the Transfer function signature"
+      - deadlock
+      - lock ordering
+      - Transfer(alice
     judge_criteria:
       - "Deadlock explanation correctly shows A→B and B→A cycle"
       - "Fix uses pointer comparison or a global ordering"
@@ -575,9 +574,9 @@ scenarios:
       Find the bug anyway — the discount is treated as falsy when it's exactly 0.
       Fix by using explicit undefined/null check.
     expected_behaviors:
-      - "Identifies that `item.discount ?` treats 0 as falsy"
-      - "Explains the semantic distinction between undefined and 0"
-      - "Fixes by using `item.discount !== undefined && item.discount !== null`"
+      - falsy
+      - item.discount
+      - item.discount !== undefined
     judge_criteria:
       - "Root cause: falsy check on discount treats 0 as absent"
       - "Fix distinguishes undefined/missing from 0"
@@ -681,9 +680,9 @@ scenarios:
 
       Show the fix for the half-open range style (right = len(), left < right, right = mid).
     expected_behaviors:
-      - "Identifies that right = len() excludes the last element"
-      - "Explains the off-by-one in the binary search invariants"
-      - "Fixes by adjusting the right initialization or loop condition"
+      - binary_search
+      - off-by-one
+      - items.len()
     judge_criteria:
       - "Root cause identified: items.len() vs items.len() - 1"
       - "Fix uses consistent interval semantics (half-open or closed)"
@@ -742,9 +741,9 @@ scenarios:
       mechanism. In PostgreSQL, you can use a `path` array with `CYCLE` clause
       (or manually detect cycles). Show both approaches.
     expected_behaviors:
-      - "Identifies that cycles in the graph cause infinite recursion"
-      - "Adds cycle detection (PostgreSQL CYCLE clause or path array)"
-      - "The fix handles the data correctly even with cycles"
+      - RECURSIVE
+      - CYCLE
+      - cycle detection
     judge_criteria:
       - "Explains the cycle scenario: employee reports to themselves indirectly"
       - "Fix uses PostgreSQL's CYCLE clause or manual path detection"
