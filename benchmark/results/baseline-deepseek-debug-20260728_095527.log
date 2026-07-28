@@ -1,0 +1,14 @@
+Run 6f5f3dd9-511d-46ff-832a-56e858ff6d7c: 10 scenarios on deepseek-v4-flash
+  [1/10] Null pointer deference in Go... FAIL (0.00/1.00)
+  [2/10] Off-by-one in array slicing... FAIL (0.00/1.00)
+  [3/10] Async race condition in TypeScript... FAIL (0.00/1.00)
+  [4/10] Incorrect API usage — Python subprocess... FAIL (0.00/1.00)
+  [5/10] SQL injection — parameterized query fix... FAIL (0.00/1.00)
+  [6/10] Memory leak pattern in JavaScript... FAIL (0.00/1.00)
+  [7/10] Deadlock detection in Go... FAIL (0.00/1.00)
+  [8/10] Incorrect type coercion in TypeScript... FAIL (0.00/1.00)
+  [9/10] Wrong comparison operator in Rust... FAIL (0.00/1.00)
+  [10/10] Infinite loop detection in SQL... FAIL (0.00/1.00)
+
+Run complete: 0/10 passed, score: 0.00/10.00, duration: 0.2s
+Run ID: 6f5f3dd9-511d-46ff-832a-56e858ff6d7c
