@@ -52,7 +52,24 @@ def load_dataset_simple(
     config.batch_size). Uses streaming to avoid loading the full
     2M-row dataset into memory.
     """
+    import time
+    start = time.time()
     dataset_name = config.resolve_dataset()
+
+    try:
+        ds = load_dataset(
+            dataset_name,
+            split="train",
+            streaming=False,
+            cache_dir=config.cache_dir,
+        )
+        elapsed_s = time.time() - start
+        if isinstance(ds, Dataset):
+            import rich
+            rich.print(f"[dim]Dataset loaded: {len(ds)} rows in {elapsed_s:.0f}s (non-streaming)[/]")
+            return _iter_batches(ds, config)
+    except Exception:
+        pass
 
     try:
         ds = load_dataset(
@@ -221,6 +238,9 @@ def _normalize_trace(data: dict[str, Any]) -> TraceDict | None:
             if key in data and data[key] is not None:
                 result[canonical] = data[key]
                 break
+
+    if not result.get("uid"):
+        return None
 
     # Ensure cot exists (even if empty)
     if "cot" not in result:

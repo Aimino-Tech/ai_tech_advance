@@ -1,10 +1,10 @@
 skill: architect
-total_traces: 271
+total_traces: 80
 stats:
   cot:
-    total_traces: 271
+    total_traces: 80
     cot_present: 80
-    cot_rate: 0.2952
+    cot_rate: 1.0
     avg_tokens: 368.29
     avg_paragraphs: 5.54
     avg_sentences: 16.25
@@ -32,38 +32,20 @@ stats:
     - because
     - hence
   tool_usage:
-    total_traces: 271
-    traces_with_tools: 70
+    total_traces: 80
+    traces_with_tools: 0
     tool_calls_per_trace:
-      '0': 0.7417
-      '1': 0.2583
-    tool_type_frequency:
-      Bash: 0.1439
-      Read: 0.0923
-      Search: 0.0074
-      Web: 0.0074
-      Glob: 0.0074
-    top_tool_calls:
-    - 'sh '
-    - read
-    - shell
-    - view
-    - 'ls '
-    - terminal
-    - search
-    - http
-    - look at
-    - web
-    - glob
-    - bash
+      '0': 1.0
+    tool_type_frequency: {}
+    top_tool_calls: []
     transition_matrix: {}
     read_before_edit_rate: 0.0
     verify_after_action_rate: 0.0
-    tool_to_text_ratio: 0.7692
-    avg_tool_calls: 0.26
-    max_tool_calls: 1
+    tool_to_text_ratio: 0.0
+    avg_tool_calls: 0
+    max_tool_calls: 0
   behaviors:
-    total_traces: 271
+    total_traces: 80
     self_correction_rate: 0.925
     avg_self_corrections: 5.9625
     hypothesis_driven_rate: 0.425
@@ -104,7 +86,7 @@ stats:
 patterns:
 - name: common-openers
   description: 'Frequent utterance starters: The, Alright, I’ve, Okay, I need to'
-  frequency: 0.2952
+  frequency: 1.0
 - name: self-correction
   description: Frequently corrects reasoning mid-turn
   frequency: 0.925

@@ -1,6 +1,6 @@
 ---
 name: fable-debug
-description: Debug like Fable 5 — Root-cause analysis and fix — hypothesis-driven, systematic, and verification-focused. Distilled from 520 real Fable 5 traces (debug-skill subset) with data-driven precision.
+description: Debug like Fable 5 — Root-cause analysis and fix — hypothesis-driven, systematic, and verification-focused. Distilled from 5000 real Fable 5 traces (190 debug-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/debug_patterns.yaml
 ---
@@ -15,14 +15,14 @@ Use this skill when debugging — crashes, silent failures, wrong output, edge-c
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **50,000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The debug-skill subset contains **520 traces** (1.0% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **5000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The debug-skill subset contains **190 traces** (3.8% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
-| Traces analyzed | 520 |
-| Distribution | 1.0% |
-| Avg classification confidence | 50.7% |
-| CoT present rate | 36.5% |
+| Traces analyzed | 190 |
+| Distribution | 3.8% |
+| Avg classification confidence | 44.3% |
+| CoT present rate | 100.0% |
 | Avg CoT tokens | 402.9 |
 | Median CoT tokens | 374.0 |
 | Avg paragraphs | 7.2 |
@@ -39,19 +39,21 @@ Fable 5 reasons in natural, flowing paragraphs. The debug skill is characterized
 
 - **Voice**: Third-person dominant (**First-person**: 35.0%, **Second-person**: 2.0%, **Third-person**: 63.0%)
 - **CoT availability**: Always present (100.0%)
-- **Self-correction**: 100.0% of traces contain corrections
+- **Self-correction**: 99.5% of traces contain corrections
 - **Hypothesis-driven**: 36.3% of traces use hypothesis testing
-- **Same-turn fix**: 23.8% involve mid-turn course correction
-- **Connectors**: 2.19 per turn — top: because, thus, since, therefore
+- **Same-turn fix**: 19.5% involve mid-turn course correction
+- **Connectors**: 2.19 per turn — top: thus, because, therefore, since
 
 ### Opener Words
 
 | Opener | Frequency |
 |--------|-----------|
 | Alright | 47.4% |
-| All | 3.2% |
-| Okay | 8.4% |
 | The | 26.3% |
+| I’ve | 10.5% |
+| Okay | 8.4% |
+| All | 3.2% |
+| I need to | 3.2% |
 | I | 1.1% |
 
 ### Step Transition Matrix (Top Transitions)
@@ -59,17 +61,17 @@ Fable 5 reasons in natural, flowing paragraphs. The debug skill is characterized
 | From → To | Probability |
 |-----------|-------------|
 | ACKNOWLEDGE → PLAN | 20.1% |
-| ACKNOWLEDGE → VERIFY | 6.5% |
-| PLAN → VERIFY | 11.6% |
-| ACKNOWLEDGE → SCOPE | 2.2% |
-| PLAN → ACKNOWLEDGE | 7.0% |
-| VERIFY → ACKNOWLEDGE | 2.7% |
-| EXECUTE → PLAN | 4.3% |
-| PLAN → EXECUTE | 5.3% |
 | VERIFY → PLAN | 12.3% |
-| VERIFY → EXECUTE | 2.7% |
-| EXECUTE → ACKNOWLEDGE | 1.7% |
+| PLAN → VERIFY | 11.6% |
+| PLAN → ACKNOWLEDGE | 7.0% |
+| ACKNOWLEDGE → VERIFY | 6.5% |
+| PLAN → EXECUTE | 5.3% |
+| SCOPE → PLAN | 4.8% |
+| PLAN → SCOPE | 4.3% |
+| EXECUTE → PLAN | 4.3% |
 | ACKNOWLEDGE → EXECUTE | 3.9% |
+| VERIFY → ACKNOWLEDGE | 2.7% |
+| VERIFY → EXECUTE | 2.7% |
 
 ## The Natural Debug Flow
 
@@ -88,7 +90,7 @@ Start with 'Alright' or 'Alright'
 Plan your approach step by step. PLAN transitions most frequently to VERIFY and EXECUTE.
 
 - Step coverage: 123.7%
-- Use connectors: because, thus, since
+- Use connectors: thus, because, therefore
 - Consider trade-offs inline
 
 ### 3. EXECUTE — Take Action
@@ -107,7 +109,7 @@ After actions, verify correctness.
 
 ### 5. ITERATE — Self-Correct
 
-Self-correction is near-universal (99.5%) — this is normal, not a failure.
+Self-correction is universal (99.5%) — this is normal, not a failure.
 
 - Avg 6.92 corrections per trace
 - 36.3% of traces are hypothesis-driven
@@ -165,7 +167,7 @@ After executing a fix, debug mode verifies before moving on. VERIFY appears in 5
 
 ### Pattern: Common Openers
 
-Frequent utterance starters: Alright, All, Okay, The, I
+Frequent utterance starters: Alright, The, I’ve, Okay, All
 
 **Frequency**: 100.0%
 
@@ -173,27 +175,27 @@ Frequent utterance starters: Alright, All, Okay, The, I
 
 Frequently corrects reasoning mid-turn
 
-**Frequency**: 100.0%
+**Frequency**: 99.5%
 
 ### Pattern: Hypothesis Driven Debugging
 
 Forms and tests hypotheses before fixing
 
-**Frequency**: 42.9%
+**Frequency**: 36.3%
 
 ### Pattern: Acknowledge Then Execute
 
 Always acknowledges context before acting
 
-**Frequency**: 114.3%
+**Frequency**: 84.2%
 
 ### Pattern: Reasoning Chaining
 
-Uses connectors like because, thus, since
+Uses connectors like thus, because, therefore
 
 **Frequency**: 43.8%
 
-## Key Statistics from 500 Traces (Debug Subset)
+## Key Statistics from 5000 Traces (Debug Subset)
 
 ### CoT Structure
 - **Avg tokens**: 402.9 (median: 374.0)
@@ -205,7 +207,7 @@ Uses connectors like because, thus, since
 ### Reasoning Style
 - **Pronoun distribution**: **First-person**: 35.0%, **Second-person**: 2.0%, **Third-person**: 63.0%
 - **Connectors per turn**: 2.19
-- **Top connectors**: because, thus, since, therefore, given that
+- **Top connectors**: thus, because, therefore, since, given that
 - **Self-corrections per trace**: 6.92
 
 ### Behavior
@@ -216,7 +218,6 @@ Uses connectors like because, thus, since
 
 ## Anti-Patterns
 
-- ❌ **Acting Without Scope** (81.0%) — Proceeding without confirming requirements
 - ❌ Formal section headers (## ACKNOWLEDGE, ## SCOPE, etc.) — Fable 5 never uses them
 - ❌ Using 'Oops' for self-correction — use 'Actually' or 'However' instead
 - ❌ Making changes without understanding context first

@@ -1,6 +1,6 @@
 ---
 name: fable-code
-description: Code like Fable 5 — Methodical, verified, and deeply informed by context. Distilled from real code-generation traces. Distilled from 6,835 real Fable 5 traces (code-skill subset) with data-driven precision.
+description: Code like Fable 5 — Methodical, verified, and deeply informed by context. Distilled from real code-generation traces. Distilled from 5000 real Fable 5 traces (3203 code-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/code_patterns.yaml
 ---
@@ -15,16 +15,16 @@ Use this skill whenever you need to write, edit, or create code.
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **50,000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The code-skill subset contains **6,835 traces** (13.7% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **5000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The code-skill subset contains **3203 traces** (64.1% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
-| Traces analyzed | 6,835 |
-| Distribution | 13.7% |
-| Avg classification confidence | 63.2% |
-| CoT present rate | 46.9% |
+| Traces analyzed | 3203 |
+| Distribution | 64.1% |
+| Avg classification confidence | 59.8% |
+| CoT present rate | 100.0% |
 | Avg CoT tokens | 413.8 |
-| Median CoT tokens | 373 |
+| Median CoT tokens | 373.0 |
 | Avg paragraphs | 7.3 |
 | Avg sentences | 17.1 |
 | Self-correction rate | 97.6% |
@@ -39,10 +39,10 @@ Fable 5 reasons in natural, flowing paragraphs. The code skill is characterized 
 
 - **Voice**: Third-person dominant (**First-person**: 34.2%, **Second-person**: 1.6%, **Third-person**: 64.2%)
 - **CoT availability**: Always present (100.0%)
-- **Self-correction**: 97.8% of traces contain corrections
+- **Self-correction**: 97.6% of traces contain corrections
 - **Hypothesis-driven**: 29.7% of traces use hypothesis testing
-- **Same-turn fix**: 16.6% involve mid-turn course correction
-- **Connectors**: 1.88 per turn — top: because, since, thus, therefore
+- **Same-turn fix**: 21.2% involve mid-turn course correction
+- **Connectors**: 2.05 per turn — top: thus, because, since, therefore
 
 ### Opener Words
 
@@ -51,11 +51,11 @@ Fable 5 reasons in natural, flowing paragraphs. The code skill is characterized 
 | Alright | 53.7% |
 | The | 16.4% |
 | Okay | 10.9% |
-| All | 3.5% |
 | I’ve | 9.9% |
-| I | 0.9% |
 | I need to | 3.9% |
-| I’m | 0.2% |
+| All | 3.5% |
+| I | 0.9% |
+| I've | 0.5% |
 
 ### Step Transition Matrix (Top Transitions)
 
@@ -65,14 +65,14 @@ Fable 5 reasons in natural, flowing paragraphs. The code skill is characterized 
 | VERIFY → PLAN | 14.2% |
 | PLAN → VERIFY | 12.0% |
 | ACKNOWLEDGE → VERIFY | 9.5% |
-| PLAN → EXECUTE | 5.5% |
 | PLAN → ACKNOWLEDGE | 7.3% |
-| EXECUTE → PLAN | 3.9% |
-| VERIFY → EXECUTE | 2.6% |
-| VERIFY → ACKNOWLEDGE | 3.4% |
+| PLAN → EXECUTE | 5.5% |
 | ACKNOWLEDGE → EXECUTE | 4.5% |
-| PLAN → SCOPE | 1.6% |
+| EXECUTE → PLAN | 3.9% |
+| VERIFY → ACKNOWLEDGE | 3.4% |
+| VERIFY → EXECUTE | 2.6% |
 | SCOPE → PLAN | 2.1% |
+| PLAN → SCOPE | 1.6% |
 
 ## The Natural Code Flow
 
@@ -91,7 +91,7 @@ Start with 'Alright' or 'Alright'
 Plan your approach step by step. PLAN transitions most frequently to VERIFY and EXECUTE.
 
 - Step coverage: 113.1%
-- Use connectors: because, since, thus
+- Use connectors: thus, because, since
 - Consider trade-offs inline
 
 ### 3. EXECUTE — Take Action
@@ -110,7 +110,7 @@ After actions, verify correctness.
 
 ### 5. ITERATE — Self-Correct
 
-Self-correction is near-universal (97.6%) — this is normal, not a failure.
+Self-correction is universal (97.6%) — this is normal, not a failure.
 
 - Avg 6.17 corrections per trace
 - 29.7% of traces are hypothesis-driven
@@ -168,7 +168,7 @@ After verification, Fable 5 often re-plans rather than continuing. This correcti
 
 ### Pattern: Common Openers
 
-Frequent utterance starters: Alright, The, Okay, All, I’ve
+Frequent utterance starters: Alright, The, Okay, I’ve, I need to
 
 **Frequency**: 100.0%
 
@@ -176,24 +176,24 @@ Frequent utterance starters: Alright, The, Okay, All, I’ve
 
 Frequently corrects reasoning mid-turn
 
-**Frequency**: 97.8%
+**Frequency**: 97.6%
 
 ### Pattern: Acknowledge Then Execute
 
 Always acknowledges context before acting
 
-**Frequency**: 97.0%
+**Frequency**: 90.9%
 
 ### Pattern: Reasoning Chaining
 
-Uses connectors like because, since, thus
+Uses connectors like thus, because, since
 
-**Frequency**: 37.6%
+**Frequency**: 41.1%
 
-## Key Statistics from 500 Traces (Code Subset)
+## Key Statistics from 5000 Traces (Code Subset)
 
 ### CoT Structure
-- **Avg tokens**: 413.8 (median: 373)
+- **Avg tokens**: 413.8 (median: 373.0)
 - **Avg paragraphs**: 7.3
 - **Avg sentences**: 17.1
 - **Avg characters**: 2720.1
@@ -202,14 +202,14 @@ Uses connectors like because, since, thus
 ### Reasoning Style
 - **Pronoun distribution**: **First-person**: 34.2%, **Second-person**: 1.6%, **Third-person**: 64.2%
 - **Connectors per turn**: 2.05
-- **Top connectors**: because, since, thus, therefore, given that
+- **Top connectors**: thus, because, since, therefore, given that
 - **Self-corrections per trace**: 6.17
 
 ### Behavior
 - **Hypothesis-driven**: 29.7%
 - **Multi-investigation rate**: 0.0%
 - **Same-turn fix rate**: 21.2%
-- **Step coverage**: ACK 97.0%, SCOPE 11.2%, GATHER 3.5%, PLAN 108.5%, EXECUTE 31.1%, VERIFY 62.7%
+- **Step coverage**: ACK 90.9%, SCOPE 9.4%, GATHER 4.2%, PLAN 113.1%, EXECUTE 28.1%, VERIFY 58.5%
 
 ## Anti-Patterns
 
