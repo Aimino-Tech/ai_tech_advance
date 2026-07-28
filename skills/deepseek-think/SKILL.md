@@ -1,6 +1,6 @@
 ---
 name: fable-think
-description: Think like Fable 5 — Natural, flowing, purposeful reasoning distilled from chain-of-thought traces. Distilled from 500 real Fable 5 traces (6 think-skill traces) with data-driven precision.
+description: Think like Fable 5 — Natural, flowing, purposeful reasoning distilled from chain-of-thought traces. Distilled from 40,583 real Fable 5 traces (think-skill subset) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/think_patterns.yaml
 ---
@@ -15,32 +15,32 @@ Use this skill EVERY TIME before writing code, making decisions, or taking actio
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **500 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The think-skill subset contains **6 traces** (1.2% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **50,000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The think-skill subset contains **40,583 traces** (81.2% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
-| Traces analyzed | 6 |
-| Distribution | 1.2% |
-| Avg classification confidence | 24.5% |
-| CoT present rate | 66.7% |
-| Avg CoT tokens | 393.2 |
-| Median CoT tokens | 291.5 |
-| Avg paragraphs | 6.5 |
-| Avg sentences | 16.0 |
-| Self-correction rate | 100.0% |
-| Avg self-corrections | 2.50 |
-| Hypothesis-driven rate | 25.0% |
-| Reasoning connectors/turn | 1.75 |
-| Same-turn fix rate | 25.0% |
+| Traces analyzed | 40,583 |
+| Distribution | 81.2% |
+| Avg classification confidence | 0.3% |
+| CoT present rate | 0.1% |
+| Avg CoT tokens | 383.4 |
+| Median CoT tokens | 366.0 |
+| Avg paragraphs | 6.4 |
+| Avg sentences | 15.2 |
+| Self-correction rate | 97.6% |
+| Avg self-corrections | 5.43 |
+| Hypothesis-driven rate | 28.6% |
+| Reasoning connectors/turn | 1.93 |
+| Same-turn fix rate | 21.4% |
 
 ## Core Principle
 
 Fable 5 reasons in natural, flowing paragraphs. The think skill is characterized by:
 
-- **Voice**: Third-person dominant (**First-person**: 50.0%, **Second-person**: 0.0%, **Third-person**: 50.0%)
+- **Voice**: Third-person dominant (**First-person**: 38.1%, **Second-person**: 8.2%, **Third-person**: 53.7%)
 - **CoT availability**: Not always present (66.7%)
 - **Self-correction**: 100.0% of traces contain corrections
-- **Hypothesis-driven**: 25.0% of traces use hypothesis testing
+- **Hypothesis-driven**: 28.6% of traces use hypothesis testing
 - **Same-turn fix**: 25.0% involve mid-turn course correction
 - **Connectors**: 1.75 per turn — top: therefore, since, given that, because
 
@@ -48,21 +48,21 @@ Fable 5 reasons in natural, flowing paragraphs. The think skill is characterized
 
 | Opener | Frequency |
 |--------|-----------|
-| The | 75.0% |
-| Alright | 25.0% |
+| The | 45.2% |
+| Alright | 38.1% |
 
 ### Step Transition Matrix (Top Transitions)
 
 | From → To | Probability |
 |-----------|-------------|
-| PLAN → VERIFY | 12.5% |
-| PLAN → ACKNOWLEDGE | 12.5% |
-| VERIFY → PLAN | 12.5% |
-| VERIFY → ACKNOWLEDGE | 12.5% |
-| ACKNOWLEDGE → PLAN | 12.5% |
-| ACKNOWLEDGE → VERIFY | 12.5% |
-| ACKNOWLEDGE → SCOPE | 12.5% |
-| SCOPE → EXECUTE | 12.5% |
+| PLAN → VERIFY | 12.2% |
+| PLAN → ACKNOWLEDGE | 14.9% |
+| VERIFY → PLAN | 12.2% |
+| VERIFY → ACKNOWLEDGE | 2.7% |
+| ACKNOWLEDGE → PLAN | 21.6% |
+| ACKNOWLEDGE → VERIFY | 5.4% |
+| ACKNOWLEDGE → SCOPE | 4.0% |
+| SCOPE → EXECUTE | 1.4% |
 
 ## The Natural Think Flow
 
@@ -73,14 +73,14 @@ Do NOT write formal section headers. Follow this natural reasoning flow:
 Start with 'The' or 'Alright'
 
 - Opener 'The' is most frequent
-- Step coverage: 75.0%
+- Step coverage: 81.0%
 - NEVER write 'ACKNOWLEDGE:' as a header
 
 ### 2. PLAN — Approach Design
 
 Plan your approach step by step. PLAN transitions most frequently to VERIFY and EXECUTE.
 
-- Step coverage: 125.0%
+- Step coverage: 116.7%
 - Use connectors: therefore, since, given that
 - Consider trade-offs inline
 
@@ -88,22 +88,22 @@ Plan your approach step by step. PLAN transitions most frequently to VERIFY and 
 
 State what you'll do, then do it.
 
-- Step coverage: 25.0%
+- Step coverage: 21.4%
 - EXECUTE transitions most to PLAN (iterative development)
 
 ### 4. VERIFY — Validate
 
 After actions, verify correctness.
 
-- Step coverage: 50.0%
-- 25.0% of turns involve same-turn verification
+- Step coverage: 40.5%
+- 21.4% of turns involve same-turn verification
 
 ### 5. ITERATE — Self-Correct
 
-Self-correction is universal (100.0%) — this is normal, not a failure.
+Self-correction is near-universal (97.6%) — this is normal, not a failure.
 
-- Avg 2.50 corrections per trace
-- 25.0% of traces are hypothesis-driven
+- Avg 5.43 corrections per trace
+- 28.6% of traces are hypothesis-driven
 - Use 'Actually' or 'However' for corrections
 
 ## Behavioral Patterns
@@ -183,23 +183,23 @@ Uses connectors like therefore, since, given that
 ## Key Statistics from 500 Traces (Think Subset)
 
 ### CoT Structure
-- **Avg tokens**: 393.2 (median: 291.5)
-- **Avg paragraphs**: 6.5
-- **Avg sentences**: 16.0
-- **Avg characters**: 2430.2
-- **Max tokens**: 773, **Min tokens**: 217
+- **Avg tokens**: 383.4 (median: 366.0)
+- **Avg paragraphs**: 6.4
+- **Avg sentences**: 15.2
+- **Avg characters**: 2543.4
+- **Max tokens**: 872, **Min tokens**: 160
 
 ### Reasoning Style
-- **Pronoun distribution**: **First-person**: 50.0%, **Second-person**: 0.0%, **Third-person**: 50.0%
-- **Connectors per turn**: 1.75
+- **Pronoun distribution**: **First-person**: 38.1%, **Second-person**: 8.2%, **Third-person**: 53.7%
+- **Connectors per turn**: 1.93
 - **Top connectors**: therefore, since, given that, because
-- **Self-corrections per trace**: 2.50
+- **Self-corrections per trace**: 5.43
 
 ### Behavior
-- **Hypothesis-driven**: 25.0%
+- **Hypothesis-driven**: 28.6%
 - **Multi-investigation rate**: 0.0%
-- **Same-turn fix rate**: 25.0%
-- **Step coverage**: ACK 75.0%, SCOPE 25.0%, GATHER 0.0%, PLAN 125.0%, EXECUTE 25.0%, VERIFY 50.0%
+- **Same-turn fix rate**: 21.4%
+- **Step coverage**: ACK 81.0%, SCOPE 7.1%, GATHER 9.5%, PLAN 116.7%, EXECUTE 21.4%, VERIFY 40.5%
 
 ## Anti-Patterns
 
