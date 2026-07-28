@@ -1,32 +1,38 @@
 skill: architect
-total_traces: 3
+total_traces: 80
 stats:
   cot:
-    total_traces: 3
-    cot_present: 3
+    total_traces: 80
+    cot_present: 80
     cot_rate: 1.0
-    avg_tokens: 299.67
-    avg_paragraphs: 4.33
-    avg_sentences: 13
-    avg_chars: 1884.33
-    median_tokens: 239
-    max_tokens: 532
-    min_tokens: 128
+    avg_tokens: 368.29
+    avg_paragraphs: 5.54
+    avg_sentences: 16.25
+    avg_chars: 2392.79
+    median_tokens: 296.0
+    max_tokens: 1351
+    min_tokens: 83
     opener_words:
-      The: 0.6667
-      Alright: 0.3333
-    pronoun_first_pct: 0.4118
-    pronoun_second_pct: 0.0
-    pronoun_third_pct: 0.5882
-    self_correction_rate: 0.6667
-    avg_self_corrections: 3.3333
-    reasoning_connectors_per_turn: 1.3333
+      The: 0.5375
+      Alright: 0.3125
+      I’ve: 0.075
+      Okay: 0.0375
+      I need to: 0.025
+      All: 0.0125
+    pronoun_first_pct: 0.4693
+    pronoun_second_pct: 0.0246
+    pronoun_third_pct: 0.5061
+    self_correction_rate: 0.925
+    avg_self_corrections: 5.975
+    reasoning_connectors_per_turn: 1.75
     top_connectors:
     - therefore
-    - since
     - thus
+    - since
+    - because
+    - hence
   tool_usage:
-    total_traces: 3
+    total_traces: 80
     traces_with_tools: 0
     tool_calls_per_trace:
       '0': 1.0
@@ -39,57 +45,79 @@ stats:
     avg_tool_calls: 0
     max_tool_calls: 0
   behaviors:
-    total_traces: 3
-    self_correction_rate: 0.6667
-    avg_self_corrections: 3.3333
-    hypothesis_driven_rate: 0.6667
-    avg_hypotheses: 2.3333
+    total_traces: 80
+    self_correction_rate: 0.925
+    avg_self_corrections: 5.9625
+    hypothesis_driven_rate: 0.425
+    avg_hypotheses: 0.6625
     multi_investigation_rate: 0.0
     step_coverage:
-      ACKNOWLEDGE: 0.3333
-      SCOPE: 0.0
-      GATHER: 0.0
-      PLAN: 1.0
-      EXECUTE: 0.0
-      VERIFY: 0.6667
+      ACKNOWLEDGE: 0.75
+      SCOPE: 0.0625
+      GATHER: 0.0125
+      PLAN: 1.1125
+      EXECUTE: 0.1375
+      VERIFY: 0.125
       ITERATE: 0.0
     step_transition_matrix:
       ACKNOWLEDGE:
-        PLAN: 0.3333
+        PLAN: 0.4082
+        EXECUTE: 0.0306
+        SCOPE: 0.0306
+        VERIFY: 0.0102
       PLAN:
-        VERIFY: 0.3333
+        ACKNOWLEDGE: 0.1837
+        VERIFY: 0.0816
+        EXECUTE: 0.0306
+        SCOPE: 0.0204
+      EXECUTE:
+        PLAN: 0.0714
+        ACKNOWLEDGE: 0.0102
       VERIFY:
-        PLAN: 0.3333
-    same_turn_fix_rate: 0.0
+        PLAN: 0.0306
+        EXECUTE: 0.0306
+        ACKNOWLEDGE: 0.0102
+      SCOPE:
+        PLAN: 0.0306
+        ACKNOWLEDGE: 0.0102
+      GATHER:
+        PLAN: 0.0102
+    same_turn_fix_rate: 0.05
 patterns:
 - name: common-openers
-  description: 'Frequent utterance starters: The, Alright'
+  description: 'Frequent utterance starters: The, Alright, I’ve, Okay, I need to'
   frequency: 1.0
 - name: self-correction
   description: Frequently corrects reasoning mid-turn
-  frequency: 0.6667
+  frequency: 0.925
 - name: hypothesis-driven-debugging
   description: Forms and tests hypotheses before fixing
-  frequency: 0.6667
+  frequency: 0.425
 - name: acknowledge-then-execute
   description: Always acknowledges context before acting
-  frequency: 0.3333
+  frequency: 0.75
 - name: reasoning-chaining
-  description: Uses connectors like therefore, since, thus
-  frequency: 0.2667
-anti_patterns: []
+  description: Uses connectors like therefore, thus, since
+  frequency: 0.35
+anti_patterns:
+- name: acting-without-scope
+  description: Proceeding without confirming requirements
+  frequency: 0.9375
+- name: no-verification
+  description: Completes work without verification step
+  frequency: 0.875
 steps:
 - name: ACKNOWLEDGE
-  frequency: 0.3333
+  frequency: 0.75
 - name: SCOPE
-  frequency: 0.0
+  frequency: 0.0625
 - name: GATHER
-  frequency: 0.0
+  frequency: 0.0125
 - name: PLAN
-  frequency: 1.0
+  frequency: 1.1125
 - name: EXECUTE
-  frequency: 0.0
+  frequency: 0.1375
 - name: VERIFY
-  frequency: 0.6667
+  frequency: 0.125
 - name: ITERATE
   frequency: 0.0

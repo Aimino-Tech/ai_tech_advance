@@ -1,77 +1,77 @@
 {
   "pipeline_version": "0.1.0",
   "dataset": "Crownelius/Complete-FABLE.5-traces-2M",
-  "total_traces": 500,
-  "max_samples": 500,
+  "total_traces": 5000,
+  "max_samples": 5000,
   "skill_distribution": {
     "think": {
-      "count": 6,
-      "fraction": 0.012,
-      "avg_confidence": 0.2446
+      "count": 592,
+      "fraction": 0.1184,
+      "avg_confidence": 0.0315
     },
     "code": {
-      "count": 367,
-      "fraction": 0.734,
-      "avg_confidence": 0.6369
+      "count": 3203,
+      "fraction": 0.6406,
+      "avg_confidence": 0.5983
     },
     "debug": {
-      "count": 21,
-      "fraction": 0.042,
-      "avg_confidence": 0.4561
+      "count": 190,
+      "fraction": 0.038,
+      "avg_confidence": 0.4434
     },
     "architect": {
-      "count": 3,
-      "fraction": 0.006,
-      "avg_confidence": 0.4507
+      "count": 80,
+      "fraction": 0.016,
+      "avg_confidence": 0.4886
     },
     "verify": {
-      "count": 103,
-      "fraction": 0.206,
-      "avg_confidence": 0.5202
+      "count": 935,
+      "fraction": 0.187,
+      "avg_confidence": 0.4869
     }
   },
   "per_skill": {
     "think": {
-      "trace_count": 6,
-      "cot_rate": 0.6667,
-      "avg_tokens": 393.25,
-      "self_correction_rate": 1.0,
+      "trace_count": 592,
+      "cot_rate": 0.0709,
+      "avg_tokens": 383.45,
+      "self_correction_rate": 0.9762,
       "avg_tool_calls": 0,
       "read_before_edit_rate": 0.0,
       "verify_after_action_rate": 0.0
     },
     "code": {
-      "trace_count": 367,
+      "trace_count": 3203,
       "cot_rate": 1.0,
-      "avg_tokens": 417.53,
-      "self_correction_rate": 0.9782,
+      "avg_tokens": 413.82,
+      "self_correction_rate": 0.9756,
       "avg_tool_calls": 0,
       "read_before_edit_rate": 0.0,
       "verify_after_action_rate": 0.0
     },
     "debug": {
-      "trace_count": 21,
+      "trace_count": 190,
       "cot_rate": 1.0,
-      "avg_tokens": 387.76,
-      "self_correction_rate": 1.0,
+      "avg_tokens": 402.85,
+      "self_correction_rate": 0.9947,
       "avg_tool_calls": 0,
       "read_before_edit_rate": 0.0,
       "verify_after_action_rate": 0.0
     },
     "architect": {
-      "trace_count": 3,
+      "trace_count": 80,
       "cot_rate": 1.0,
-      "avg_tokens": 299.67,
-      "self_correction_rate": 0.6667,
+      "avg_tokens": 368.29,
+      "self_correction_rate": 0.925,
       "avg_tool_calls": 0,
       "read_before_edit_rate": 0.0,
       "verify_after_action_rate": 0.0
     },
     "verify": {
-      "trace_count": 103,
+      "trace_count": 935,
       "cot_rate": 1.0,
-      "avg_tokens": 417.72,
-      "self_correction_rate": 1.0,
+      "avg_tokens": 391.01,
+      "self_correction_rate": 0.9872,
       "avg_tool_calls": 0,
       "read_before_edit_rate": 0.0,
       "verify_after_action_rate": 0.0

@@ -1,33 +1,37 @@
 skill: think
-total_traces: 6
+total_traces: 592
 stats:
   cot:
-    total_traces: 6
-    cot_present: 4
-    cot_rate: 0.6667
-    avg_tokens: 393.25
-    avg_paragraphs: 6.5
-    avg_sentences: 16
-    avg_chars: 2430.25
-    median_tokens: 291.5
-    max_tokens: 773
-    min_tokens: 217
+    total_traces: 592
+    cot_present: 42
+    cot_rate: 0.0709
+    avg_tokens: 383.45
+    avg_paragraphs: 6.38
+    avg_sentences: 15.21
+    avg_chars: 2543.4
+    median_tokens: 366.0
+    max_tokens: 872
+    min_tokens: 160
     opener_words:
-      The: 0.75
-      Alright: 0.25
-    pronoun_first_pct: 0.5
-    pronoun_second_pct: 0.0
-    pronoun_third_pct: 0.5
-    self_correction_rate: 1.0
-    avg_self_corrections: 2.5
-    reasoning_connectors_per_turn: 1.75
+      The: 0.4524
+      Alright: 0.381
+      Okay: 0.0714
+      I need to: 0.0476
+      I’ve: 0.0476
+    pronoun_first_pct: 0.381
+    pronoun_second_pct: 0.0823
+    pronoun_third_pct: 0.5368
+    self_correction_rate: 0.9762
+    avg_self_corrections: 5.4524
+    reasoning_connectors_per_turn: 1.9286
     top_connectors:
+    - thus
+    - because
     - therefore
     - since
     - given that
-    - because
   tool_usage:
-    total_traces: 6
+    total_traces: 592
     traces_with_tools: 0
     tool_calls_per_trace:
       '0': 1.0
@@ -40,60 +44,73 @@ stats:
     avg_tool_calls: 0
     max_tool_calls: 0
   behaviors:
-    total_traces: 6
-    self_correction_rate: 1.0
-    avg_self_corrections: 2.5
-    hypothesis_driven_rate: 0.25
-    avg_hypotheses: 0.5
+    total_traces: 592
+    self_correction_rate: 0.9762
+    avg_self_corrections: 5.4286
+    hypothesis_driven_rate: 0.2857
+    avg_hypotheses: 0.381
     multi_investigation_rate: 0.0
     step_coverage:
-      ACKNOWLEDGE: 0.75
-      SCOPE: 0.25
-      GATHER: 0.0
-      PLAN: 1.25
-      EXECUTE: 0.25
-      VERIFY: 0.5
+      ACKNOWLEDGE: 0.8095
+      SCOPE: 0.0714
+      GATHER: 0.0952
+      PLAN: 1.1667
+      EXECUTE: 0.2143
+      VERIFY: 0.4048
       ITERATE: 0.0
     step_transition_matrix:
-      PLAN:
-        VERIFY: 0.125
-        ACKNOWLEDGE: 0.125
-      VERIFY:
-        PLAN: 0.125
-        ACKNOWLEDGE: 0.125
       ACKNOWLEDGE:
-        PLAN: 0.125
-        VERIFY: 0.125
-        SCOPE: 0.125
+        PLAN: 0.2162
+        VERIFY: 0.0541
+        SCOPE: 0.0405
+        EXECUTE: 0.0405
+        GATHER: 0.0135
+      PLAN:
+        ACKNOWLEDGE: 0.1486
+        VERIFY: 0.1216
+        EXECUTE: 0.0676
+      VERIFY:
+        PLAN: 0.1216
+        ACKNOWLEDGE: 0.027
+      EXECUTE:
+        PLAN: 0.0405
+        VERIFY: 0.027
+      GATHER:
+        ACKNOWLEDGE: 0.0405
+        VERIFY: 0.0135
       SCOPE:
-        EXECUTE: 0.125
-    same_turn_fix_rate: 0.25
+        EXECUTE: 0.0135
+        PLAN: 0.0135
+    same_turn_fix_rate: 0.2143
 patterns:
 - name: common-openers
-  description: 'Frequent utterance starters: The, Alright'
-  frequency: 0.6667
+  description: 'Frequent utterance starters: The, Alright, Okay, I need to, I’ve'
+  frequency: 0.0709
 - name: self-correction
   description: Frequently corrects reasoning mid-turn
-  frequency: 1.0
+  frequency: 0.9762
 - name: acknowledge-then-execute
   description: Always acknowledges context before acting
-  frequency: 0.75
+  frequency: 0.8095
 - name: reasoning-chaining
-  description: Uses connectors like therefore, since, given that
-  frequency: 0.35
-anti_patterns: []
+  description: Uses connectors like thus, because, therefore
+  frequency: 0.3857
+anti_patterns:
+- name: acting-without-scope
+  description: Proceeding without confirming requirements
+  frequency: 0.9286
 steps:
 - name: ACKNOWLEDGE
-  frequency: 0.75
+  frequency: 0.8095
 - name: SCOPE
-  frequency: 0.25
+  frequency: 0.0714
 - name: GATHER
-  frequency: 0.0
+  frequency: 0.0952
 - name: PLAN
-  frequency: 1.25
+  frequency: 1.1667
 - name: EXECUTE
-  frequency: 0.25
+  frequency: 0.2143
 - name: VERIFY
-  frequency: 0.5
+  frequency: 0.4048
 - name: ITERATE
   frequency: 0.0

@@ -1,41 +1,41 @@
 skill: code
-total_traces: 367
+total_traces: 3203
 stats:
   cot:
-    total_traces: 367
-    cot_present: 367
+    total_traces: 3203
+    cot_present: 3203
     cot_rate: 1.0
-    avg_tokens: 417.53
-    avg_paragraphs: 7.79
-    avg_sentences: 16.91
-    avg_chars: 2674.68
-    median_tokens: 378
-    max_tokens: 950
-    min_tokens: 139
+    avg_tokens: 413.82
+    avg_paragraphs: 7.32
+    avg_sentences: 17.08
+    avg_chars: 2720.07
+    median_tokens: 373
+    max_tokens: 1402
+    min_tokens: 55
     opener_words:
-      Alright: 0.6131
-      The: 0.1689
-      Okay: 0.0954
-      All: 0.0599
-      I’ve: 0.0354
-      I: 0.0109
-      I need to: 0.0082
-      I’m: 0.0054
-      I've: 0.0027
-    pronoun_first_pct: 0.333
-    pronoun_second_pct: 0.0037
-    pronoun_third_pct: 0.6633
-    self_correction_rate: 0.9782
-    avg_self_corrections: 5.8992
-    reasoning_connectors_per_turn: 1.8801
+      Alright: 0.537
+      The: 0.1645
+      Okay: 0.1086
+      I’ve: 0.099
+      I need to: 0.0393
+      All: 0.0353
+      I: 0.0087
+      I've: 0.005
+      I’m: 0.0025
+    pronoun_first_pct: 0.3419
+    pronoun_second_pct: 0.0163
+    pronoun_third_pct: 0.6418
+    self_correction_rate: 0.9756
+    avg_self_corrections: 6.1714
+    reasoning_connectors_per_turn: 2.0534
     top_connectors:
+    - thus
     - because
     - since
-    - thus
     - therefore
     - given that
   tool_usage:
-    total_traces: 367
+    total_traces: 3203
     traces_with_tools: 0
     tool_calls_per_trace:
       '0': 1.0
@@ -48,89 +48,97 @@ stats:
     avg_tool_calls: 0
     max_tool_calls: 0
   behaviors:
-    total_traces: 367
-    self_correction_rate: 0.9782
-    avg_self_corrections: 5.8992
-    hypothesis_driven_rate: 0.2725
-    avg_hypotheses: 0.436
+    total_traces: 3203
+    self_correction_rate: 0.9756
+    avg_self_corrections: 6.1714
+    hypothesis_driven_rate: 0.2966
+    avg_hypotheses: 0.4746
     multi_investigation_rate: 0.0
     step_coverage:
-      ACKNOWLEDGE: 0.97
-      SCOPE: 0.1117
-      GATHER: 0.0354
-      PLAN: 1.0845
-      EXECUTE: 0.3106
-      VERIFY: 0.6267
-      ITERATE: 0.0054
+      ACKNOWLEDGE: 0.9091
+      SCOPE: 0.0943
+      GATHER: 0.0421
+      PLAN: 1.1305
+      EXECUTE: 0.2813
+      VERIFY: 0.5848
+      ITERATE: 0.0047
     step_transition_matrix:
       ACKNOWLEDGE:
-        PLAN: 0.2405
-        VERIFY: 0.1127
-        EXECUTE: 0.0304
-        SCOPE: 0.0127
-        GATHER: 0.0038
-        ITERATE: 0.0025
+        PLAN: 0.237
+        VERIFY: 0.0951
+        EXECUTE: 0.0452
+        SCOPE: 0.0113
+        GATHER: 0.0061
+        ITERATE: 0.0011
       VERIFY:
-        PLAN: 0.1342
-        EXECUTE: 0.0354
-        ACKNOWLEDGE: 0.0342
-        SCOPE: 0.0076
-        GATHER: 0.0038
+        PLAN: 0.142
+        ACKNOWLEDGE: 0.0341
+        EXECUTE: 0.0256
+        SCOPE: 0.007
+        GATHER: 0.003
+        ITERATE: 0.0002
       PLAN:
-        VERIFY: 0.1291
-        EXECUTE: 0.062
-        ACKNOWLEDGE: 0.0582
-        SCOPE: 0.0228
-        GATHER: 0.0063
+        VERIFY: 0.1199
+        ACKNOWLEDGE: 0.0735
+        EXECUTE: 0.0545
+        SCOPE: 0.0164
+        GATHER: 0.007
+        ITERATE: 0.0003
       EXECUTE:
-        PLAN: 0.038
-        ACKNOWLEDGE: 0.0089
-        VERIFY: 0.0063
-        SCOPE: 0.0013
+        PLAN: 0.0387
+        VERIFY: 0.0154
+        ACKNOWLEDGE: 0.0116
+        SCOPE: 0.0018
+        GATHER: 0.0003
+        ITERATE: 0.0002
       SCOPE:
-        PLAN: 0.0177
-        VERIFY: 0.0063
-        ACKNOWLEDGE: 0.0063
-        EXECUTE: 0.0051
+        PLAN: 0.0209
+        VERIFY: 0.0062
+        ACKNOWLEDGE: 0.0047
+        EXECUTE: 0.0029
+        GATHER: 0.0006
       GATHER:
-        PLAN: 0.0063
-        ACKNOWLEDGE: 0.0013
-        SCOPE: 0.0013
-        VERIFY: 0.0013
-        EXECUTE: 0.0013
+        PLAN: 0.0107
+        ACKNOWLEDGE: 0.0021
+        VERIFY: 0.002
+        EXECUTE: 0.0006
+        SCOPE: 0.0003
       ITERATE:
-        PLAN: 0.0013
-        EXECUTE: 0.0013
-    same_turn_fix_rate: 0.1662
+        PLAN: 0.0009
+        ACKNOWLEDGE: 0.0005
+        EXECUTE: 0.0002
+        SCOPE: 0.0002
+        VERIFY: 0.0002
+    same_turn_fix_rate: 0.212
 patterns:
 - name: common-openers
-  description: 'Frequent utterance starters: Alright, The, Okay, All, I’ve'
+  description: 'Frequent utterance starters: Alright, The, Okay, I’ve, I need to'
   frequency: 1.0
 - name: self-correction
   description: Frequently corrects reasoning mid-turn
-  frequency: 0.9782
+  frequency: 0.9756
 - name: acknowledge-then-execute
   description: Always acknowledges context before acting
-  frequency: 0.97
+  frequency: 0.9091
 - name: reasoning-chaining
-  description: Uses connectors like because, since, thus
-  frequency: 0.376
+  description: Uses connectors like thus, because, since
+  frequency: 0.4107
 anti_patterns:
 - name: acting-without-scope
   description: Proceeding without confirming requirements
-  frequency: 0.8883
+  frequency: 0.9057
 steps:
 - name: ACKNOWLEDGE
-  frequency: 0.97
+  frequency: 0.9091
 - name: SCOPE
-  frequency: 0.1117
+  frequency: 0.0943
 - name: GATHER
-  frequency: 0.0354
+  frequency: 0.0421
 - name: PLAN
-  frequency: 1.0845
+  frequency: 1.1305
 - name: EXECUTE
-  frequency: 0.3106
+  frequency: 0.2813
 - name: VERIFY
-  frequency: 0.6267
+  frequency: 0.5848
 - name: ITERATE
-  frequency: 0.0054
+  frequency: 0.0047
