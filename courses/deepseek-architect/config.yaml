@@ -1,0 +1,5 @@
+course: deepseek-architect
+title: DeepSeek Architecture & Design
+difficulty: standard
+scenario_count: 10
+languages: [python, typescript, go, sql, docker, shell]

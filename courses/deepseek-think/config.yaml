@@ -1,0 +1,5 @@
+course: deepseek-think
+title: DeepSeek Reasoning & Analysis
+difficulty: standard
+scenario_count: 10
+languages: [python, typescript, go, sql, shell]

@@ -1,0 +1,5 @@
+course: deepseek-verify
+title: DeepSeek Verification & Testing
+difficulty: standard
+scenario_count: 10
+languages: [python, typescript, go, rust, sql, shell]

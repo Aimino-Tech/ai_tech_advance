@@ -1,0 +1,5 @@
+course: deepseek-debug
+title: DeepSeek Debugging & Root Cause Analysis
+difficulty: standard
+scenario_count: 10
+languages: [python, typescript, go, rust, sql, javascript]
