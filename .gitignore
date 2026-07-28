@@ -26,3 +26,6 @@ build/
 
 # dojo.md
 .dojo/
+
+# Benchmark generated HTML reports
+benchmark/results/
