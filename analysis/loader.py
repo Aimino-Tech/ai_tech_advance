@@ -16,22 +16,12 @@ from analysis.config import (
     AnalysisConfig,
 )
 
-# ── Trace type ───────────────────────────────────────────────────
-
 TraceDict = Dict[str, Any]
-"""A single parsed trace with fields: uid, source_file, session, model,
-context, cot, output_type, output, completion, origin."""
-
-# ── Dataset loading ──────────────────────────────────────────────
 
 
 def get_dataset_info(name: str) -> dict[str, Any]:
-    """Check if a dataset exists and return its metadata.
-
-    Raises RuntimeError if the dataset is not accessible.
-    """
     try:
-        builder = load_dataset_builder(name, trust_remote_code=True)
+        builder = load_dataset_builder(name)
         return {
             "name": name,
             "configs": builder.configs,
@@ -46,13 +36,23 @@ def get_dataset_info(name: str) -> dict[str, Any]:
 def load_dataset_simple(
     config: AnalysisConfig,
 ) -> Iterator[Dataset | IterableDataset]:
-    """Load dataset from HuggingFace with streaming.
-
-    Returns an iterator over batched Dataset slices (each of size
-    config.batch_size). Uses streaming to avoid loading the full
-    2M-row dataset into memory.
-    """
+    import time as _time
+    start = _time.time()
     dataset_name = config.resolve_dataset()
+
+    try:
+        ds = load_dataset(
+            dataset_name,
+            split="train",
+            streaming=False,
+            cache_dir=config.cache_dir,
+        )
+        elapsed_s = _time.time() - start
+        import rich
+        rich.print(f"[dim]Dataset loaded: {len(ds)} rows in {elapsed_s:.0f}s (non-streaming)[/]")
+        return _iter_batches_nonstreaming(ds, config)
+    except Exception:
+        pass
 
     try:
         ds = load_dataset(
@@ -60,7 +60,6 @@ def load_dataset_simple(
             split="train",
             streaming=True,
             cache_dir=config.cache_dir,
-            trust_remote_code=True,
         )
     except Exception as exc:
         if config.fallback and dataset_name != FALLBACK_DATASET:
@@ -69,43 +68,49 @@ def load_dataset_simple(
             f"Failed to load dataset '{dataset_name}': {exc}"
         ) from exc
 
-    return _iter_batches(ds, config)
+    return _iter_batches_streaming(ds, config)
 
 
 def _try_fallback(
     config: AnalysisConfig,
 ) -> Iterator[Dataset | IterableDataset]:
-    """Attempt to load from the fallback dataset."""
     try:
         ds = load_dataset(
             FALLBACK_DATASET,
             split="train",
             streaming=True,
             cache_dir=config.cache_dir,
-            trust_remote_code=True,
         )
-        return _iter_batches(ds, config)
+        return _iter_batches_streaming(ds, config)
     except Exception as exc:
         raise RuntimeError(
             f"Primary and fallback datasets unavailable: {exc}"
         ) from exc
 
 
-def _iter_batches(
+def _iter_batches_nonstreaming(
+    ds: Dataset,
+    config: AnalysisConfig,
+) -> Generator[Dataset, None, None]:
+    total = len(ds)
+    n = min(total, config.max_samples) if config.max_samples > 0 else total
+    for i in range(0, n, config.batch_size):
+        end = min(i + config.batch_size, n)
+        yield ds.select(range(i, end))
+
+
+def _iter_batches_streaming(
     ds: IterableDataset,
     config: AnalysisConfig,
 ) -> Generator[Dataset, None, None]:
-    """Yield rows from iterable dataset in batches of batch_size."""
+    from datasets import Dataset as BatchDataset
     batch: list[dict[str, Any]] = []
     count = 0
 
     for row in ds:
-        batch.append(row)  # type: ignore[arg-type]
+        batch.append(row)
         if len(batch) >= config.batch_size:
-            # Build a temporary Dataset slice
-            from datasets import Dataset as BatchDataset  # noqa: PLC0415
-
-            yield BatchDataset.from_list(batch)  # type: ignore[no-untyped-call]
+            yield BatchDataset.from_list(batch)
             batch.clear()
             count += config.batch_size
 
@@ -113,31 +118,16 @@ def _iter_batches(
             break
 
     if batch:
-        from datasets import Dataset as BatchDataset  # noqa: PLC0415
-
-        yield BatchDataset.from_list(batch)  # type: ignore[no-untyped-call]
-
-
-# ── Trace extraction ─────────────────────────────────────────────
+        yield BatchDataset.from_list(batch)
 
 
 def extract_trace(row: dict[str, Any], is_wrapper: bool) -> TraceDict | None:
-    """Extract a parsed trace dict from a single row.
-
-    Handles both wrapper format (Crownelius) where trace data is
-    a JSON string in the ``row_json`` column, and raw format
-    (Glint-Research) where fields are direct columns.
-
-    Returns None if the row cannot be parsed (malformed JSON, missing
-    required fields).
-    """
     if is_wrapper:
         return _extract_wrapper(row)
     return _extract_raw(row)
 
 
 def _extract_wrapper(row: dict[str, Any]) -> TraceDict | None:
-    """Parse a wrapper-format row (Crownelius)."""
     raw_json = row.get("row_json")
     if not raw_json:
         return None
@@ -152,23 +142,16 @@ def _extract_wrapper(row: dict[str, Any]) -> TraceDict | None:
     else:
         return None
 
-    # Normalize field names — row_json may use different casing
     return _normalize_trace(parsed)
 
 
 def _extract_raw(row: dict[str, Any]) -> TraceDict | None:
-    """Parse a raw-format row (Glint-Research)."""
     return _normalize_trace(row)
 
 
 def _normalize_trace(data: dict[str, Any]) -> TraceDict | None:
-    """Map various field name conventions to canonical names.
-
-    The row_json field may have keys like 'cot', 'CoT', 'chain_of_thought',
-    'context', 'Context', 'instruction', etc.
-    """
     aliases: dict[str, list[str]] = {
-        "uid": ["uid", "id", "trace_id", "ID"],
+        "uid": ["uid", "id", "trace_id", "ID", "leafUuid", "leaf_uuid"],
         "source_file": ["source_file", "source", "file"],
         "session": ["session", "session_id", "Session"],
         "model": ["model", "Model", "model_name", "model_id"],
@@ -224,37 +207,22 @@ def _normalize_trace(data: dict[str, Any]) -> TraceDict | None:
                 result[canonical] = data[key]
                 break
 
-    # Ensure cot exists (even if empty)
     if "cot" not in result:
         result["cot"] = ""
 
-    return result
-
-
-# ── Generator API ────────────────────────────────────────────────
+    return result if result.get("uid") or result.get("cot") is not None else None
 
 
 def iter_traces(
     config: AnalysisConfig | None = None,
 ) -> Generator[TraceDict, None, None]:
-    """Generator that yields parsed trace dicts one at a time.
-
-    Handles both wrapper and raw formats automatically based on the
-    dataset configured. Uses streaming to avoid loading the full
-    dataset into memory.
-
-    Usage::
-
-        for trace in iter_traces():
-            print(trace["cot"][:100])
-    """
     cfg = config or AnalysisConfig()
     is_wrapper = cfg.is_wrapper_format
     count = 0
 
     for batch in load_dataset_simple(cfg):
-        for row in batch:  # type: ignore[union-attr]
-            trace = extract_trace(row, is_wrapper)  # type: ignore[arg-type]
+        for row in batch:
+            trace = extract_trace(row, is_wrapper)
             if trace is not None:
                 yield trace
                 count += 1
@@ -264,10 +232,6 @@ def iter_traces(
 
 
 def count_traces(config: AnalysisConfig | None = None) -> int:
-    """Count available traces in the dataset (up to max_samples).
-
-    Runs as a lightweight pass without storing results.
-    """
     count = 0
     for _ in iter_traces(config):
         count += 1
