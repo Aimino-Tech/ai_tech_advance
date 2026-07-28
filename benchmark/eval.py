@@ -17,7 +17,7 @@ from benchmark.models import Scenario, ScenarioResult
 from benchmark.runner import AgentHarness, AgentError
 
 _DB_DIR: Final = Path(__file__).resolve().parent / "db"
-_DB_PATH: Final = _DB_DIR / "dojo.db"
+_DB_PATH: Final = Path(os.environ.get("DOJO_DB", str(_DB_DIR / "dojo.db")))
 _COURSES_DIR: Final = Path(__file__).resolve().parent.parent / "courses"
 _SCHEMA_PATH: Final = Path(__file__).resolve().parent / "schema.sql"
 
