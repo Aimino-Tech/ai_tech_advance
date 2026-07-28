@@ -1,0 +1,98 @@
+skill: code
+total_traces: 3
+stats:
+  cot:
+    total_traces: 3
+    cot_present: 3
+    cot_rate: 1.0
+    avg_tokens: 323.33
+    avg_paragraphs: 6
+    avg_sentences: 12.67
+    avg_chars: 2049.33
+    median_tokens: 308
+    max_tokens: 376
+    min_tokens: 286
+    opener_words:
+      Alright: 0.6667
+      Okay: 0.3333
+    pronoun_first_pct: 0.5882
+    pronoun_second_pct: 0.0
+    pronoun_third_pct: 0.4118
+    self_correction_rate: 1.0
+    avg_self_corrections: 5.6667
+    reasoning_connectors_per_turn: 2.0
+    top_connectors:
+    - since
+    - therefore
+    - because
+    - thus
+  tool_usage:
+    total_traces: 3
+    traces_with_tools: 0
+    tool_calls_per_trace:
+      '0': 1.0
+    tool_type_frequency: {}
+    top_tool_calls: []
+    transition_matrix: {}
+    read_before_edit_rate: 0.0
+    verify_after_action_rate: 0.0
+    tool_to_text_ratio: 0.0
+    avg_tool_calls: 0
+    max_tool_calls: 0
+  behaviors:
+    total_traces: 3
+    self_correction_rate: 1.0
+    avg_self_corrections: 5.6667
+    hypothesis_driven_rate: 1.0
+    avg_hypotheses: 1.6667
+    multi_investigation_rate: 0.0
+    step_coverage:
+      ACKNOWLEDGE: 1.0
+      SCOPE: 0.0
+      GATHER: 0.0
+      PLAN: 1.0
+      EXECUTE: 0.0
+      VERIFY: 0.0
+      ITERATE: 0.0
+    step_transition_matrix:
+      ACKNOWLEDGE:
+        PLAN: 1.0
+    same_turn_fix_rate: 0.0
+patterns:
+- name: common-openers
+  description: 'Frequent utterance starters: Alright, Okay'
+  frequency: 1.0
+- name: self-correction
+  description: Frequently corrects reasoning mid-turn
+  frequency: 1.0
+- name: hypothesis-driven-debugging
+  description: Forms and tests hypotheses before fixing
+  frequency: 1.0
+- name: acknowledge-then-execute
+  description: Always acknowledges context before acting
+  frequency: 1.0
+- name: reasoning-chaining
+  description: Uses connectors like since, therefore, because
+  frequency: 0.4
+anti_patterns:
+- name: acting-without-scope
+  description: Proceeding without confirming requirements
+  frequency: 1.0
+- name: no-verification
+  description: Completes work without verification step
+  frequency: 1.0
+steps:
+- name: ACKNOWLEDGE
+  frequency: 1.0
+- name: SCOPE
+  frequency: 0.0
+- name: GATHER
+  frequency: 0.0
+- name: PLAN
+  frequency: 1.0
+- name: EXECUTE
+  frequency: 0.0
+- name: VERIFY
+  frequency: 0.0
+- name: ITERATE
+  frequency: 0.0

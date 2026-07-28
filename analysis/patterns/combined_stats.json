@@ -1,0 +1,80 @@
+{
+  "pipeline_version": "0.1.0",
+  "dataset": "Crownelius/Complete-FABLE.5-traces-2M",
+  "total_traces": 5,
+  "max_samples": 5,
+  "skill_distribution": {
+    "think": {
+      "count": 2,
+      "fraction": 0.4,
+      "avg_confidence": 0.0
+    },
+    "code": {
+      "count": 3,
+      "fraction": 0.6,
+      "avg_confidence": 0.4074
+    },
+    "debug": {
+      "count": 0,
+      "fraction": 0.0,
+      "avg_confidence": 0.0
+    },
+    "architect": {
+      "count": 0,
+      "fraction": 0.0,
+      "avg_confidence": 0.0
+    },
+    "verify": {
+      "count": 0,
+      "fraction": 0.0,
+      "avg_confidence": 0.0
+    }
+  },
+  "per_skill": {
+    "think": {
+      "trace_count": 2,
+      "cot_rate": 0.0,
+      "avg_tokens": 0.0,
+      "self_correction_rate": 0.0,
+      "avg_tool_calls": 0,
+      "read_before_edit_rate": 0.0,
+      "verify_after_action_rate": 0.0
+    },
+    "code": {
+      "trace_count": 3,
+      "cot_rate": 1.0,
+      "avg_tokens": 323.33,
+      "self_correction_rate": 1.0,
+      "avg_tool_calls": 0,
+      "read_before_edit_rate": 0.0,
+      "verify_after_action_rate": 0.0
+    },
+    "debug": {
+      "trace_count": 0,
+      "cot_rate": 0,
+      "avg_tokens": 0,
+      "self_correction_rate": 0,
+      "avg_tool_calls": 0,
+      "read_before_edit_rate": 0,
+      "verify_after_action_rate": 0
+    },
+    "architect": {
+      "trace_count": 0,
+      "cot_rate": 0,
+      "avg_tokens": 0,
+      "self_correction_rate": 0,
+      "avg_tool_calls": 0,
+      "read_before_edit_rate": 0,
+      "verify_after_action_rate": 0
+    },
+    "verify": {
+      "trace_count": 0,
+      "cot_rate": 0,
+      "avg_tokens": 0,
+      "self_correction_rate": 0,
+      "avg_tool_calls": 0,
+      "read_before_edit_rate": 0,
+      "verify_after_action_rate": 0
+    }
+  }
+}

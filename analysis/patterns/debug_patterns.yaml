@@ -1,0 +1,9 @@
+skill: debug
+total_traces: 0
+stats:
+  cot: {}
+  tool_usage: {}
+  behaviors: {}
+patterns: []
+anti_patterns: []
+steps: []
