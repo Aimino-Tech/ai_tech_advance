@@ -1,0 +1,4 @@
+Error: Scenario at index 3 has invalid data: 1 validation error for Scenario
+expected_behaviors.1
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.13/v/string_type
