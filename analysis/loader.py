@@ -31,7 +31,7 @@ def get_dataset_info(name: str) -> dict[str, Any]:
     Raises RuntimeError if the dataset is not accessible.
     """
     try:
-        builder = load_dataset_builder(name, trust_remote_code=True)
+        builder = load_dataset_builder(name)
         return {
             "name": name,
             "configs": builder.configs,
@@ -60,7 +60,6 @@ def load_dataset_simple(
             split="train",
             streaming=True,
             cache_dir=config.cache_dir,
-            trust_remote_code=True,
         )
     except Exception as exc:
         if config.fallback and dataset_name != FALLBACK_DATASET:
@@ -82,7 +81,6 @@ def _try_fallback(
             split="train",
             streaming=True,
             cache_dir=config.cache_dir,
-            trust_remote_code=True,
         )
         return _iter_batches(ds, config)
     except Exception as exc:
