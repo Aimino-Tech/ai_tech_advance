@@ -19,6 +19,7 @@ ENV_CACHE_DIR: Final = "DOJO_CACHE_DIR"
 _DEFAULT_MODEL: Final = "deepseek-v4-flash"
 _DEFAULT_BASE: Final = "https://api.deepseek.com/v1"
 _DEFAULT_TIMEOUT: Final = 120.0
+_MAX_CONNECTIONS: Final = 50  # allow 50 concurrent connections for parallel eval
 
 
 def _get_env(key: str, default: str) -> str:
@@ -100,9 +101,11 @@ class AgentHarness:
 
     async def _get_client(self) -> httpx.AsyncClient:
         if self._client is None:
+            limits = httpx.Limits(max_connections=_MAX_CONNECTIONS)
             self._client = httpx.AsyncClient(
                 base_url=self.api_base,
                 timeout=httpx.Timeout(self.timeout),
+                limits=limits,
                 headers={
                     "Authorization": f"Bearer {self.api_key}",
                     "Content-Type": "application/json",

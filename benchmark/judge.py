@@ -11,7 +11,7 @@ ENV_API_KEY: Final = "DOJO_API_KEY"
 ENV_JUDGE_MODE: Final = "DOJO_JUDGE_MODE"
 
 _DEFAULT_JUDGE_MODEL: Final = "deepseek-v4-flash"
-_DEFAULT_JUDGE_MODE: Final = "simple"
+_DEFAULT_JUDGE_MODE: Final = "llm"
 
 
 class _JudgeMode(StrEnum):
@@ -122,24 +122,27 @@ class JudgeModel:
         """Build the prompt for the LLM judge."""
         criteria_bullets = "\n".join(f"- {c}" for c in scenario.judge_criteria)
         expected_bullets = "\n".join(f"- {b}" for b in scenario.expected_behaviors)
-
-        return f"""Scenario: {scenario.name}
-Description: {scenario.description}
-
-Expected Behaviors:
-{expected_bullets}
-
-Judge Criteria:
-{criteria_bullets}
-
-Maximum Score: {scenario.max_score}
-
---- Model Output ---
-{output}
---- End Output ---
-
-Evaluate this output against the criteria and expected behaviors.
-Return JSON: {"passed": true/false, "score": <0.0-{scenario.max_score}>, "feedback": "explanation"}"""
+        max_score = scenario.max_score
+        lines = [
+            f"Scenario: {scenario.name}",
+            f"Description: {scenario.description}",
+            "",
+            "Expected Behaviors:",
+            expected_bullets,
+            "",
+            "Judge Criteria:",
+            criteria_bullets,
+            "",
+            f"Maximum Score: {max_score}",
+            "",
+            "--- Model Output ---",
+            output,
+            "--- End Output ---",
+            "",
+            "Evaluate this output against the criteria and expected behaviors.",
+            f'Return JSON: {{"passed": true/false, "score": <0.0-{max_score}>, "feedback": "explanation"}}',
+        ]
+        return "\n".join(lines)
 
     def _parse_judge_response(self, raw: str) -> dict:
         """Parse JSON response from the LLM judge."""

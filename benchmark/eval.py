@@ -1,5 +1,6 @@
 """CLI for running evaluation courses and inspecting results."""
 
+import asyncio
 import json
 import os
 import subprocess
@@ -174,49 +175,44 @@ async def _run_course(
     git_sha = _get_git_sha()
 
     results: list[ScenarioResult] = []
-    passed = 0
-    total_score = 0.0
     run_start = time.monotonic()
 
-    for idx, scenario in enumerate(scenarios, 1):
-        click.echo(f"  [{idx}/{len(scenarios)}] {scenario.name}... ", nl=False)
-        scenario_start = time.monotonic()
-
+    async def run_one(scenario: Scenario) -> tuple[str, ScenarioResult]:
+        """Run a single scenario and return (name, result)."""
         scenario_error: str | None = None
         try:
             output = await harness.invoke(scenario.prompt)
-            scenario_duration = time.monotonic() - scenario_start
-
             verdict = await judge.grade(scenario, output)
-            scenario_passed = verdict["passed"]
-            scenario_score = verdict["score"]
-            feedback = verdict["feedback"]
-
+            return scenario.name, ScenarioResult(
+                scenario_id=scenario.id,
+                passed=bool(verdict["passed"]),
+                score=float(verdict["score"]),
+                output=output,
+                judge_feedback=verdict["feedback"],
+                error=None,
+                attempt=1,
+            )
         except AgentError as e:
-            output = ""
-            scenario_duration = e.elapsed
-            scenario_passed = False
-            scenario_score = 0.0
-            feedback = ""
-            scenario_error = str(e)
+            return scenario.name, ScenarioResult(
+                scenario_id=scenario.id,
+                passed=False,
+                score=0.0,
+                output="",
+                judge_feedback="",
+                error=str(e),
+                attempt=1,
+            )
 
-        result = ScenarioResult(
-            scenario_id=scenario.id,
-            passed=bool(scenario_passed),
-            score=float(scenario_score),
-            output=output,
-            judge_feedback=feedback,
-            error=scenario_error,
-            attempt=1,
-        )
-        results.append(result)
+    tasks = [run_one(s) for s in scenarios]
+    name_results = await asyncio.gather(*tasks)
 
-        if result.passed:
-            passed += 1
-        total_score += result.score
-
+    for idx, (name, result) in enumerate(name_results, 1):
         status = "PASS" if result.passed else "FAIL"
-        click.echo(f"{status} ({result.score:.2f}/{scenario.max_score:.2f})")
+        click.echo(f"  [{idx}/{len(name_results)}] {name}... {status} ({result.score:.2f}/1.00)")
+    results = [r for _, r in name_results]
+
+    passed = sum(1 for r in results if r.passed)
+    total_score = sum(r.score for r in results)
 
     run_duration = time.monotonic() - run_start
 
@@ -314,8 +310,6 @@ def run(
     num_runs: int,
 ) -> None:
     """Run all scenarios in a course."""
-    import asyncio
-
     skills_list = [s.strip() for s in skills.split(",") if s.strip()]
     all_results: list[dict[str, Any]] = []
     for i in range(num_runs):
