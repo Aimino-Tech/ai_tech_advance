@@ -203,13 +203,7 @@ async def _run_course(
                 attempt=1,
             )
 
-    sem = asyncio.Semaphore(5)  # limit concurrent to avoid provider overload
-
-    async def throttled(s: Scenario) -> tuple[str, ScenarioResult]:
-        async with sem:
-            return await run_one(s)
-
-    tasks = [throttled(s) for s in scenarios]
+    tasks = [run_one(s) for s in scenarios]
     name_results = await asyncio.gather(*tasks)
 
     for idx, (name, result) in enumerate(name_results, 1):

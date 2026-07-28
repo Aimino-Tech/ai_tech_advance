@@ -132,35 +132,29 @@ class AgentHarness:
 
         client = await self._get_client()
         start = time.monotonic()
-        last_error: Exception | None = None
-        for attempt in range(3):  # up to 3 retries on 503/5xx
-            try:
-                resp = await client.post("/chat/completions", json=payload)
-                resp.raise_for_status()
-                data = resp.json()
-                elapsed = time.monotonic() - start
-                choice = data["choices"][0]
-                content: str = choice["message"]["content"]
-                self._cache.set(self.model, prompt, system_prompt, content)
-                return content
-            except httpx.HTTPStatusError as e:
-                if e.response.status_code in (500, 502, 503) and attempt < 2:
-                    last_error = e
-                    await asyncio.sleep(2 * (attempt + 1))
-                    continue
-                elapsed = time.monotonic() - start
-                raise AgentError(
-                    status_code=e.response.status_code,
-                    body=e.response.text,
-                    elapsed=elapsed,
-                ) from e
-            except httpx.RequestError as e:
-                elapsed = time.monotonic() - start
-                raise AgentError(
-                    status_code=0,
-                    body=str(e),
-                    elapsed=elapsed,
-                ) from e
+        try:
+            resp = await client.post("/chat/completions", json=payload)
+            resp.raise_for_status()
+            data = resp.json()
+            elapsed = time.monotonic() - start
+            choice = data["choices"][0]
+            content: str = choice["message"]["content"]
+            self._cache.set(self.model, prompt, system_prompt, content)
+            return content
+        except httpx.HTTPStatusError as e:
+            elapsed = time.monotonic() - start
+            raise AgentError(
+                status_code=e.response.status_code,
+                body=e.response.text,
+                elapsed=elapsed,
+            ) from e
+        except httpx.RequestError as e:
+            elapsed = time.monotonic() - start
+            raise AgentError(
+                status_code=0,
+                body=str(e),
+                elapsed=elapsed,
+            ) from e
 
     async def close(self) -> None:
         if self._client is not None:
