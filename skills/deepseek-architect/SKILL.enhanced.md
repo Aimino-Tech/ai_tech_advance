@@ -1,6 +1,6 @@
 ---
 name: fable-architect
-description: Architect like Fable 5 — System decomposition and design — planning interfaces before implementation. Distilled from 56700 real Fable 5 traces (271 architect-skill traces) with data-driven precision.
+description: Architect like Fable 5 — System decomposition and design — planning interfaces before implementation. Distilled from 4450 real Fable 5 traces (80 architect-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/architect_patterns.yaml
 ---
@@ -15,14 +15,14 @@ Use this skill when designing systems, choosing architectures, or planning compo
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **271 traces** (0.5% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **80 traces** (1.8% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
-| Traces analyzed | 271 |
-| Distribution | 0.5% |
-| Avg classification confidence | 52.6% |
-| CoT present rate | 29.5% |
+| Traces analyzed | 80 |
+| Distribution | 1.8% |
+| Avg classification confidence | 48.9% |
+| CoT present rate | 100.0% |
 | Avg CoT tokens | 368.3 |
 | Median CoT tokens | 296.0 |
 | Avg paragraphs | 5.5 |
@@ -38,7 +38,7 @@ This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Comp
 Fable 5 reasons in natural, flowing paragraphs. The architect skill is characterized by:
 
 - **Voice**: Third-person dominant (**First-person**: 46.9%, **Second-person**: 2.5%, **Third-person**: 50.6%)
-- **CoT availability**: Not always present (29.5%)
+- **CoT availability**: Always present (100.0%)
 - **Self-correction**: 92.5% of traces contain corrections
 - **Hypothesis-driven**: 42.5% of traces use hypothesis testing
 - **Same-turn fix**: 5.0% involve mid-turn course correction
@@ -162,7 +162,7 @@ Architect mode uses 'therefore', 'since', and 'thus' for causal design reasoning
 
 Frequent utterance starters: The, Alright, I’ve, Okay, I need to
 
-**Frequency**: 29.5%
+**Frequency**: 100.0%
 
 ### Pattern: Self Correction
 
@@ -188,7 +188,7 @@ Uses connectors like therefore, thus, since
 
 **Frequency**: 35.0%
 
-## Key Statistics from 56700 Traces (Architect Subset)
+## Key Statistics from 4450 Traces (Architect Subset)
 
 ### CoT Structure
 - **Avg tokens**: 368.3 (median: 296.0)
@@ -220,3 +220,47 @@ Uses connectors like therefore, thus, since
 - ❌ Planning once without iterative refinement
 - ❌ Expressing certainty when hedging is appropriate
 - ❌ Writing one-sentence reasoning before deciding
+
+---
+
+## Enhanced Pattern Data (from 80 traces)
+
+## Quantitative Facts (from 80 trace analysis)
+
+### CoT Structure
+- CoT Rate: 100.0%
+- Avg Tokens: 368.3
+- Avg Paragraphs: 5.5
+- Avg Sentences: 16.2
+- Self-Correction Rate: 92.5%
+- Avg Self-Corrections: 5.96
+- Reasoning Connectors/Turn: 1.75
+
+### Behavioral
+- Hypothesis-Driven Rate: 42.5%
+- Multi-Investigation Rate: 0.0%
+- Same-Turn Fix Rate: 5.0%
+
+### Tool Usage
+- Tool Calls/Trace: {'0': 1.0}
+- Avg Tool Calls: 0
+- Read-Before-Edit Rate: 0.0%
+- Verify-After-Action Rate: 0.0%
+- Tool-to-Text Ratio: 0.00
+
+
+### Extracted Behavioral Patterns
+
+- **common-openers** (100.0%): Frequent utterance starters: The, Alright, I’ve, Okay, I need to
+- **self-correction** (92.5%): Frequently corrects reasoning mid-turn
+- **hypothesis-driven-debugging** (42.5%): Forms and tests hypotheses before fixing
+- **acknowledge-then-execute** (75.0%): Always acknowledges context before acting
+- **reasoning-chaining** (35.0%): Uses connectors like therefore, thus, since
+
+### Anti-Patterns to Avoid
+
+- **acting-without-scope** (93.8%): Proceeding without confirming requirements
+- **no-verification** (87.5%): Completes work without verification step
+
+---
+

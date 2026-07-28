@@ -1,6 +1,6 @@
 ---
 name: fable-code
-description: Code like Fable 5 — Methodical, verified, and deeply informed by context. Distilled from real code-generation traces. Distilled from 56700 real Fable 5 traces (6835 code-skill traces) with data-driven precision.
+description: Code like Fable 5 — Methodical, verified, and deeply informed by context. Distilled from real code-generation traces. Distilled from 4450 real Fable 5 traces (3203 code-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/code_patterns.yaml
 ---
@@ -15,14 +15,14 @@ Use this skill whenever you need to write, edit, or create code.
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The code-skill subset contains **6835 traces** (12.0% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The code-skill subset contains **3203 traces** (72.0% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
-| Traces analyzed | 6835 |
-| Distribution | 12.0% |
-| Avg classification confidence | 63.2% |
-| CoT present rate | 46.9% |
+| Traces analyzed | 3203 |
+| Distribution | 72.0% |
+| Avg classification confidence | 59.8% |
+| CoT present rate | 100.0% |
 | Avg CoT tokens | 413.8 |
 | Median CoT tokens | 373.0 |
 | Avg paragraphs | 7.3 |
@@ -38,7 +38,7 @@ This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Comp
 Fable 5 reasons in natural, flowing paragraphs. The code skill is characterized by:
 
 - **Voice**: Third-person dominant (**First-person**: 34.2%, **Second-person**: 1.6%, **Third-person**: 64.2%)
-- **CoT availability**: Not always present (46.9%)
+- **CoT availability**: Always present (100.0%)
 - **Self-correction**: 97.6% of traces contain corrections
 - **Hypothesis-driven**: 29.7% of traces use hypothesis testing
 - **Same-turn fix**: 21.2% involve mid-turn course correction
@@ -170,7 +170,7 @@ After verification, Fable 5 often re-plans rather than continuing. This correcti
 
 Frequent utterance starters: Alright, The, Okay, I’ve, I need to
 
-**Frequency**: 46.9%
+**Frequency**: 100.0%
 
 ### Pattern: Self Correction
 
@@ -190,7 +190,7 @@ Uses connectors like thus, because, since
 
 **Frequency**: 41.1%
 
-## Key Statistics from 56700 Traces (Code Subset)
+## Key Statistics from 4450 Traces (Code Subset)
 
 ### CoT Structure
 - **Avg tokens**: 413.8 (median: 373.0)
@@ -221,3 +221,45 @@ Uses connectors like thus, because, since
 - ❌ Planning once without iterative refinement
 - ❌ Expressing certainty when hedging is appropriate
 - ❌ Writing one-sentence reasoning before deciding
+
+---
+
+## Enhanced Pattern Data (from 3203 traces)
+
+## Quantitative Facts (from 3203 trace analysis)
+
+### CoT Structure
+- CoT Rate: 100.0%
+- Avg Tokens: 413.8
+- Avg Paragraphs: 7.3
+- Avg Sentences: 17.1
+- Self-Correction Rate: 97.6%
+- Avg Self-Corrections: 6.17
+- Reasoning Connectors/Turn: 2.05
+
+### Behavioral
+- Hypothesis-Driven Rate: 29.7%
+- Multi-Investigation Rate: 0.0%
+- Same-Turn Fix Rate: 21.2%
+
+### Tool Usage
+- Tool Calls/Trace: {'0': 1.0}
+- Avg Tool Calls: 0
+- Read-Before-Edit Rate: 0.0%
+- Verify-After-Action Rate: 0.0%
+- Tool-to-Text Ratio: 0.00
+
+
+### Extracted Behavioral Patterns
+
+- **common-openers** (100.0%): Frequent utterance starters: Alright, The, Okay, I’ve, I need to
+- **self-correction** (97.6%): Frequently corrects reasoning mid-turn
+- **acknowledge-then-execute** (90.9%): Always acknowledges context before acting
+- **reasoning-chaining** (41.1%): Uses connectors like thus, because, since
+
+### Anti-Patterns to Avoid
+
+- **acting-without-scope** (90.6%): Proceeding without confirming requirements
+
+---
+

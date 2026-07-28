@@ -23,8 +23,9 @@ scenarios:
 
       Show your reasoning step by step, then state the final mapping.
     expected_behaviors:
-      - "Enumerates each clue and deduces consequences step by step"
-      - "Arrives at a unique mapping without contradiction"
+      - "S1"
+      - "S4"
+      - "Step"
     judge_criteria:
       - "All five clues are used in the reasoning"
       - "Final mapping is correct and consistent"
@@ -53,9 +54,9 @@ scenarios:
       Find an assignment that minimizes the makespan (time when all jobs finish).
       Show your reasoning.
     expected_behaviors:
-      - "Considers GPU memory constraints alongside dependencies"
-      - "Reasons about parallel vs sequential placement"
-      - "Produces a feasible schedule with makespan ≤ 10h"
+      - "makespan"
+      - "GPU"
+      - "feasible schedule"
     judge_criteria:
       - "All constraints are satisfied"
       - "Schedule minimizes makespan (8h or 9h is optimal)"
@@ -114,9 +115,9 @@ scenarios:
       within budget. Consider retry strategies: retry all failures immediately, or
       conditionally retry only some steps. Show the expected cost and success probability.
     expected_behaviors:
-      - "Considers dependency chain and failure probabilities"
-      - "Evaluates at least two retry strategies quantitatively"
-      - "Recommends a strategy with expected success probability > 70% within budget"
+      - "retry"
+      - "budget"
+      - "success probability"
     judge_criteria:
       - "Dependency graph is correctly identified"
       - "Cost model is applied consistently"

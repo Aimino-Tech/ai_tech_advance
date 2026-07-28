@@ -30,9 +30,9 @@ scenarios:
       assert edit_distance("hello", "hello") == 0
       ```
     expected_behaviors:
-      - "Implements edit_distance with correct algorithm"
-      - "Uses O(min(n,m)) memory optimization"
-      - "Handles all edge cases correctly"
+      - "def edit_distance"
+      - "O(n)"
+      - "return"
     judge_criteria:
       - "All three example assertions pass"
       - "Space complexity is O(n) or better"
@@ -109,9 +109,9 @@ scenarios:
       the signature `(value: string) => string[]` (returns a list of error messages,
       empty array if valid).
     expected_behaviors:
-      - "Creates three pure validation functions"
-      - "Original validateSignup remains unchanged except calling extracted fns"
-      - "All error messages and behavior are preserved exactly"
+      - "validateEmail"
+      - "validatePassword"
+      - "validateName"
     judge_criteria:
       - "validateEmail, validatePassword, validateName are exported"
       - "Each function returns string[] (errors) — empty array means valid"
@@ -169,9 +169,9 @@ scenarios:
       - Validate: if Endpoint is empty after loading, return a validation error
       - The new function must never panic
     expected_behaviors:
-      - "Returns (*Config, error) instead of *Config"
-      - "Uses fmt.Errorf with %w for error wrapping"
-      - "Catches empty endpoint as a validation error"
+      - "(*Config, error)"
+      - "fmt.Errorf"
+      - "validation error"
     judge_criteria:
       - "Signature change is correct"
       - "Error messages include context (not bare err.Error())"
@@ -216,9 +216,9 @@ scenarios:
       Use `use super::*;` to import the function. Each test must have a clear name
       following Rust convention: `#[test] fn test_<what>()`.
     expected_behaviors:
-      - "Creates a mod tests with #[cfg(test)]"
-      - "Has 10 tests covering all listed cases"
-      - "Each test uses assert! / assert_eq! / assert_ne!"
+      - "#[cfg(test)]"
+      - "fn test_"
+      - "assert_eq!"
     judge_criteria:
       - "All 10 test scenarios are covered"
       - "Tests use Rust testing conventions (no unwrap() in test body — use assert!)"
@@ -286,9 +286,9 @@ scenarios:
       async def list_orders(...):
       ```
     expected_behaviors:
-      - "Implements the endpoint with correct FastAPI signatures"
-      - "Uses Pydantic/Depends for parameter validation"
-      - "Handles empty results correctly (not 404)"
+      - "@router.get"
+      - "PaginatedResponse"
+      - "list_orders"
     judge_criteria:
       - "endpoint returns PaginatedResponse as specified"
       - "Validation rejects page=0 or page_size=200 with 422"

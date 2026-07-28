@@ -1,10 +1,10 @@
 skill: code
-total_traces: 3203
+total_traces: 6835
 stats:
   cot:
-    total_traces: 3203
+    total_traces: 6835
     cot_present: 3203
-    cot_rate: 1.0
+    cot_rate: 0.4686
     avg_tokens: 413.82
     avg_paragraphs: 7.32
     avg_sentences: 17.08
@@ -35,20 +35,39 @@ stats:
     - therefore
     - given that
   tool_usage:
-    total_traces: 3203
-    traces_with_tools: 0
+    total_traces: 6835
+    traces_with_tools: 96
     tool_calls_per_trace:
-      '0': 1.0
-    tool_type_frequency: {}
-    top_tool_calls: []
+      '0': 0.986
+      '1': 0.014
+    tool_type_frequency:
+      Bash: 0.0067
+      Read: 0.006
+      Search: 0.0006
+      Web: 0.0003
+      Edit: 0.0003
+      Glob: 0.0001
+    top_tool_calls:
+    - 'sh '
+    - read
+    - view
+    - shell
+    - fetch
+    - search
+    - write
+    - bash
+    - grep
+    - execute
+    - 'ls '
+    - find
     transition_matrix: {}
     read_before_edit_rate: 0.0
     verify_after_action_rate: 0.0
-    tool_to_text_ratio: 0.0
-    avg_tool_calls: 0
-    max_tool_calls: 0
+    tool_to_text_ratio: 0.1486
+    avg_tool_calls: 0.01
+    max_tool_calls: 1
   behaviors:
-    total_traces: 3203
+    total_traces: 6835
     self_correction_rate: 0.9756
     avg_self_corrections: 6.1714
     hypothesis_driven_rate: 0.2966
@@ -113,7 +132,7 @@ stats:
 patterns:
 - name: common-openers
   description: 'Frequent utterance starters: Alright, The, Okay, I’ve, I need to'
-  frequency: 1.0
+  frequency: 0.4686
 - name: self-correction
   description: Frequently corrects reasoning mid-turn
   frequency: 0.9756
