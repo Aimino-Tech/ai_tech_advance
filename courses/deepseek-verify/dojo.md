@@ -53,9 +53,9 @@ scenarios:
       Also include a helper function `mustParse` that panics on error for use
       in non-test setup code.
     expected_behaviors:
-      - "Writes 15+ test cases covering all edge categories"
-      - "Uses table-driven tests for the happy path formats"
-      - "Each edge case has its own named test function"
+      - TestParseDate_
+      - table-driven
+      - mustParse
     judge_criteria:
       - "Covers all 5 formats, empty string, invalid, leap year, month overflow"
       - "Unix timestamp tests include negative and year-2038 values"
@@ -119,9 +119,9 @@ scenarios:
       Also write a test that demonstrates validation passing and one that
       demonstrates validation failing.
     expected_behaviors:
-      - "Replaces dataclasses with Pydantic v2 BaseModel"
-      - "Adds field validators for all specified constraints"
-      - "Writes at least 2 test cases (pass + fail)"
+      - BaseModel
+      - field_validator
+      - model_validator
     judge_criteria:
       - "Uses Pydantic v2 syntax (field_validator, model_validator, Field)"
       - "Cross-field validator catches quantity>10 without notes"
@@ -164,9 +164,9 @@ scenarios:
       For stability testing, use a custom class or a tuple with a secondary
       index to verify original ordering is preserved for equal-keyed items.
     expected_behaviors:
-      - "Writes 7+ property-based tests using Hypothesis"
-      - "Uses @given with appropriate strategies (st.lists, st.integers, etc.)"
-      - "Stability test correctly detects order preservation"
+      - from hypothesis
+      - @given
+      - st.lists
     judge_criteria:
       - "Each test uses Hypothesis strategy, not hardcoded examples"
       - "Stability test uses an enumerated list and sorts by one field"
@@ -218,9 +218,9 @@ scenarios:
 
       Use `vi.useFakeTimers()` for time-based testing.
     expected_behaviors:
-      - "Identifies boundary values for all parameters"
-      - "Writes tests targeting each boundary (valid and invalid)"
-      - "Uses fake timers to control time without real waits"
+      - maxTokens
+      - refillRate
+      - useFakeTimers
     judge_criteria:
       - "Boundary values correctly identified (maxTokens=0 invalid, maxTokens=1001 invalid)"
       - "Tests use vi.advanceTimersByTime for precise time control"
@@ -277,9 +277,9 @@ scenarios:
       3. Identify which specific test suites are most likely to break
       4. Note any tests that are likely unnecessary
     expected_behaviors:
-      - "Correctly traces the dependency graph for each change"
-      - "Identifies transitive dependencies (not just direct)"
-      - "Justifies each package selection with concrete reasons"
+      - dependency graph
+      - transitive
+      - re-tested
     judge_criteria:
       - "Change A: shared/types → all packages must retest (types are foundational)"
       - "Change B: shared/validation → orders/pricing and payments/refund"
@@ -332,9 +332,9 @@ scenarios:
       Then calculate the overall risk score and produce a ranked action plan
       with estimated effort (in test cases) per item.
     expected_behaviors:
-      - "Identifies all gaps with specific untested scenarios"
-      - "Prioritizes by risk (payment > auth > notification > discount)"
-      - "Produces a ranked action plan with estimated test count"
+      - coverage gaps
+      - untested
+      - risk
     judge_criteria:
       - "Identifies validate_card() is only tested with Visa (missing MC, Amex, Discover)"
       - "Prioritizes retry_failed() and batch_send() as high (completely untested)"
@@ -411,9 +411,9 @@ scenarios:
       Use pytest fixtures for the database connection. The assertions should
       be clear enough that a failing assertion tells you exactly what went wrong.
     expected_behaviors:
-      - "Writes SQL-backed assertions that verify multi-table state"
-      - "Uses pytest with descriptive assertion messages"
-      - "Successful and failed order paths are both verified"
+      - place_order
+      - assert
+      - SELECT
     judge_criteria:
       - "Assertions query the database (not mock objects)"
       - "line_total and order.total cross-table check"
@@ -501,10 +501,9 @@ scenarios:
       methods for each entity. Each method returns the created entity and
       optionally auto-creates dependent entities.
     expected_behaviors:
-      - "Implements a builder/factory pattern for fixtures"
-      - "Handles cross-entity references (org → user → project)"
-      - "Generates sensible defaults so tests don't specify every field"
-      - "Supports creating multiple records at once"
+      - TestFixture
+      - fixture.create
+      - sensible defaults
     judge_criteria:
       - "Fixture.create.org() works without arguments (sensible defaults)"
       - "Fixture.create.user() auto-creates an org if orgId not provided"
@@ -595,10 +594,9 @@ scenarios:
       mocking, create a test HTTP server that returns fake weather data and test
       against that (for the real HTTP client implementation).
     expected_behaviors:
-      - "Creates mock implementations of both interfaces"
-      - "Tests verify cache hit avoids API call"
-      - "Tests verify cache miss → API call → cache store"
-      - "Provides an integration test with httptest.Server"
+      - WeatherAPIClient
+      - httptest
+      - mock
     judge_criteria:
       - "Mock WeatherAPIClient records whether FetchWeather was called"
       - "Cache hit test asserts FetchWeather was NOT called"
@@ -694,9 +692,9 @@ scenarios:
       The fix: use `SELECT ... FOR UPDATE` or SERIALIZABLE isolation level.
       Write both the test fix and the production code fix.
     expected_behaviors:
-      - "Identifies the lost update problem in READ COMMITTED isolation"
-      - "Explains why both transactions succeed but stock only decreases by 1"
-      - "Fixes with SELECT FOR UPDATE or SERIALIZABLE isolation"
+      - lost update
+      - READ COMMITTED
+      - SELECT FOR UPDATE
     judge_criteria:
       - "Root cause: READ COMMITTED allows both txns to see stock=50"
       - "Fix uses SELECT stock FROM products WHERE id=X FOR UPDATE before decrement"

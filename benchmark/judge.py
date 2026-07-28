@@ -76,24 +76,51 @@ class JudgeModel:
         return verdicts
 
     def _grade_simple(self, scenario: Scenario, output: str) -> dict:
-        """Substring-matching judge — checks expected_behaviors + judge_criteria."""
+        """Substring-matching judge — checks judge_criteria first, then expected_behaviors."""
         output_lower = output.lower()
 
         def match_any(items: list[str]) -> tuple[int, int]:
             return sum(1 for it in items if it.lower().strip() in output_lower), len(items)
 
-        combined = scenario.expected_behaviors + scenario.judge_criteria
-        matched, total = match_any(combined)
+        def has_code_blocks(text: str) -> bool:
+            markers = ["```", "def ", "func ", "function ", "class ", "import ",
+                       "interface ", "type ", "const ", "let ", "var "]
+            return any(m in text for m in markers)
 
-        if total == 0:
+        judge_matched, judge_total = match_any(scenario.judge_criteria)
+        eb_matched, eb_total = match_any(scenario.expected_behaviors)
+
+        if judge_total == 0 and eb_total == 0:
+            code_bonus = 0.1 if has_code_blocks(output) else 0.0
             passed = bool(output.strip())
-            return {"passed": passed, "score": 1.0 if passed else 0.0,
+            score = min(1.0, (1.0 if passed else 0.0) + code_bonus)
+            return {"passed": passed, "score": score,
                     "feedback": "Output non-empty" if passed else "Empty output."}
 
-        score = matched / total
-        passed = matched > 0
-        return {"passed": passed, "score": score,
-                "feedback": f"Matched {matched}/{total} criteria."}
+        if judge_total > 0:
+            primary = judge_matched / judge_total
+            secondary = (eb_matched / eb_total) if eb_total > 0 else 0.0
+            code_bonus = 0.1 if has_code_blocks(output) and primary > 0 else 0.0
+            score = min(1.0, primary * 0.7 + secondary * 0.3 + code_bonus)
+            passed = primary > 0
+            parts = []
+            if judge_total > 0:
+                parts.append(f"judge_criteria {judge_matched}/{judge_total}")
+            if eb_total > 0:
+                parts.append(f"expected_behaviors {eb_matched}/{eb_total}")
+            if code_bonus > 0:
+                parts.append("code_bonus")
+            return {"passed": passed, "score": round(score, 4),
+                    "feedback": f"Matched: {', '.join(parts)}."}
+        else:
+            matched = eb_matched
+            total = eb_total
+            score = matched / total if total > 0 else 0.0
+            passed = matched > 0
+            code_bonus = 0.1 if has_code_blocks(output) and passed else 0.0
+            score = min(1.0, score + code_bonus)
+            return {"passed": passed, "score": round(score, 4),
+                    "feedback": f"Matched {matched}/{total} expected_behaviors."}
 
     async def _grade_llm(self, scenario: Scenario, output: str) -> dict:
         """LLM-based judging — uses a model API to evaluate output quality."""

@@ -38,9 +38,9 @@ scenarios:
       - Describe how an order creation flow crosses service boundaries
       - Specify at least 2 async events that services publish/subscribe to
     expected_behaviors:
-      - "Proposes 4-6 services with clear boundaries"
-      - "Each service has exclusive data ownership"
-      - "Order flow is traced across services with clear consistency model"
+      - services
+      - data ownership
+      - service boundary
     judge_criteria:
       - "Services are cohesive (not splitting one model per service)"
       - "No circular dependencies between services"
@@ -74,10 +74,9 @@ scenarios:
 
       Write the actual Go code, not pseudocode. Use idiomatic Go patterns.
     expected_behaviors:
-      - "Designs clean Exporter interface with streaming semantics"
-      - "Uses context.Context for cancellation"
-      - "Uses callback or channel for progress reporting"
-      - "Separates per-row errors (warnings) from fatal errors"
+      - Exporter interface
+      - context.Context
+      - CSVExporter
     judge_criteria:
       - "Exporter interface has Export(ctx, data, config) and returns (<-chan Progress, Result)"
       - "ExportConfig is a struct, not a map[string]interface{}"
@@ -147,9 +146,9 @@ scenarios:
       Also describe: how would you handle transports with different parameters
       (Slack needs a channel, Email needs a subject)?
     expected_behaviors:
-      - "Defines a Transport protocol/ABC with a common interface"
-      - "NotificationService receives transports via constructor injection"
-      - "Transport-specific parameters are handled at the composition root"
+      - Transport
+      - NotificationService
+      - dependency inversion
     judge_criteria:
       - "Transport ABC has a generic send(to, message) or similar signature"
       - "NotificationService does NOT import smtplib or requests"
@@ -189,9 +188,9 @@ scenarios:
       Write your answer as a clear architecture description with a data flow diagram
       (text-based is fine) and rationale for each design decision.
     expected_behaviors:
-      - "Proposes a multi-stage pipeline (ingest → buffer → process → store → serve)"
-      - "Separates hot (fast) and cold (cheap) storage paths"
-      - "Defines exactly-once or at-least-once per stage with rationale"
+      - pipeline
+      - Kafka
+      - ingestion
     judge_criteria:
       - "Pipeline has distinct stages for ingestion, enrichment, aggregation, serving"
       - "Uses Kafka for buffering/decoupling, not as primary store"
@@ -227,9 +226,9 @@ scenarios:
       Provide an architecture diagram (text-based), key data structures,
       and the API contract (protobuf or OpenAPI).
     expected_behaviors:
-      - "Proposes a leader-per-counter or consistent hash-based approach"
-      - "Explains why CRDTs are not suitable (counters need read-your-writes)"
-      - "Describes the failover mechanism when a region becomes unavailable"
+      - consistent hashing
+      - primary region
+      - failover
     judge_criteria:
       - "Design assigns each counter to a primary region via consistent hashing"
       - "Cross-region reads go to primary region (or use async replication + read-repair)"
@@ -282,9 +281,9 @@ scenarios:
 
       Write specific configuration values (numbers), not generic advice.
     expected_behaviors:
-      - "Specifies exact timeout/retry/backoff/jitter values per service"
-      - "Designs a saga pattern with compensation transactions"
-      - "Justifies orchestration vs choreography choice"
+      - saga
+      - compensation
+      - circuit breaker
     judge_criteria:
       - "Retry policies differ per service (Payment = 1 retry with 100ms, Shipping = 3 retries)"
       - "Saga compensation: if Inventory fails → cancel Payment (call Payment.reverse)"
@@ -328,10 +327,9 @@ scenarios:
       Provide one endpoint group fully specified (e.g., tasks) with all methods,
       and a summary of the remaining resources.
     expected_behaviors:
-      - "Designs a coherent URL hierarchy with consistent patterns"
-      - "Uses cursor-based pagination for task listing"
-      - "Has a clear bulk operation strategy"
-      - "Addresses multi-tenancy in the URL structure"
+      - /api/v1/
+      - cursor-based
+      - multi-tenancy
     judge_criteria:
       - "URLs follow pattern /api/v1/orgs/:org_id/projects/:project_id/tasks"
       - "Task list supports filter[status]=, filter[assignee_id]=, sort=-created_at"
@@ -367,9 +365,9 @@ scenarios:
       and constraints. Also write the query for "month-to-date usage for customer X"
       that runs in <100ms.
     expected_behaviors:
-      - "Uses table partitioning (by time + maybe by customer hash)"
-      - "Designs aggregation tables with proper granularity"
-      - "Writes a realistic query for month-to-date usage"
+      - PARTITION BY
+      - hourly rollup
+      - CREATE TABLE
     judge_criteria:
       - "Raw events table is partitioned by month (or week)"
       - "Hourly rollup table: customer_id, metric_type, hour, sum(value), count"
@@ -409,10 +407,9 @@ scenarios:
       the middleware pseudocode for token validation in the API Gateway,
       and the refresh token rotation protocol.
     expected_behaviors:
-      - "Designs a complete auth flow from login to API call"
-      - "JWT claims include sub, iat, exp, aud, scope/permissions"
-      - "Refresh token rotation with old token invalidation"
-      - "Session revocation via Redis blacklist or short TTL + refresh grace"
+      - JWT
+      - refresh token
+      - OAuth2
     judge_criteria:
       - "Access JWT contains: sub, org_id, roles, iat, exp, jti"
       - "Refresh token is opaque (not JWT) stored in DB with family chain"
@@ -455,9 +452,9 @@ scenarios:
       - Migration sequence for "add a required field to the message schema"
       - Rollback decision criteria and procedure
     expected_behaviors:
-      - "Designs a complete zero-downtime deployment with expand-contract migrations"
-      - "Writes concrete k8s config snippets and preStop script"
-      - "Handles protocol version mismatch during rolling deploy"
+      - expand-contract
+      - preStop
+      - zero-downtime
     judge_criteria:
       - "PreStop: drains existing connections up to max 60s, then SIGTERM"
       - "DB migration uses expand-contract (add column nullable → dual-write → backfill → make NOT NULL → drop dual-write)"
