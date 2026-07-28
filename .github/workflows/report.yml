@@ -31,7 +31,6 @@ jobs:
           python -m benchmark.report compare \
             --run-a "${{ inputs.run_a }}" \
             --run-b "${{ inputs.run_b }}" \
-            --db benchmark/db/dojo.db \
             --output benchmark/results/comparison.html || \
           echo "comparison report generation failed (benchmark.report.compare may not be implemented yet)"
       - name: Upload comparison report

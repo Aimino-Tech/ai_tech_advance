@@ -164,9 +164,12 @@ async def _run_course(
         raise click.ClickException(msg)
 
     run_id = str(uuid.uuid4())
-    click.echo(f"Run {run_id}: {len(scenarios)} scenarios on {model}")
 
     harness = AgentHarness(model=model)
+    resolved_model = harness.model
+
+    click.echo(f"Run {run_id}: {len(scenarios)} scenarios on {resolved_model}")
+
     judge = JudgeModel(mode=judge_mode, judge_model=judge_model)
     git_sha = _get_git_sha()
 
@@ -230,7 +233,7 @@ async def _run_course(
                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 run_id,
-                model,
+                resolved_model,
                 json.dumps(skills),
                 course_name,
                 len(scenarios),
