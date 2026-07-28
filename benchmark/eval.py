@@ -49,6 +49,25 @@ def _init_db() -> None:
         conn.close()
 
 
+def _load_skill(skill_name: str) -> str:
+    """Load a SKILL.md file from skills/<name>/SKILL.md and return as text."""
+    skill_path = _COURSES_DIR.parent / "skills" / skill_name / "SKILL.md"
+    if not skill_path.exists():
+        click.echo(f"  Warning: skill not found at {skill_path}", err=True)
+        return ""
+    try:
+        content = skill_path.read_text()
+        # Strip YAML frontmatter (between --- markers)
+        if content.startswith("---"):
+            parts = content.split("---", 2)
+            if len(parts) >= 3:
+                content = parts[2].strip()
+        return content
+    except Exception as e:
+        click.echo(f"  Warning: failed to load skill {skill_name}: {e}", err=True)
+        return ""
+
+
 def _get_git_sha() -> str | None:
     """Return the current git SHA, or None if not in a git repo."""
     try:
@@ -171,6 +190,15 @@ async def _run_course(
 
     click.echo(f"Run {run_id}: {len(scenarios)} scenarios on {resolved_model}")
 
+    # Load skills as system prompt
+    system_prompt = ""
+    for sk in skills:
+        sk_content = _load_skill(sk)
+        if sk_content:
+            system_prompt += f"\n{sk_content}\n"
+    if system_prompt:
+        click.echo(f"  Loaded {len(skills)} skill(s): {', '.join(skills)}")
+
     judge = JudgeModel(mode=judge_mode, judge_model=judge_model)
     git_sha = _get_git_sha()
 
@@ -178,10 +206,9 @@ async def _run_course(
     run_start = time.monotonic()
 
     async def run_one(scenario: Scenario) -> tuple[str, ScenarioResult]:
-        """Run a single scenario and return (name, result)."""
         scenario_error: str | None = None
         try:
-            output = await harness.invoke(scenario.prompt)
+            output = await harness.invoke(scenario.prompt, system_prompt=system_prompt)
             verdict = await judge.grade(scenario, output)
             return scenario.name, ScenarioResult(
                 scenario_id=scenario.id,

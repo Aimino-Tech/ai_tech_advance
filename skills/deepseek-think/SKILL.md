@@ -1,244 +1,28 @@
 ---
-name: fable-think
-description: Think like Fable 5 — Natural, flowing, purposeful reasoning distilled from chain-of-thought traces. Distilled from 56700 real Fable 5 traces (47283 think-skill traces) with data-driven precision.
-version: 3.0.0
-generated_from: analysis/patterns/think_patterns.yaml
+name: deepseek-think
+description: Reasoning skill — ACKNOWLEDGE, PLAN, EXECUTE, VERIFY, ITERATE
+version: 4.0.0
 ---
 
-# /fable-think
-
-Think like Fable 5 — Natural, flowing, purposeful reasoning distilled from chain-of-thought traces.
-
-## When To Use
-
-Use this skill EVERY TIME before writing code, making decisions, or taking action. This is the foundational reasoning skill that all other skills build upon.
-
-## Statistics & Data Provenance
-
-This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The think-skill subset contains **47283 traces** (83.4% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
-
-| Metric | Value |
-|--------|-------|
-| Traces analyzed | 47283 |
-| Distribution | 83.4% |
-| Avg classification confidence | 0.3% |
-| CoT present rate | 0.1% |
-| Avg CoT tokens | 383.4 |
-| Median CoT tokens | 366.0 |
-| Avg paragraphs | 6.4 |
-| Avg sentences | 15.2 |
-| Self-correction rate | 97.6% |
-| Avg self-corrections | 5.43 |
-| Hypothesis-driven rate | 28.6% |
-| Reasoning connectors/turn | 1.93 |
-| Same-turn fix rate | 21.4% |
-
-## Core Principle
-
-Fable 5 reasons in natural, flowing paragraphs. The think skill is characterized by:
-
-- **Voice**: Third-person dominant (**First-person**: 38.1%, **Second-person**: 8.2%, **Third-person**: 53.7%)
-- **CoT availability**: Not always present (0.1%)
-- **Self-correction**: 97.6% of traces contain corrections
-- **Hypothesis-driven**: 28.6% of traces use hypothesis testing
-- **Same-turn fix**: 21.4% involve mid-turn course correction
-- **Connectors**: 1.93 per turn — top: thus, because, therefore, since
-
-### Opener Words
-
-| Opener | Frequency |
-|--------|-----------|
-| The | 45.2% |
-| Alright | 38.1% |
-| Okay | 7.1% |
-| I need to | 4.8% |
-| I’ve | 4.8% |
-
-### Step Transition Matrix (Top Transitions)
-
-| From → To | Probability |
-|-----------|-------------|
-| ACKNOWLEDGE → PLAN | 21.6% |
-| PLAN → ACKNOWLEDGE | 14.9% |
-| PLAN → VERIFY | 12.2% |
-| VERIFY → PLAN | 12.2% |
-| PLAN → EXECUTE | 6.8% |
-| ACKNOWLEDGE → VERIFY | 5.4% |
-| ACKNOWLEDGE → SCOPE | 4.0% |
-| ACKNOWLEDGE → EXECUTE | 4.0% |
-| EXECUTE → PLAN | 4.0% |
-| GATHER → ACKNOWLEDGE | 4.0% |
-| VERIFY → ACKNOWLEDGE | 2.7% |
-| EXECUTE → VERIFY | 2.7% |
-
-## The Natural Think Flow
-
-Do NOT write formal section headers. Follow this natural reasoning flow:
-
-### 1. ACKNOWLEDGE — Context Awareness
-
-Start with 'The' or 'Alright'
-
-- Opener 'The' is most frequent
-- Step coverage: 81.0%
-- NEVER write 'ACKNOWLEDGE:' as a header
-
-### 2. PLAN — Approach Design
-
-Plan your approach step by step. PLAN transitions most frequently to VERIFY and EXECUTE.
-
-- Step coverage: 116.7%
-- Use connectors: thus, because, therefore
-- Consider trade-offs inline
-
-### 3. EXECUTE — Take Action
-
-State what you'll do, then do it.
-
-- Step coverage: 21.4%
-- EXECUTE transitions most to PLAN (iterative development)
-
-### 4. VERIFY — Validate
-
-After actions, verify correctness.
-
-- Step coverage: 40.5%
-- 21.4% of turns involve same-turn verification
-
-### 5. ITERATE — Self-Correct
-
-Self-correction is universal (97.6%) — this is normal, not a failure.
-
-- Avg 5.43 corrections per trace
-- 28.6% of traces are hypothesis-driven
-- Use 'Actually' or 'However' for corrections
-
-## Behavioral Patterns
-
-### Pattern: The-Then Conditional Reasoning
-
-Think mode explores conditional scenarios: 'If [condition], then [outcome]'. This is the top reasoning connector pattern. 'If' and 'But' are the #1 and #2 connectors in think mode — higher than any other skill.
-
-**Evidence**: 'If' and 'But' are the top reasoning connectors; think mode explores trade-offs and scenarios.
-
-### Pattern: PLAN-Iterative (1.08+ Plans Per Trace)
-
-Think mode doesn't plan once — it re-plans as new information emerges. Each ACKNOWLEDGE often triggers a new PLAN cycle.
-
-**Evidence**: PLAN frequency exceeds 1.0 per trace in all skills; tools re-evaluate after each context shift.
-
-### Pattern: ACKNOWLEDGE→PLAN Core Loop
-
-The most statistically significant chain: ACKNOWLEDGE (I understand) → PLAN (here's my approach). This accounts for the highest transition probability in all skills.
-
-**Evidence**: ACKNOWLEDGE→PLAN transition is consistently the highest probability across all 5 skills.
-
-### Pattern: Self-Correction Is Universal
-
-Self-correction appears in ~98% of traces. This is normal behavior, not a failure mode. Use 'Actually' or 'However' as correction markers.
-
-**Evidence**: 97-100% self-correction rate across all skills; 'actually' is the #1 correction marker.
-
-### Pattern: VERIFY-Follows-PLAN Transition
-
-After each PLAN, think mode verifies: 'The output should be...'. This is the second-highest transition in most skills.
-
-**Evidence**: PLAN→VERIFY transition probability of 0.12-0.13 across skills.
-
-### Pattern: The-Opener Dominance
-
-Think mode starts with 'The' more than any other opener — subject-first thinking. This is unique to think mode.
-
-**Evidence**: 'The' opener is 45-75% in think mode vs <17% in other skills.
-
-### Pattern: Hypothesis-Driven Exploration
-
-Think mode forms and evaluates hypotheses before reaching conclusions. Uses connectors like 'perhaps', 'could be', 'maybe'.
-
-**Evidence**: 25-67% hypothesis-driven rate across skills; highest in architect and debug.
-
-### Pattern: Third-Person Voice Preference
-
-Think mode prefers third-person pronouns — analyzing systems and subjects rather than self-narrating.
-
-**Evidence**: Third-person pronouns 50-66% across all skills; think mode is especially subject-focused.
-
-### Pattern: Common Openers
-
-Frequent utterance starters: The, Alright, Okay, I need to, I’ve
-
-**Frequency**: 0.1%
-
-### Pattern: Self Correction
-
-Frequently corrects reasoning mid-turn
-
-**Frequency**: 97.6%
-
-### Pattern: Acknowledge Then Execute
-
-Always acknowledges context before acting
-
-**Frequency**: 81.0%
-
-### Pattern: Reasoning Chaining
-
-Uses connectors like thus, because, therefore
-
-**Frequency**: 38.6%
-
-## Key Statistics from 56700 Traces (Think Subset)
-
-### CoT Structure
-- **Avg tokens**: 383.4 (median: 366.0)
-- **Avg paragraphs**: 6.4
-- **Avg sentences**: 15.2
-- **Avg characters**: 2543.4
-- **Max tokens**: 872, **Min tokens**: 160
-
-### Reasoning Style
-- **Pronoun distribution**: **First-person**: 38.1%, **Second-person**: 8.2%, **Third-person**: 53.7%
-- **Connectors per turn**: 1.93
-- **Top connectors**: thus, because, therefore, since, given that
-- **Self-corrections per trace**: 5.43
-
-### Behavior
-- **Hypothesis-driven**: 28.6%
-- **Multi-investigation rate**: 0.0%
-- **Same-turn fix rate**: 21.4%
-- **Step coverage**: ACK 81.0%, SCOPE 7.1%, GATHER 9.5%, PLAN 116.7%, EXECUTE 21.4%, VERIFY 40.5%
-
-## Anti-Patterns
-
-- ❌ **Acting Without Scope** (92.9%) — Proceeding without confirming requirements
-- ❌ Formal section headers (## ACKNOWLEDGE, ## SCOPE, etc.) — Fable 5 never uses them
-- ❌ Using 'Oops' for self-correction — use 'Actually' or 'However' instead
-- ❌ Making changes without understanding context first
-- ❌ Skipping verification after changes
-- ❌ Planning once without iterative refinement
-- ❌ Expressing certainty when hedging is appropriate
-- ❌ Writing one-sentence reasoning before deciding
-
-## Root Cause Analysis Rules (from empirical eval failures)
-
-When performing root cause analysis on a production problem:
-
-1. **List ALL pieces of evidence first.** Before picking a root cause, enumerate every clue, data point, and observation. Missing one leads to wrong conclusions.
-
-2. **Eliminate possibilities systematically.** For each candidate root cause, explain why it does or doesn't match each piece of evidence. The true root cause must explain ALL evidence, not just some.
-
-3. **Look for the simplest change that explains everything.** Recent deployments and config changes are the most common root causes. Check the most recent change first.
-
-4. **Verify the causal chain end-to-end.** Your root cause must connect causally to every symptom, not just one. If there's a gap in the chain, the root cause is wrong.
-
-5. **Cross-check: would your conclusion change if one piece of evidence was different?** If yes, you haven't identified the real root cause yet.
-
-## Output Completeness Rules (from empirical eval failures)
-
-When asked to produce a list, enumeration, or decomposition:
-
-1. **Count before submitting.** Before finishing, count how many items you've produced and check against the minimum required. If the problem asks for 7+, produce 7+, not 6.
-
-2. **Check all sub-problems are covered.** When decomposing a problem, explicitly check each expected sub-problem against what you've produced. Missed sub-problems are the most common failure.
-
-3. **Re-read the question one last time.** Before finalizing, re-read the prompt and verify you've addressed every requirement, not just most of them. Partial fulfillment is still a failure.
+# Reasoning Loop
+Always follow this flow:
+1. ACKNOWLEDGE — restate the problem and constraints
+2. PLAN — outline your approach before acting
+3. EXECUTE — work through it step by step
+4. VERIFY — check your answer against all requirements
+5. ITERATE — self-correct if something doesn't fit
+
+# Root Cause Analysis
+- List ALL evidence before picking a root cause
+- The true cause must explain ALL symptoms, not just one
+- Check the most recent change first
+
+# Output Completeness
+- Count before submitting: verify you've met every requirement
+- If the question asks for N items, produce exactly N
+- Re-read the question one last time before finalizing
+
+# Anti-Patterns
+- Don't act without understanding the full context
+- Don't skip verification
+- Don't express certainty without checking all constraints
