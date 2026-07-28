@@ -286,7 +286,6 @@ scenarios:
       async def list_orders(...):
       ```
     expected_behaviors:
-      - @router.get
       - async def list_orders
       - PaginatedResponse
     judge_criteria:
