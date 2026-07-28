@@ -76,28 +76,24 @@ class JudgeModel:
         return verdicts
 
     def _grade_simple(self, scenario: Scenario, output: str) -> dict:
-        """Simple substring-matching judge — checks expected_behaviors."""
+        """Substring-matching judge — checks expected_behaviors + judge_criteria."""
         output_lower = output.lower()
-        matched = 0
-        total = len(scenario.expected_behaviors)
 
-        for behavior in scenario.expected_behaviors:
-            if behavior.lower().strip() in output_lower:
-                matched += 1
+        def match_any(items: list[str]) -> tuple[int, int]:
+            return sum(1 for it in items if it.lower().strip() in output_lower), len(items)
+
+        combined = scenario.expected_behaviors + scenario.judge_criteria
+        matched, total = match_any(combined)
 
         if total == 0:
             passed = bool(output.strip())
-            score = 1.0 if passed else 0.0
-            feedback = "No expected behaviors defined; check based on non-empty output."
-        else:
-            score = matched / total
-            passed = score >= 0.5
-            feedback = (
-                f"Simple judge: {matched}/{total} expected behaviors matched "
-                f"(threshold: >=50%). Score: {score:.2f}"
-            )
+            return {"passed": passed, "score": 1.0 if passed else 0.0,
+                    "feedback": "Output non-empty" if passed else "Empty output."}
 
-        return {"passed": passed, "score": score, "feedback": feedback}
+        score = matched / total
+        passed = matched > 0
+        return {"passed": passed, "score": score,
+                "feedback": f"Matched {matched}/{total} criteria."}
 
     async def _grade_llm(self, scenario: Scenario, output: str) -> dict:
         """LLM-based judging — uses a model API to evaluate output quality."""
