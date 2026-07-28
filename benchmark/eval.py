@@ -304,29 +304,48 @@ def cli() -> None:
 @click.option("--skills", default="", help="Comma-separated skill names")
 @click.option("--judge-mode", default=None, help="Judge mode: simple|llm (default: $DOJO_JUDGE_MODE)")
 @click.option("--judge-model", default=None, help="Judge model (default: $DOJO_JUDGE_MODEL)")
+@click.option("--num-runs", default=1, type=int, help="Number of repeated runs (default: 1)")
 def run(
     course: str,
     model: str | None,
     skills: str,
     judge_mode: str | None,
     judge_model: str | None,
+    num_runs: int,
 ) -> None:
     """Run all scenarios in a course."""
     import asyncio
 
     skills_list = [s.strip() for s in skills.split(",") if s.strip()]
-    result = asyncio.run(
-        _run_course(
-            course_name=course,
-            model=model or "",
-            skills=skills_list,
-            judge_mode=judge_mode,
-            judge_model=judge_model,
+    all_results: list[dict[str, Any]] = []
+    for i in range(num_runs):
+        if num_runs > 1:
+            click.echo(f"\n--- Run {i+1}/{num_runs} ---")
+        result = asyncio.run(
+            _run_course(
+                course_name=course,
+                model=model or "",
+                skills=skills_list,
+                judge_mode=judge_mode,
+                judge_model=judge_model,
+            )
         )
-    )
-    # Exit with code 1 if not all passed
-    if result["passed"] < result["total"]:
-        raise SystemExit(1)
+        all_results.append(result)
+
+    if num_runs > 1:
+        scores = [r["score"] for r in all_results]
+        passed_vals = [r["passed"] for r in all_results]
+        avg_score = sum(scores) / len(scores)
+        avg_passed = sum(passed_vals) / len(passed_vals)
+        click.echo(f"\n{'='*50}")
+        click.echo(f"Aggregated over {num_runs} runs:")
+        click.echo(f"  Avg Passed: {avg_passed:.1f}/{all_results[0]['total']}")
+        click.echo(f"  Avg Score:  {avg_score:.2f}")
+        click.echo(f"  Min Score:  {min(scores):.2f}")
+        click.echo(f"  Max Score:  {max(scores):.2f}")
+        all_passed = all(r["passed"] == r["total"] for r in all_results)
+        if not all_passed:
+            raise SystemExit(1)
 
 
 @cli.command(name="list-courses")
