@@ -1,6 +1,6 @@
 ---
 name: fable-verify
-description: Verify like Fable 5 — Self-verification and test generation — thorough validation before declaring done. Distilled from 5000 real Fable 5 traces (935 verify-skill traces) with data-driven precision.
+description: Verify like Fable 5 — Self-verification and test generation — thorough validation before declaring done. Distilled from 4450 real Fable 5 traces (935 verify-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/verify_patterns.yaml
 ---
@@ -15,12 +15,12 @@ Use this skill when writing tests, validating output, or reviewing code for corr
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **5000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The verify-skill subset contains **935 traces** (18.7% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The verify-skill subset contains **935 traces** (21.0% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
 | Traces analyzed | 935 |
-| Distribution | 18.7% |
+| Distribution | 21.0% |
 | Avg classification confidence | 48.7% |
 | CoT present rate | 100.0% |
 | Avg CoT tokens | 391.0 |
@@ -190,7 +190,7 @@ Uses connectors like thus, since, because
 
 **Frequency**: 40.3%
 
-## Key Statistics from 5000 Traces (Verify Subset)
+## Key Statistics from 4450 Traces (Verify Subset)
 
 ### CoT Structure
 - **Avg tokens**: 391.0 (median: 360.0)

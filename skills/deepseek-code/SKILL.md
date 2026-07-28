@@ -1,6 +1,6 @@
 ---
 name: fable-code
-description: Code like Fable 5 — Methodical, verified, and deeply informed by context. Distilled from real code-generation traces. Distilled from 5000 real Fable 5 traces (3203 code-skill traces) with data-driven precision.
+description: Code like Fable 5 — Methodical, verified, and deeply informed by context. Distilled from real code-generation traces. Distilled from 4450 real Fable 5 traces (3203 code-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/code_patterns.yaml
 ---
@@ -15,12 +15,12 @@ Use this skill whenever you need to write, edit, or create code.
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **5000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The code-skill subset contains **3203 traces** (64.1% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The code-skill subset contains **3203 traces** (72.0% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
 | Traces analyzed | 3203 |
-| Distribution | 64.1% |
+| Distribution | 72.0% |
 | Avg classification confidence | 59.8% |
 | CoT present rate | 100.0% |
 | Avg CoT tokens | 413.8 |
@@ -190,7 +190,7 @@ Uses connectors like thus, because, since
 
 **Frequency**: 41.1%
 
-## Key Statistics from 5000 Traces (Code Subset)
+## Key Statistics from 4450 Traces (Code Subset)
 
 ### CoT Structure
 - **Avg tokens**: 413.8 (median: 373.0)

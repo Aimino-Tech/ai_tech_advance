@@ -1,6 +1,6 @@
 ---
 name: fable-architect
-description: Architect like Fable 5 — System decomposition and design — planning interfaces before implementation. Distilled from 5000 real Fable 5 traces (80 architect-skill traces) with data-driven precision.
+description: Architect like Fable 5 — System decomposition and design — planning interfaces before implementation. Distilled from 4450 real Fable 5 traces (80 architect-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/architect_patterns.yaml
 ---
@@ -15,12 +15,12 @@ Use this skill when designing systems, choosing architectures, or planning compo
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **5000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **80 traces** (1.6% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **80 traces** (1.8% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
 | Traces analyzed | 80 |
-| Distribution | 1.6% |
+| Distribution | 1.8% |
 | Avg classification confidence | 48.9% |
 | CoT present rate | 100.0% |
 | Avg CoT tokens | 368.3 |
@@ -188,7 +188,7 @@ Uses connectors like therefore, thus, since
 
 **Frequency**: 35.0%
 
-## Key Statistics from 5000 Traces (Architect Subset)
+## Key Statistics from 4450 Traces (Architect Subset)
 
 ### CoT Structure
 - **Avg tokens**: 368.3 (median: 296.0)

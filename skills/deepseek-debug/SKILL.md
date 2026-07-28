@@ -1,6 +1,6 @@
 ---
 name: fable-debug
-description: Debug like Fable 5 — Root-cause analysis and fix — hypothesis-driven, systematic, and verification-focused. Distilled from 5000 real Fable 5 traces (190 debug-skill traces) with data-driven precision.
+description: Debug like Fable 5 — Root-cause analysis and fix — hypothesis-driven, systematic, and verification-focused. Distilled from 4450 real Fable 5 traces (190 debug-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/debug_patterns.yaml
 ---
@@ -15,12 +15,12 @@ Use this skill when debugging — crashes, silent failures, wrong output, edge-c
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **5000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The debug-skill subset contains **190 traces** (3.8% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The debug-skill subset contains **190 traces** (4.3% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
 | Traces analyzed | 190 |
-| Distribution | 3.8% |
+| Distribution | 4.3% |
 | Avg classification confidence | 44.3% |
 | CoT present rate | 100.0% |
 | Avg CoT tokens | 402.9 |
@@ -195,7 +195,7 @@ Uses connectors like thus, because, therefore
 
 **Frequency**: 43.8%
 
-## Key Statistics from 5000 Traces (Debug Subset)
+## Key Statistics from 4450 Traces (Debug Subset)
 
 ### CoT Structure
 - **Avg tokens**: 402.9 (median: 374.0)
