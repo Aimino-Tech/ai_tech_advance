@@ -30,9 +30,9 @@ scenarios:
       assert edit_distance("hello", "hello") == 0
       ```
     expected_behaviors:
-      - "Implements edit_distance with correct algorithm"
-      - "Uses O(min(n,m)) memory optimization"
-      - "Handles all edge cases correctly"
+      - def edit_distance
+      - O(n)
+      - range(
     judge_criteria:
       - "All three example assertions pass"
       - "Space complexity is O(n) or better"
@@ -109,9 +109,9 @@ scenarios:
       the signature `(value: string) => string[]` (returns a list of error messages,
       empty array if valid).
     expected_behaviors:
-      - "Creates three pure validation functions"
-      - "Original validateSignup remains unchanged except calling extracted fns"
-      - "All error messages and behavior are preserved exactly"
+      - function validateEmail
+      - function validatePassword
+      - function validateName
     judge_criteria:
       - "validateEmail, validatePassword, validateName are exported"
       - "Each function returns string[] (errors) — empty array means valid"
@@ -169,9 +169,9 @@ scenarios:
       - Validate: if Endpoint is empty after loading, return a validation error
       - The new function must never panic
     expected_behaviors:
-      - "Returns (*Config, error) instead of *Config"
-      - "Uses fmt.Errorf with %w for error wrapping"
-      - "Catches empty endpoint as a validation error"
+      - func LoadConfig
+      - (*Config, error)
+      - fmt.Errorf
     judge_criteria:
       - "Signature change is correct"
       - "Error messages include context (not bare err.Error())"
@@ -216,9 +216,9 @@ scenarios:
       Use `use super::*;` to import the function. Each test must have a clear name
       following Rust convention: `#[test] fn test_<what>()`.
     expected_behaviors:
-      - "Creates a mod tests with #[cfg(test)]"
-      - "Has 10 tests covering all listed cases"
-      - "Each test uses assert! / assert_eq! / assert_ne!"
+      - mod tests
+      - #[cfg(test)]
+      - fn test_
     judge_criteria:
       - "All 10 test scenarios are covered"
       - "Tests use Rust testing conventions (no unwrap() in test body — use assert!)"
@@ -286,9 +286,9 @@ scenarios:
       async def list_orders(...):
       ```
     expected_behaviors:
-      - "Implements the endpoint with correct FastAPI signatures"
-      - "Uses Pydantic/Depends for parameter validation"
-      - "Handles empty results correctly (not 404)"
+      - @router.get
+      - async def list_orders
+      - PaginatedResponse
     judge_criteria:
       - "endpoint returns PaginatedResponse as specified"
       - "Validation rejects page=0 or page_size=200 with 422"
@@ -351,9 +351,9 @@ scenarios:
 
       Handle missing optional fields gracefully (use None as default).
     expected_behaviors:
-      - "Produces correct flat structure with one row per contact"
-      - "Handles missing keys with None defaults"
-      - "Joins roles list with semicolons"
+      - def flatten_crm_data
+      - company_id
+      - contact_id
     judge_criteria:
       - "Output has 2 rows (one per contact)"
       - "Column names match exactly: company_id, contact_id, etc."
@@ -409,9 +409,9 @@ scenarios:
       - Must be safe for concurrent access (sync.RWMutex)
       - If TTL is 0, entry never expires
     expected_behaviors:
-      - "Uses linked list + hash map pattern for O(1)"
-      - "Applies sync.RWMutex for concurrent safety"
-      - "Implements lazy eviction on Get for expired entries"
+      - type LRUCache
+      - sync.RWMutex
+      - func (c *LRUCache)
     judge_criteria:
       - "Get and Put are O(1) average case"
       - "Concurrent access does not race (no data races detected with -race)"
@@ -471,9 +471,9 @@ scenarios:
       - Handle quoted strings that may contain escaped quotes (unlikely but robust)
       - The request field contains three space-separated parts: METHOD PATH VERSION
     expected_behaviors:
-      - "Writes a single regex with named capture groups"
-      - "Converts status and body_bytes_sent to int"
-      - "Converts '-' to None for user and referer fields"
+      - LOG_PATTERN
+      - (?P<
+      - parse_nginx_line
     judge_criteria:
       - "regex compiles without error"
       - "parse_nginx_line correctly parses the example line"
@@ -523,9 +523,9 @@ scenarios:
       Write your review as a structured list. For each finding: severity
       (critical/high/medium/low), description, and fix.
     expected_behaviors:
-      - "Identifies pickle deserialization as critical RCE vector"
-      - "Identifies path traversal in session_id"
-      - "Identifies TOCTOU race in delete_old_sessions"
+      - pickle
+      - path traversal
+      - TOCTOU
     judge_criteria:
       - "At least 6 distinct issues identified"
       - "Each issue has correct severity classification"
@@ -570,9 +570,9 @@ scenarios:
       - If you rewrite the query, explain why the new version is faster
       - Include estimated improvement (e.g., "should reduce from 45s to <100ms")
     expected_behaviors:
-      - "Suggests a composite index on orders(created_at, status, user_id)"
-      - "Suggests a covering index on payments(order_id, amount)"
-      - "Explains how each index eliminates table scans or filesorts"
+      - CREATE INDEX
+      - composite
+      - covering
     judge_criteria:
       - "Index suggestions are exactly 2, each with CREATE INDEX statement"
       - "Indexes target the WHERE/ORDER BY/GROUP BY clauses"

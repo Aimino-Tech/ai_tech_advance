@@ -1,6 +1,6 @@
 ---
 name: fable-verify
-description: Verify like Fable 5 — Self-verification and test generation — thorough validation before declaring done. Distilled from 4450 real Fable 5 traces (935 verify-skill traces) with data-driven precision.
+description: Verify like Fable 5 — Self-verification and test generation — thorough validation before declaring done. Distilled from 56700 real Fable 5 traces (1791 verify-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/verify_patterns.yaml
 ---
@@ -15,14 +15,14 @@ Use this skill when writing tests, validating output, or reviewing code for corr
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The verify-skill subset contains **935 traces** (21.0% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The verify-skill subset contains **1791 traces** (3.2% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
-| Traces analyzed | 935 |
-| Distribution | 21.0% |
-| Avg classification confidence | 48.7% |
-| CoT present rate | 100.0% |
+| Traces analyzed | 1791 |
+| Distribution | 3.2% |
+| Avg classification confidence | 50.0% |
+| CoT present rate | 52.2% |
 | Avg CoT tokens | 391.0 |
 | Median CoT tokens | 360.0 |
 | Avg paragraphs | 6.9 |
@@ -38,7 +38,7 @@ This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Compl
 Fable 5 reasons in natural, flowing paragraphs. The verify skill is characterized by:
 
 - **Voice**: Third-person dominant (**First-person**: 38.9%, **Second-person**: 2.3%, **Third-person**: 58.9%)
-- **CoT availability**: Always present (100.0%)
+- **CoT availability**: Not always present (52.2%)
 - **Self-correction**: 98.7% of traces contain corrections
 - **Hypothesis-driven**: 22.9% of traces use hypothesis testing
 - **Same-turn fix**: 26.4% involve mid-turn course correction
@@ -170,7 +170,7 @@ Verify mode narrates in first-person ('I should test', 'let me verify', 'I need 
 
 Frequent utterance starters: Alright, The, Okay, I’ve, All
 
-**Frequency**: 100.0%
+**Frequency**: 52.2%
 
 ### Pattern: Self Correction
 
@@ -190,7 +190,7 @@ Uses connectors like thus, since, because
 
 **Frequency**: 40.3%
 
-## Key Statistics from 4450 Traces (Verify Subset)
+## Key Statistics from 56700 Traces (Verify Subset)
 
 ### CoT Structure
 - **Avg tokens**: 391.0 (median: 360.0)

@@ -1,6 +1,6 @@
 ---
 name: fable-architect
-description: Architect like Fable 5 — System decomposition and design — planning interfaces before implementation. Distilled from 4450 real Fable 5 traces (80 architect-skill traces) with data-driven precision.
+description: Architect like Fable 5 — System decomposition and design — planning interfaces before implementation. Distilled from 56700 real Fable 5 traces (271 architect-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/architect_patterns.yaml
 ---
@@ -15,14 +15,14 @@ Use this skill when designing systems, choosing architectures, or planning compo
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **80 traces** (1.8% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **271 traces** (0.5% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
-| Traces analyzed | 80 |
-| Distribution | 1.8% |
-| Avg classification confidence | 48.9% |
-| CoT present rate | 100.0% |
+| Traces analyzed | 271 |
+| Distribution | 0.5% |
+| Avg classification confidence | 52.6% |
+| CoT present rate | 29.5% |
 | Avg CoT tokens | 368.3 |
 | Median CoT tokens | 296.0 |
 | Avg paragraphs | 5.5 |
@@ -38,7 +38,7 @@ This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Compl
 Fable 5 reasons in natural, flowing paragraphs. The architect skill is characterized by:
 
 - **Voice**: Third-person dominant (**First-person**: 46.9%, **Second-person**: 2.5%, **Third-person**: 50.6%)
-- **CoT availability**: Always present (100.0%)
+- **CoT availability**: Not always present (29.5%)
 - **Self-correction**: 92.5% of traces contain corrections
 - **Hypothesis-driven**: 42.5% of traces use hypothesis testing
 - **Same-turn fix**: 5.0% involve mid-turn course correction
@@ -162,7 +162,7 @@ Architect mode uses 'therefore', 'since', and 'thus' for causal design reasoning
 
 Frequent utterance starters: The, Alright, I’ve, Okay, I need to
 
-**Frequency**: 100.0%
+**Frequency**: 29.5%
 
 ### Pattern: Self Correction
 
@@ -188,7 +188,7 @@ Uses connectors like therefore, thus, since
 
 **Frequency**: 35.0%
 
-## Key Statistics from 4450 Traces (Architect Subset)
+## Key Statistics from 56700 Traces (Architect Subset)
 
 ### CoT Structure
 - **Avg tokens**: 368.3 (median: 296.0)

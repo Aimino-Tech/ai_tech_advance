@@ -72,9 +72,9 @@ scenarios:
       Identify the exact line that causes the panic, explain why, and fix it.
       The fix should handle the nil Profile gracefully (return an empty string for bio).
     expected_behaviors:
-      - "Identifies the nil dereference on user.Profile.Bio"
-      - "Explains that Bob has no Profile struct"
-      - "Fixes by adding nil check before accessing Profile fields"
+      - user.Profile
+      - nil
+      - Profile == nil
     judge_criteria:
       - "Root cause: user.Profile is nil for user ID 2"
       - "Fix handles nil Profile without changing data structure"
@@ -118,9 +118,9 @@ scenarios:
       The first two chunks are size 2 instead of 3. Fix the calculation so that
       earlier chunks get the extra elements. Do not change the function signature.
     expected_behaviors:
-      - "Identifies the off-by-one in chunk_size calculation"
-      - "Explains that integer division loses remainder elements"
-      - "Produces correct output for the test case"
+      - chunk_size
+      - off-by-one
+      - remainder
     judge_criteria:
       - "Fix correctly handles remainder distribution"
       - "chunk_list([1,2,3,4,5,6,7], 3) returns [[1,2,3],[4,5],[6,7]]"
@@ -178,9 +178,9 @@ scenarios:
       waiting for the first. Identify the window where the race occurs and fix it
       while keeping the same API.
     expected_behaviors:
-      - "Identifies the check-then-set race window (TOCTOU)"
-      - "Fixes by checking and setting atomically"
-      - "The fix uses a single lock or a deferred promise pattern"
+      - TOCTOU
+      - this.cache.has
+      - race condition
     judge_criteria:
       - "Root cause: two gets can both pass the .has() check before either .set()"
       - "Fix prevents concurrent duplicate fetches for the same key"

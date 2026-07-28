@@ -1,6 +1,6 @@
 ---
 name: fable-debug
-description: Debug like Fable 5 — Root-cause analysis and fix — hypothesis-driven, systematic, and verification-focused. Distilled from 4450 real Fable 5 traces (190 debug-skill traces) with data-driven precision.
+description: Debug like Fable 5 — Root-cause analysis and fix — hypothesis-driven, systematic, and verification-focused. Distilled from 56700 real Fable 5 traces (520 debug-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/debug_patterns.yaml
 ---
@@ -15,14 +15,14 @@ Use this skill when debugging — crashes, silent failures, wrong output, edge-c
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The debug-skill subset contains **190 traces** (4.3% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The debug-skill subset contains **520 traces** (0.9% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
-| Traces analyzed | 190 |
-| Distribution | 4.3% |
-| Avg classification confidence | 44.3% |
-| CoT present rate | 100.0% |
+| Traces analyzed | 520 |
+| Distribution | 0.9% |
+| Avg classification confidence | 50.7% |
+| CoT present rate | 36.5% |
 | Avg CoT tokens | 402.9 |
 | Median CoT tokens | 374.0 |
 | Avg paragraphs | 7.2 |
@@ -38,7 +38,7 @@ This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Compl
 Fable 5 reasons in natural, flowing paragraphs. The debug skill is characterized by:
 
 - **Voice**: Third-person dominant (**First-person**: 35.0%, **Second-person**: 2.0%, **Third-person**: 63.0%)
-- **CoT availability**: Always present (100.0%)
+- **CoT availability**: Not always present (36.5%)
 - **Self-correction**: 99.5% of traces contain corrections
 - **Hypothesis-driven**: 36.3% of traces use hypothesis testing
 - **Same-turn fix**: 19.5% involve mid-turn course correction
@@ -169,7 +169,7 @@ After executing a fix, debug mode verifies before moving on. VERIFY appears in 5
 
 Frequent utterance starters: Alright, The, I’ve, Okay, All
 
-**Frequency**: 100.0%
+**Frequency**: 36.5%
 
 ### Pattern: Self Correction
 
@@ -195,7 +195,7 @@ Uses connectors like thus, because, therefore
 
 **Frequency**: 43.8%
 
-## Key Statistics from 4450 Traces (Debug Subset)
+## Key Statistics from 56700 Traces (Debug Subset)
 
 ### CoT Structure
 - **Avg tokens**: 402.9 (median: 374.0)
