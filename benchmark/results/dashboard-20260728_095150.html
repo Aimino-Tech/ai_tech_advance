@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benchmark Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+       margin: 2rem; background: #f8f9fa; color: #333; }
+h1 { color: #1a1a2e; }
+h2 { color: #16213e; margin-top: 2rem; }
+.chart-container { max-width: 900px; margin: 2rem 0; background: white;
+                   padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0;
+        background: white; border-radius: 8px; overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+th, td { padding: 0.75rem 1rem; text-align: left; }
+th { background: #16213e; color: white; font-weight: 600; }
+tr:nth-child(even) { background: #f1f3f5; }
+.pass { color: #2b8a3e; font-weight: 600; }
+.fail { color: #c92a2a; font-weight: 600; }
+.summary-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                 gap: 1rem; margin: 1rem 0; }
+.card { background: white; padding: 1.2rem; border-radius: 8px;
+        text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.card-value { font-size: 2rem; font-weight: 700; color: #16213e; }
+.card-label { font-size: 0.85rem; color: #868e96; margin-top: 0.3rem; }
+</style>
+</head>
+<body>
+<h1>🧪 Benchmark Dashboard</h1>
+<p>Generated: 2026-07-28 09:52 UTC | Runs: 25 | Models: deepseek-v4-flash</p>
+
+<div class="summary-cards">
+  <div class="card">
+    <div class="card-value">0/10</div>
+    <div class="card-label">Latest Run Passed</div>
+  </div>
+  <div class="card">
+    <div class="card-value">3.6%</div>
+    <div class="card-label">Avg Pass Rate</div>
+  </div>
+  <div class="card">
+    <div class="card-value">0.0</div>
+    <div class="card-label">Latest Score</div>
+  </div>
+  <div class="card">
+    <div class="card-value">0.2s</div>
+    <div class="card-label">Latest Duration</div>
+  </div>
+</div>
+
+<div class="chart-container">
+  <canvas id="scoreChart"></canvas>
+</div>
+
+<div class="chart-container">
+  <canvas id="passChart"></canvas>
+</div>
+
+<h2>Latest Run Summary</h2>
+<table>
+  <tr><th>Field</th><th>Value</th></tr>
+  <tr><td>Run ID</td><td>9b3e3622-832d-4365-bf85-08a11c3fe21c</td></tr>
+  <tr><td>Model</td><td>deepseek-v4-flash</td></tr>
+  <tr><td>Course</td><td>deepseek-verify</td></tr>
+  <tr><td>Date</td><td>2026-07-28 09:52:00</td></tr>
+  <tr><td>Score</td><td>0.00</td></tr>
+  <tr><td>Passed</td><td>0/10</td></tr>
+  <tr><td>Duration</td><td>0.2s</td></tr>
+  <tr><td>Judge</td><td>claude-sonnet-4-6</td></tr>
+</table>
+
+<h2>All Runs</h2>
+<table>
+  <tr><th>Date</th><th>Model</th><th>Course</th><th>Passed</th><th>Score</th><th>Duration</th></tr>
+  <tr><td>2026-07-28 09:52:00</td><td>deepseek-v4-flash</td><td>deepseek-verify</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:59</td><td>deepseek-v4-flash</td><td>deepseek-debug</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:59</td><td>deepseek-v4-flash</td><td>deepseek-architect</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:58</td><td>deepseek-v4-flash</td><td>deepseek-think</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:58</td><td>deepseek-v4-flash</td><td>deepseek-code</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:57</td><td>deepseek-v4-flash</td><td>deepseek-verify</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:57</td><td>deepseek-v4-flash</td><td>deepseek-baseline</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:56</td><td>deepseek-v4-flash</td><td>deepseek-debug</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:56</td><td>deepseek-v4-flash</td><td>deepseek-architect</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:55</td><td>deepseek-v4-flash</td><td>deepseek-baseline</td><td class="fail">0/10</td><td>0.00</td><td>3.9s</td></tr><tr><td>2026-07-28 09:51:55</td><td>deepseek-v4-flash</td><td>deepseek-think</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:51:55</td><td>deepseek-v4-flash</td><td>deepseek-code</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:05</td><td>deepseek-v4-flash</td><td>deepseek-verify</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:04</td><td>deepseek-v4-flash</td><td>deepseek-debug</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:04</td><td>deepseek-v4-flash</td><td>deepseek-architect</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:03</td><td>deepseek-v4-flash</td><td>deepseek-think</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:03</td><td>deepseek-v4-flash</td><td>deepseek-code</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:02</td><td>deepseek-v4-flash</td><td>deepseek-verify</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:02</td><td>deepseek-v4-flash</td><td>deepseek-baseline</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:01</td><td>deepseek-v4-flash</td><td>deepseek-debug</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:01</td><td>deepseek-v4-flash</td><td>deepseek-architect</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:00</td><td>deepseek-v4-flash</td><td>deepseek-think</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:48:00</td><td>deepseek-v4-flash</td><td>deepseek-code</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:47:59</td><td>deepseek-v4-flash</td><td>deepseek-baseline</td><td class="fail">0/10</td><td>0.00</td><td>0.2s</td></tr><tr><td>2026-07-28 09:45:20</td><td>deepseek-v4-flash</td><td>deepseek-baseline</td><td class="fail">9/10</td><td>8.83</td><td>83.5s</td></tr>
+</table>
+
+<script>
+const runs = [{"id": "9b3e3622-832d-4365-bf85-08a11c3fe21c", "model": "deepseek-v4-flash", "course": "deepseek-verify", "created_at": "2026-07-28 09:52:00", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15299111299998458, "skills": "[\"verify\"]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "ed7019c2-89a8-4ac9-98bc-6915a1437ad1", "model": "deepseek-v4-flash", "course": "deepseek-debug", "created_at": "2026-07-28 09:51:59", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.16943572400001017, "skills": "[\"debug\"]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "53eeb584-6234-4e6d-b8fd-aa53141f1cf8", "model": "deepseek-v4-flash", "course": "deepseek-architect", "created_at": "2026-07-28 09:51:59", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15859847800001603, "skills": "[\"architect\"]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "3a3d1761-d0f4-4bdc-a78e-4c4675d061ff", "model": "deepseek-v4-flash", "course": "deepseek-think", "created_at": "2026-07-28 09:51:58", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.1552631520000034, "skills": "[\"think\"]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "8589ee23-220f-47bb-b0bb-47df8c7147fa", "model": "deepseek-v4-flash", "course": "deepseek-code", "created_at": "2026-07-28 09:51:58", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.16016669900000124, "skills": "[\"code\"]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "fb6439e2-1ba1-4edd-9dd3-55c08fa27883", "model": "deepseek-v4-flash", "course": "deepseek-verify", "created_at": "2026-07-28 09:51:57", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.16078307999998742, "skills": "[]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "1b221934-f25d-4070-874f-dbaa9ef01a94", "model": "deepseek-v4-flash", "course": "deepseek-baseline", "created_at": "2026-07-28 09:51:57", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.1572689930000024, "skills": "[\"deepseek-think\", \"deepseek-code\", \"deepseek-debug\", \"deepseek-architect\", \"deepseek-verify\"]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "bc6182f8-2070-437d-9bf2-0afaa1ff3934", "model": "deepseek-v4-flash", "course": "deepseek-debug", "created_at": "2026-07-28 09:51:56", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.16067883300001995, "skills": "[]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "83b0cdfe-608e-4dc4-a19a-59596a824388", "model": "deepseek-v4-flash", "course": "deepseek-architect", "created_at": "2026-07-28 09:51:56", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15662538000000836, "skills": "[]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "3a233f39-550b-4787-b655-d3595270e265", "model": "deepseek-v4-flash", "course": "deepseek-baseline", "created_at": "2026-07-28 09:51:55", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 3.9457485949999977, "skills": "[]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "abc6c62a-0f99-451d-9b07-b4819405602f", "model": "deepseek-v4-flash", "course": "deepseek-think", "created_at": "2026-07-28 09:51:55", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.16735254100001384, "skills": "[]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "d2db8a43-5894-4d39-9dc5-a50ce153c0ec", "model": "deepseek-v4-flash", "course": "deepseek-code", "created_at": "2026-07-28 09:51:55", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15927272100000778, "skills": "[]", "git_sha": "1c80d99d0d8b953319d1ec5d0c180b7af5917de0", "judge_model": "claude-sonnet-4-6"}, {"id": "5b6ffdb8-9367-415b-9190-213b18409967", "model": "deepseek-v4-flash", "course": "deepseek-verify", "created_at": "2026-07-28 09:48:05", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.18094527900001367, "skills": "[\"verify\"]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "e17711e0-3f04-4e8f-a697-3abff9c0722c", "model": "deepseek-v4-flash", "course": "deepseek-debug", "created_at": "2026-07-28 09:48:04", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15707973099995343, "skills": "[\"debug\"]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "16bf2209-e474-4f49-a8bf-4ff61f1f2ff4", "model": "deepseek-v4-flash", "course": "deepseek-architect", "created_at": "2026-07-28 09:48:04", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15265580199996975, "skills": "[\"architect\"]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "d44cfdb7-d6b1-487f-b15c-f16945759199", "model": "deepseek-v4-flash", "course": "deepseek-think", "created_at": "2026-07-28 09:48:03", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.1571220790000325, "skills": "[\"think\"]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "bf46d9ec-05cd-42c7-9440-c4c97692c81e", "model": "deepseek-v4-flash", "course": "deepseek-code", "created_at": "2026-07-28 09:48:03", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15378913200004263, "skills": "[\"code\"]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "b4c7ba32-6532-4569-a4fd-fa1825080dcb", "model": "deepseek-v4-flash", "course": "deepseek-verify", "created_at": "2026-07-28 09:48:02", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15822046599998885, "skills": "[]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "52017b59-2baa-4b52-9c51-a24dd4eda9c3", "model": "deepseek-v4-flash", "course": "deepseek-baseline", "created_at": "2026-07-28 09:48:02", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15221853899998905, "skills": "[\"deepseek-think\", \"deepseek-code\", \"deepseek-debug\", \"deepseek-architect\", \"deepseek-verify\"]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "db92ee92-3b62-4cd2-955d-4600bc2cff2c", "model": "deepseek-v4-flash", "course": "deepseek-debug", "created_at": "2026-07-28 09:48:01", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.16555951600003027, "skills": "[]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "e394b65a-8770-4991-ab56-b4fb2bd134e0", "model": "deepseek-v4-flash", "course": "deepseek-architect", "created_at": "2026-07-28 09:48:01", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15988299700001107, "skills": "[]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "e3ef8728-97ac-4eff-a165-b110aef610bb", "model": "deepseek-v4-flash", "course": "deepseek-think", "created_at": "2026-07-28 09:48:00", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.18888824600003318, "skills": "[]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "9700e7d2-340f-45f2-b05c-3f50fb5ca375", "model": "deepseek-v4-flash", "course": "deepseek-code", "created_at": "2026-07-28 09:48:00", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.15255769800000962, "skills": "[]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "8d51f15e-2ed3-49c6-a7c6-d8b431ae2452", "model": "deepseek-v4-flash", "course": "deepseek-baseline", "created_at": "2026-07-28 09:47:59", "total_scenarios": 10, "passed_scenarios": 0, "total_score": 0.0, "duration_seconds": 0.21733267399997658, "skills": "[]", "git_sha": "87722ba3a5758529e07f41c48d2fe067853432bf", "judge_model": "claude-sonnet-4-6"}, {"id": "1294d488-c88d-4f3d-97fb-2e8ad4d24380", "model": "deepseek-v4-flash", "course": "deepseek-baseline", "created_at": "2026-07-28 09:45:20", "total_scenarios": 10, "passed_scenarios": 9, "total_score": 8.833333333333334, "duration_seconds": 83.5064850699855, "skills": "[]", "git_sha": "908a9eeecd3caf034f046616a20ef56e8b20cf29", "judge_model": "claude-sonnet-4-6"}];
+const labels = runs.map(r => (r.created_at || '').slice(0, 19)).reverse();
+const models = [...new Set(runs.map(r => r.model))];
+
+const modelColors = {};
+const palette = ['#4e79a7','#f28e2b','#e15759','#76b7b2','#59a14f','#edc948','#b07aa1','#ff9da7'];
+models.forEach((m, i) => { modelColors[m] = palette[i % palette.length]; });
+
+// Score chart
+new Chart(document.getElementById('scoreChart'), {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: models.map(model => ({
+      label: model,
+      data: runs.filter(r => r.model === model).map(r => r.total_score).reverse(),
+      borderColor: modelColors[model],
+      backgroundColor: modelColors[model] + '33',
+      tension: 0.3,
+      fill: false,
+      spanGaps: true,
+    }))
+  },
+  options: {
+    responsive: true,
+    plugins: { title: { display: true, text: 'Score Over Time' } },
+    scales: { y: { beginAtZero: true } }
+  }
+});
+
+// Pass rate chart
+new Chart(document.getElementById('passChart'), {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: models.map(model => ({
+      label: model,
+      data: runs.filter(r => r.model === model).map(r =>
+        r.total_scenarios > 0 ? (r.passed_scenarios / r.total_scenarios * 100) : 0
+      ).reverse(),
+      backgroundColor: models.map(m => modelColors[m]),
+    }))
+  },
+  options: {
+    responsive: true,
+    plugins: { title: { display: true, text: 'Pass Rate Over Time (%)' } },
+    scales: { y: { beginAtZero: true, max: 100 } }
+  }
+});
+</script>
+</body>
+</html>
