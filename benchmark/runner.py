@@ -128,6 +128,7 @@ class AgentHarness:
             "model": self.model,
             "messages": messages,
             "temperature": 0.0,
+            "max_tokens": 16384,
         }
 
         client = await self._get_client()
@@ -138,7 +139,8 @@ class AgentHarness:
             data = resp.json()
             elapsed = time.monotonic() - start
             choice = data["choices"][0]
-            content: str = choice["message"]["content"]
+            msg = choice["message"]
+            content: str = msg.get("content", "") or msg.get("reasoning_content", "")
             self._cache.set(self.model, prompt, system_prompt, content)
             return content
         except httpx.HTTPStatusError as e:
