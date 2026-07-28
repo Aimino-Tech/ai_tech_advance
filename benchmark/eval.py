@@ -80,6 +80,11 @@ def _load_course(course_name: str) -> dict[str, Any]:
             )
     try:
         raw = course_path.read_text()
+        raw = raw.strip()
+        if raw.startswith("---"):
+            raw = raw[3:].strip()
+        if raw.endswith("---"):
+            raw = raw[:-3].strip()
         data: dict[str, Any] = yaml.safe_load(raw)
     except yaml.YAMLError as e:
         raise click.ClickException(f"Failed to parse course YAML: {e}") from e
