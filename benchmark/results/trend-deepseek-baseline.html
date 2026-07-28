@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trend: deepseek-baseline</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+       margin: 2rem; background: #f8f9fa; color: #333; }
+h1 { color: #1a1a2e; }
+h2 { color: #16213e; margin-top: 2rem; }
+.chart-container { max-width: 900px; margin: 2rem 0; background: white;
+                   padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0;
+        background: white; border-radius: 8px; overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+th, td { padding: 0.75rem 1rem; text-align: left; }
+th { background: #16213e; color: white; font-weight: 600; }
+tr:nth-child(even) { background: #f1f3f5; }
+.pass { color: #2b8a3e; font-weight: 600; }
+.fail { color: #c92a2a; font-weight: 600; }
+.summary-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                 gap: 1rem; margin: 1rem 0; }
+.card { background: white; padding: 1.2rem; border-radius: 8px;
+        text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.card-value { font-size: 2rem; font-weight: 700; color: #16213e; }
+.card-label { font-size: 0.85rem; color: #868e96; margin-top: 0.3rem; }
+</style>
+</head>
+<body>
+<h1>📈 Trend: deepseek-baseline</h1>
+<p>Generated: 2026-07-28 08:51 UTC | 1 runs</p>
+
+<div class="chart-container">
+  <canvas id="trendChart"></canvas>
+</div>
+
+<table>
+  <tr><th>Date</th><th>Model</th><th>Passed</th><th>Score</th><th>Duration</th></tr>
+  <tr><td>2026-07-28 08:51:24</td><td>deepseek-v4-flash</td><td class="pass">2/2</td><td>2.00</td><td>15.3s</td></tr>
+</table>
+
+<script>
+const runs = [{"id": "47b8e2c9-272b-4fb1-8ff1-cc3018e799d2", "model": "deepseek-v4-flash", "course": "deepseek-baseline", "created_at": "2026-07-28 08:51:24", "total_scenarios": 2, "passed_scenarios": 2, "total_score": 2.0, "duration_seconds": 15.3, "skills": "[\"code\", \"reasoning\"]", "git_sha": "abc123", "judge_model": "simple"}];
+const labels = runs.map(r => (r.created_at || '').slice(0, 19)).reverse();
+const models = [...new Set(runs.map(r => r.model))];
+
+const palette = ['#4e79a7','#f28e2b','#e15759','#76b7b2','#59a14f','#edc948','#b07aa1','#ff9da7'];
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: models.map((model, i) => ({
+      label: model,
+      data: runs.filter(r => r.model === model).map(r => r.total_score).reverse(),
+      borderColor: palette[i % palette.length],
+      tension: 0.3,
+      fill: false,
+      spanGaps: true,
+    }))
+  },
+  options: {
+    responsive: true,
+    plugins: { title: { display: true, text: 'Score Trend for ' + 'deepseek-baseline' } },
+    scales: { y: { beginAtZero: true } }
+  }
+});
+</script>
+</body>
+</html>
