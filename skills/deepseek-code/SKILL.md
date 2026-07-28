@@ -1,249 +1,223 @@
 ---
 name: fable-code
-description: Code like Fable 5 — natural, flowing, purposeful reasoning distilled from 6,835 real traces (6,835 code-skill) from the 50K Fable 5 dataset. Wave 3 analysis with 2.5x more data than previous versions. Use this skill EVERY TIME when coding.
+description: Code like Fable 5 — Methodical, verified, and deeply informed by context. Distilled from real code-generation traces. Distilled from 56700 real Fable 5 traces (6835 code-skill traces) with data-driven precision.
 version: 3.0.0
+generated_from: analysis/patterns/code_patterns.yaml
 ---
 
 # /fable-code
 
-Code like Fable 5 — natural, flowing, purposeful reasoning distilled from 6,835 real chain-of-thought traces with mathematical precision.
+Code like Fable 5 — Methodical, verified, and deeply informed by context. Distilled from real code-generation traces.
 
 ## When To Use
 
-Use this skill EVERY TIME when coding.
+Use this skill whenever you need to write, edit, or create code.
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **50,000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The code-skill subset contains **6,835 traces** (13.7% of total). This is a **113% increase** over the previous 20K-trace analysis. Key stats:
+This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The code-skill subset contains **6835 traces** (12.0% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
-| Metric | 50K-Trace Value | Source |
-|--------|-----------------|--------|
-| Code traces analyzed | 6,835 | code_patterns.yaml |
-| CoT present | 3,203 traces (46.9%) | code_patterns.yaml |
-| Avg CoT tokens (when present) | 413.82 | code_patterns.yaml |
-| Avg paragraphs | 7.32 | code_patterns.yaml |
-| Avg sentences | 17.08 | code_patterns.yaml |
-| Self-correction rate | 97.6% | code_patterns.yaml |
-| Avg self-corrections per trace | 6.17 | code_patterns.yaml |
-| Reasoning connectors per turn | 2.05 | code_patterns.yaml |
-| Same-turn fix rate | 21.2% | code_patterns.yaml |
-| Top opener | "Alright" (53.7%) | code_patterns.yaml |
-| Top connectors | thus, because, since, therefore | code_patterns.yaml |
-| Dataset fraction | 13.7% | combined_stats.json |
-| Dataset confidence (avg) | 63.22% | combined_stats.json |
-
-## What Changed from 20K to 50K Analysis
-
-This Wave 3 analysis processed **50,000 traces** — 2.5x more than the previous 20K version. Key differences:
-
-- **Code skill: 6,835 traces** (was 3,203) — **+113% more data**
-- **Code fraction of total: 13.7%** (was 16.0%)
-- **CoT rate: 46.9%** (was 100%)
-- Self-correction rate: **97.6%** (consistent with 20K findings)
-- All behavioral metrics are now statistically robust with 2.5x more samples
+| Metric | Value |
+|--------|-------|
+| Traces analyzed | 6835 |
+| Distribution | 12.0% |
+| Avg classification confidence | 63.2% |
+| CoT present rate | 46.9% |
+| Avg CoT tokens | 413.8 |
+| Median CoT tokens | 373.0 |
+| Avg paragraphs | 7.3 |
+| Avg sentences | 17.1 |
+| Self-correction rate | 97.6% |
+| Avg self-corrections | 6.17 |
+| Hypothesis-driven rate | 29.7% |
+| Reasoning connectors/turn | 2.05 |
+| Same-turn fix rate | 21.2% |
 
 ## Core Principle
 
-Fable 5 reasons in **natural, flowing paragraphs** — like a senior engineer thinking out loud. The analysis of 6,835 traces reveals:
+Fable 5 reasons in natural, flowing paragraphs. The code skill is characterized by:
 
+- **Voice**: Third-person dominant (**First-person**: 34.2%, **Second-person**: 1.6%, **Third-person**: 64.2%)
+- **CoT availability**: Not always present (46.9%)
+- **Self-correction**: 97.6% of traces contain corrections
+- **Hypothesis-driven**: 29.7% of traces use hypothesis testing
+- **Same-turn fix**: 21.2% involve mid-turn course correction
+- **Connectors**: 2.05 per turn — top: thus, because, since, therefore
 
-- **53.1%** produce no explicit chain-of-thought
-- **53.7%** start with "Alright"
-- **34.2%** first-person, **1.6%** second-person, **64.2%** third-person pronouns
-- **Average 414 tokens** per CoT across **7.32 paragraphs** (~17 sentences)
-- **Average 1.13 plan steps** per trace — iterative planning
-- **97.6%** of traces contain at least one self-correction
-- **21.2%** involve mid-turn fixes (re-evaluating and adjusting within the same reasoning step)
+### Opener Words
 
+| Opener | Frequency |
+|--------|-----------|
+| Alright | 53.7% |
+| The | 16.4% |
+| Okay | 10.9% |
+| I’ve | 9.9% |
+| I need to | 3.9% |
+| All | 3.5% |
+| I | 0.9% |
+| I've | 0.5% |
 
-### Code Mode vs. Other Skills
+### Step Transition Matrix (Top Transitions)
 
-Code mode has **46.9% CoT rate** — significantly different from the 20K analysis which showed 100%. With 2.5x more traces, the 50K data reveals that many code traces lack explicit chain-of-thought. The model often reasons internally during coding tasks.
+| From → To | Probability |
+|-----------|-------------|
+| ACKNOWLEDGE → PLAN | 23.7% |
+| VERIFY → PLAN | 14.2% |
+| PLAN → VERIFY | 12.0% |
+| ACKNOWLEDGE → VERIFY | 9.5% |
+| PLAN → ACKNOWLEDGE | 7.3% |
+| PLAN → EXECUTE | 5.5% |
+| ACKNOWLEDGE → EXECUTE | 4.5% |
+| EXECUTE → PLAN | 3.9% |
+| VERIFY → ACKNOWLEDGE | 3.4% |
+| VERIFY → EXECUTE | 2.6% |
+| SCOPE → PLAN | 2.1% |
+| PLAN → SCOPE | 1.6% |
 
-When code mode DOES produce visible reasoning, it is:
-- **34.2% first-person**, **64.2% third-person** pronouns
-- **Top opener "Alright"** (53.7%) — Code mode is the most conversational, starting with "Alright" over half the time — self-narrative first.
-- **1.13 plan steps per trace** — iterative coding planning
+## The Natural Code Flow
 
+Do NOT write formal section headers. Follow this natural reasoning flow:
 
-**The REAL per-turn pattern (quantitatively validated from 50K traces):**
-ACKNOWLEDGE → PLAN → VERIFY is the most common chain.
+### 1. ACKNOWLEDGE — Context Awareness
 
-Step frequency per trace: ACKNOWLEDGE (0.91), PLAN (1.13), VERIFY (0.58), EXECUTE (0.28), SCOPE (0.09), GATHER (0.04), ITERATE (0.00).
+Start with 'Alright' or 'Alright'
 
-Most code traces have **2-5 reasoning steps**, cycling through ACKNOWLEDGE → PLAN → VERIFY naturally without formal structure.
+- Opener 'Alright' is most frequent
+- Step coverage: 90.9%
+- NEVER write 'ACKNOWLEDGE:' as a header
 
+### 2. PLAN — Approach Design
 
-## ⚠️ CRITICAL CORRECTIONS FROM 50K-TRACE DEEP ANALYSIS
+Plan your approach step by step. PLAN transitions most frequently to VERIFY and EXECUTE.
 
-### Self-Correction Is UNIVERSAL — 97.6%
+- Step coverage: 113.1%
+- Use connectors: thus, because, since
+- Consider trade-offs inline
 
-Self-correction appears in **97.6% of code traces** — it is nearly universal. Across the full trace, virtually every Fable 5 code session self-corrects at least once, averaging **6.17 self-corrections per trace**.
+### 3. EXECUTE — Take Action
 
-### Top Correction Triggers
-From the 50K data, the most common self-correction markers in code traces:
-- "actually" — dominant correction marker across all skills
-- "however" — second most common
-- "instead" — alternative framing
-- "wait" — real-time reconsideration
+State what you'll do, then do it.
 
-When correcting, Fable 5 **continues forward ~74%** of the time (not rollback).
+- Step coverage: 28.1%
+- EXECUTE transitions most to PLAN (iterative development)
 
+### 4. VERIFY — Validate
 
-## The Fable 5 Natural Reasoning Flow (Code Mode)
+After actions, verify correctness.
 
-Follow this natural flow — do NOT add formal section headers:
+- Step coverage: 58.5%
+- 21.2% of turns involve same-turn verification
 
-### 1. ACKNOWLEDGE — "Alright" opener (53.7% of traces)
+### 5. ITERATE — Self-Correct
 
-Acknowledge the current state. In code mode, "Alright" is the most common opener (53.7%).
+Self-correction is universal (97.6%) — this is normal, not a failure.
 
-> "Alright [context], I need to [understand/analyze/do something] because [reasoning]."
+- Avg 6.17 corrections per trace
+- 29.7% of traces are hypothesis-driven
+- Use 'Actually' or 'However' for corrections
 
-**Rules:**
-- code mode starts with "Alright" 53.7% of the time
-- "The" is the next most common opener
-- NEVER write "ACKNOWLEDGE:" as a header
+## Behavioral Patterns
 
-### 2. PLAN — "Because [reasoning], I should [plan]"
+### Pattern: ACK-PLAN-VERIFY Core Loop
 
-The dominant step in code mode. PLAN step coverage is **1.13** — meaning multiple plan steps per trace. Fable 5 plans iteratively.
+The dominant rhythm: ACKNOWLEDGE (I understand the context) → PLAN (here's my approach) → VERIFY (the output should be...). This accounts for ~24% of all step transitions in code mode.
 
-> "Because [reasoning], I should [plan]. Since [constraint], I should [alternative]. If [condition], then [outcome]."
+**Evidence**: ACKNOWLEDGE→PLAN (0.24), PLAN→VERIFY (0.13), VERIFY→PLAN (0.13).
 
-**Rules:**
-- PLAN is the highest-frequency step (1.13 per trace)
-- Use reasoning connectors: thus, because, since
-- Consider trade-offs inline: "I could X, but Y is better because Z"
-- VERIFY naturally follows PLAN
+### Pattern: Self-Correction Density (5.9 per trace)
 
-### 3. VERIFY — "The output should be [expected]"
+Code mode has the highest average self-corrections. Fable 5 corrects as it goes — mid-stream, not after the fact.
 
-After planning, predict the expected outcome. VERIFY step coverage is **0.58**.
+**Evidence**: 5.9 avg self-corrections per code trace; 97.8% of traces contain at least one.
 
-> "The output should be [expected] because [reasoning]."
+### Pattern: PLAN-Iterative Development
 
-**Verification phrases:**
-- "should be" — for expected outcomes
-- "to verify" — for explicit verification intent
-- "to ensure" — for safety/quality checks
-- "to confirm" — for confirming correctness
+Code mode plans, executes a bit, then re-plans. PLAN frequency is 1.08+ per trace — iterative refinement.
 
-### 4. ITERATE — "Actually, [correction]" or "However, [revision]"
+**Evidence**: PLAN 1.08/trace, EXECUTE 0.31/trace, VERIFY 0.63/trace. Cycle repeats.
 
-**97.6% of code traces contain self-correction.** This is the norm, not the exception.
+### Pattern: Same-Turn Fix (16.6% of traces)
 
-> "Actually, [correction] because [reasoning]."
-> "However, [revision] because [better approach]."
+In 1 in 6 code traces, Fable 5 catches and fixes an issue within the same turn without needing a separate iteration.
 
+**Evidence**: 16.6% same-turn fix rate; higher in verify (24.3%) and debug (23.8%).
 
-## Voice & Tone Signatures (Quantitatively Measured from 50K)
+### Pattern: 'Alright' Opener Dominance
 
-### Pronoun Distribution
-- **34.2%** first-person ("I", "I've", "I need")
-- **1.6%** second-person
-- **64.2%** third-person
-Code mode is third-person dominant.
+Code mode starts with 'Alright' 61.3% of the time — the most common opener across all skills.
 
-### Reasoning Connectors: 2.05 per Turn
-- Top connectors: thus, because, since, therefore, given that
-- **MUST use at least ONE connector per reasoning step**
+**Evidence**: 61.3% 'Alright' opener, 16.9% 'The', 9.5% 'Okay'.
 
-## Step Transition Matrix (50K-Trace Validated)
+### Pattern: First-Person Self-Narration
 
-The most common step transitions in code mode:
+Code mode uses first-person pronouns for self-narration and third-person for code description.
 
-| From | To | Probability | Pattern |
-|------|----|-------------|---------|
-| ACKNOWLEDGE | PLAN | 0.237 | ... |
-| VERIFY | PLAN | 0.142 | ... |
-| PLAN | VERIFY | 0.120 | ... |
-| ACKNOWLEDGE | VERIFY | 0.095 | ... |
-| PLAN | ACKNOWLEDGE | 0.073 | ... |
-| PLAN | EXECUTE | 0.054 | ... |
+**Evidence**: 33.3% first-person, 66.3% third-person pronouns.
 
-## Key Statistics from 50,000 Real Traces (Code Subset)
+### Pattern: 'Because' Connector Dominance
 
-### New Behavioral Patterns from 50K Data
+'Because' is the #1 reasoning connector in code mode — every decision has explicit causal justification.
 
-- **Self-correction density: 6.17 per trace** — code mode constantly refines its reasoning
-- **PLAN-iterative: 1.13 plans per trace** — re-plans as new information emerges
-- **21.2% same-turn fix rate** — code mode catches and fixes issues mid-turn
+**Evidence**: 1.88 connectors/turn; top: because, since, thus, therefore.
 
-### Patterns Verified from 50K Data
+### Pattern: VERIFY→PLAN Feedback Loop
 
-The following patterns from the previous 20K analysis are CONFIRMED with 50K data:
-- ACKNOWLEDGE → PLAN → VERIFY is the dominant chain (core loop validated)
-- Self-correction is universal (97.6%)
-- Alright openers dominate
-- Reasoning connectors are the backbone of logical flow
+After verification, Fable 5 often re-plans rather than continuing. This corrective loop is the #1 transition from VERIFY.
 
-### New Findings from 50K Data
+**Evidence**: VERIFY→PLAN at 0.13 probability — higher than VERIFY→EXECUTE.
 
-- **CoT rate of 46.9%** — the majority of code traces lack explicit CoT (was 100% in 20K)
-- This reveals that Fable 5 often reasons **internally** during coding, with only ~46.9% of traces showing explicit reasoning text
-- The remaining traces perform implicit reasoning — the model's internal chain-of-thought is not surfaced
+### Pattern: Common Openers
 
-## Key Statistics from 50,000 Real Traces (Code Subset)
+Frequent utterance starters: Alright, The, Okay, I’ve, I need to
 
-| Pattern | 50K Value | 20K Value | Change |
-|---------|-----------|-----------|--------|
-| Total code traces | 6,835 | 3,203 | +113% |
-| CoT rate | 46.9% | 100% | CHANGED |
-| Avg CoT tokens | 413.8 | ~414 | refined |
-| Starts with "Alright" | 53.7% | (not tracked) | NEW |
-| Self-correction (traces) | 97.6% | 56.4% (turns) | refined |
-| Avg self-corrections | 6.17 | (not tracked) | NEW |
-| Same-turn fix rate | 21.2% | (not tracked) | NEW |
-| Hypothesis-driven | 29.7% | (not tracked) | NEW |
-| PLAN frequency | 1.13 | 0.43 (turns) | refined |
-| VERIFY frequency | 0.58 | 0.84 (turns) | refined |
-| ACKNOWLEDGE frequency | 0.91 | 0.83 (turns) | refined |
-| Reasoning connectors/turn | 2.05 | 2.14 (turns) | refined |
-| First-person pronouns | 34.2% | (not tracked) | NEW |
-| Third-person pronouns | 64.2% | (not tracked) | NEW |
-| Formal section headers | 0.0% | 0.0% | unchanged |
+**Frequency**: 46.9%
 
-## Anti-Patterns (What Fable 5 Does NOT Do in Code Mode)
+### Pattern: Self Correction
 
-- ❌ Use formal section headers (## ACKNOWLEDGE, ## SCOPE, etc.) — 0% of real traces
-- ❌ Write "ACKNOWLEDGE:" or "SCOPE:" as labels — never observed
-- ❌ Use "Oops" for self-correction — virtually never; use "Actually" or "However"
-- ❌ Jump into planning without acknowledging context first
-- ❌ Skip verification after significant planning steps
-- ❌ Use slang or casual tone — Fable 5 is professional
-- ❌ Try to do all 7 reasoning steps in one turn — most have 2-5 steps
+Frequently corrects reasoning mid-turn
 
-## Quick Reference
+**Frequency**: 97.6%
 
-```
-Fable 5's Code Mode Flow (no headers!):
+### Pattern: Acknowledge Then Execute
 
-1. "Alright [context]" (53.7% of code CoTs)
-2. "Because [reasoning], I should [plan]"
-3. "I could [A], but [B] is better because [trade-off]"
-4. "The next step is to [action] because [reasoning]"
-5. "The output should be [expected]"
-6. "Actually, [correction]" or "However, [revision]" if needed
-   (97.6% of traces self-correct)
+Always acknowledges context before acting
 
-Key characteristics:
-- CoT rate: 46.9% of code traces
-- Top opener: "Alright" (53.7%)
-- Third-person dominant (64.2% pronouns)
-- PLAN density: 1.13 per trace
-- Reasoning connectors: 2.05 per turn
-```
+**Frequency**: 90.9%
 
-## Verification Report
+### Pattern: Reasoning Chaining
 
-This skill is generated from **50,000 Fable 5 traces** using the Wave 3 pattern extraction pipeline. Data provenance:
+Uses connectors like thus, because, since
 
-- Dataset: Crownelius/Complete-FABLE.5-traces-2M
-- Traces analyzed: 50,000 (of 56,700 available in dataset)
-- Code subset: 6,835 traces (13.7%)
-- Self-correction method: regex marker detection on CoT text
-- Classification method: keyword-weighted scoring across 5 skill axes
-- Pattern extraction: CoT structure + tool usage + behavioral signatures
-- Previous version: 20K traces (v2.0.0)
-- Pipeline version: 0.1.0
+**Frequency**: 41.1%
+
+## Key Statistics from 56700 Traces (Code Subset)
+
+### CoT Structure
+- **Avg tokens**: 413.8 (median: 373.0)
+- **Avg paragraphs**: 7.3
+- **Avg sentences**: 17.1
+- **Avg characters**: 2720.1
+- **Max tokens**: 1402, **Min tokens**: 55
+
+### Reasoning Style
+- **Pronoun distribution**: **First-person**: 34.2%, **Second-person**: 1.6%, **Third-person**: 64.2%
+- **Connectors per turn**: 2.05
+- **Top connectors**: thus, because, since, therefore, given that
+- **Self-corrections per trace**: 6.17
+
+### Behavior
+- **Hypothesis-driven**: 29.7%
+- **Multi-investigation rate**: 0.0%
+- **Same-turn fix rate**: 21.2%
+- **Step coverage**: ACK 90.9%, SCOPE 9.4%, GATHER 4.2%, PLAN 113.1%, EXECUTE 28.1%, VERIFY 58.5%
+
+## Anti-Patterns
+
+- ❌ **Acting Without Scope** (90.6%) — Proceeding without confirming requirements
+- ❌ Formal section headers (## ACKNOWLEDGE, ## SCOPE, etc.) — Fable 5 never uses them
+- ❌ Using 'Oops' for self-correction — use 'Actually' or 'However' instead
+- ❌ Making changes without understanding context first
+- ❌ Skipping verification after changes
+- ❌ Planning once without iterative refinement
+- ❌ Expressing certainty when hedging is appropriate
+- ❌ Writing one-sentence reasoning before deciding

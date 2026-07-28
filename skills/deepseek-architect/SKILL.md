@@ -1,243 +1,222 @@
 ---
 name: fable-architect
-description: Architect like Fable 5 — natural, flowing, purposeful reasoning distilled from 271 real traces (271 architect-skill) from the 50K Fable 5 dataset. Wave 3 analysis with 2.5x more data than previous versions. Use this skill EVERY TIME when architecting.
+description: Architect like Fable 5 — System decomposition and design — planning interfaces before implementation. Distilled from 56700 real Fable 5 traces (271 architect-skill traces) with data-driven precision.
 version: 3.0.0
+generated_from: analysis/patterns/architect_patterns.yaml
 ---
 
 # /fable-architect
 
-Architect like Fable 5 — natural, flowing, purposeful reasoning distilled from 271 real chain-of-thought traces with mathematical precision.
+Architect like Fable 5 — System decomposition and design — planning interfaces before implementation.
 
 ## When To Use
 
-Use this skill EVERY TIME when architecting.
+Use this skill when designing systems, choosing architectures, or planning component structure.
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **50,000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **271 traces** (0.5% of total). This is a **239% increase** over the previous 20K-trace analysis. Key stats:
+This skill is empirically derived from **56700 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The architect-skill subset contains **271 traces** (0.5% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
-| Metric | 50K-Trace Value | Source |
-|--------|-----------------|--------|
-| Architect traces analyzed | 271 | architect_patterns.yaml |
-| CoT present | 80 traces (29.5%) | architect_patterns.yaml |
-| Avg CoT tokens (when present) | 368.29 | architect_patterns.yaml |
-| Avg paragraphs | 5.54 | architect_patterns.yaml |
-| Avg sentences | 16.25 | architect_patterns.yaml |
-| Self-correction rate | 92.5% | architect_patterns.yaml |
-| Avg self-corrections per trace | 5.96 | architect_patterns.yaml |
-| Reasoning connectors per turn | 1.75 | architect_patterns.yaml |
-| Same-turn fix rate | 5.0% | architect_patterns.yaml |
-| Top opener | "The" (53.8%) | architect_patterns.yaml |
-| Top connectors | therefore, thus, since, because | architect_patterns.yaml |
-| Dataset fraction | 0.5% | combined_stats.json |
-| Dataset confidence (avg) | 52.62% | combined_stats.json |
-
-## What Changed from 20K to 50K Analysis
-
-This Wave 3 analysis processed **50,000 traces** — 2.5x more than the previous 20K version. Key differences:
-
-- **Architect skill: 271 traces** (was 80) — **+239% more data**
-- **Architect fraction of total: 0.5%** (was 0.4%)
-- **CoT rate: 29.5%** (was 100%)
-- Self-correction rate: **92.5%** (consistent with 20K findings)
-- All behavioral metrics are now statistically robust with 2.5x more samples
+| Metric | Value |
+|--------|-------|
+| Traces analyzed | 271 |
+| Distribution | 0.5% |
+| Avg classification confidence | 52.6% |
+| CoT present rate | 29.5% |
+| Avg CoT tokens | 368.3 |
+| Median CoT tokens | 296.0 |
+| Avg paragraphs | 5.5 |
+| Avg sentences | 16.2 |
+| Self-correction rate | 92.5% |
+| Avg self-corrections | 5.96 |
+| Hypothesis-driven rate | 42.5% |
+| Reasoning connectors/turn | 1.75 |
+| Same-turn fix rate | 5.0% |
 
 ## Core Principle
 
-Fable 5 reasons in **natural, flowing paragraphs** — like a senior engineer thinking out loud. The analysis of 271 traces reveals:
+Fable 5 reasons in natural, flowing paragraphs. The architect skill is characterized by:
 
+- **Voice**: Third-person dominant (**First-person**: 46.9%, **Second-person**: 2.5%, **Third-person**: 50.6%)
+- **CoT availability**: Not always present (29.5%)
+- **Self-correction**: 92.5% of traces contain corrections
+- **Hypothesis-driven**: 42.5% of traces use hypothesis testing
+- **Same-turn fix**: 5.0% involve mid-turn course correction
+- **Connectors**: 1.75 per turn — top: therefore, thus, since, because
 
-- **70.5%** produce no explicit chain-of-thought
-- **53.8%** start with "The"
-- **46.9%** first-person, **2.5%** second-person, **50.6%** third-person pronouns
-- **Average 368 tokens** per CoT across **5.54 paragraphs** (~16 sentences)
-- **Average 1.11 plan steps** per trace — iterative planning
-- **92.5%** of traces contain at least one self-correction
-- **5.0%** involve mid-turn fixes (re-evaluating and adjusting within the same reasoning step)
+### Opener Words
 
+| Opener | Frequency |
+|--------|-----------|
+| The | 53.8% |
+| Alright | 31.2% |
+| I’ve | 7.5% |
+| Okay | 3.8% |
+| I need to | 2.5% |
+| All | 1.2% |
 
-### Architect Mode vs. Other Skills
+### Step Transition Matrix (Top Transitions)
 
-Architect mode has **29.5% CoT rate** — significantly different from the 20K analysis which showed 100%. With 2.5x more traces, the 50K data reveals that many architect traces lack explicit chain-of-thought. The model often reasons internally during architecting tasks.
+| From → To | Probability |
+|-----------|-------------|
+| ACKNOWLEDGE → PLAN | 40.8% |
+| PLAN → ACKNOWLEDGE | 18.4% |
+| PLAN → VERIFY | 8.2% |
+| EXECUTE → PLAN | 7.1% |
+| ACKNOWLEDGE → EXECUTE | 3.1% |
+| ACKNOWLEDGE → SCOPE | 3.1% |
+| PLAN → EXECUTE | 3.1% |
+| VERIFY → PLAN | 3.1% |
+| VERIFY → EXECUTE | 3.1% |
+| SCOPE → PLAN | 3.1% |
+| PLAN → SCOPE | 2.0% |
+| ACKNOWLEDGE → VERIFY | 1.0% |
 
-When architect mode DOES produce visible reasoning, it is:
-- **46.9% first-person**, **50.6% third-person** pronouns
-- **Top opener "The"** (53.8%) — Architect mode is the most subject-first with "The" at 53.8% — system thinking dominates.
-- **1.11 plan steps per trace** — iterative architecting planning
+## The Natural Architect Flow
 
+Do NOT write formal section headers. Follow this natural reasoning flow:
 
-**The REAL per-turn pattern (quantitatively validated from 50K traces):**
-ACKNOWLEDGE → PLAN → VERIFY is the most common chain.
+### 1. ACKNOWLEDGE — Context Awareness
 
-Step frequency per trace: ACKNOWLEDGE (0.75), PLAN (1.11), VERIFY (0.12), EXECUTE (0.14), SCOPE (0.06), GATHER (0.01), ITERATE (0.00).
+Start with 'The' or 'Alright'
 
-Most architect traces have **2-5 reasoning steps**, cycling through ACKNOWLEDGE → PLAN → VERIFY naturally without formal structure.
+- Opener 'The' is most frequent
+- Step coverage: 75.0%
+- NEVER write 'ACKNOWLEDGE:' as a header
 
+### 2. PLAN — Approach Design
 
-## ⚠️ CRITICAL CORRECTIONS FROM 50K-TRACE DEEP ANALYSIS
+Plan your approach step by step. PLAN transitions most frequently to VERIFY and EXECUTE.
 
-### Self-Correction Is UNIVERSAL — 92.5%
+- Step coverage: 111.2%
+- Use connectors: therefore, thus, since
+- Consider trade-offs inline
 
-Self-correction appears in **92.5% of architect traces** — it is nearly universal. Across the full trace, virtually every Fable 5 architect session self-corrects at least once, averaging **5.96 self-corrections per trace**.
+### 3. EXECUTE — Take Action
 
-### Top Correction Triggers
-From the 50K data, the most common self-correction markers in architect traces:
-- "actually" — dominant correction marker across all skills
-- "however" — second most common
-- "instead" — alternative framing
-- "wait" — real-time reconsideration
+State what you'll do, then do it.
 
-When correcting, Fable 5 **continues forward ~74%** of the time (not rollback).
+- Step coverage: 13.8%
+- EXECUTE transitions most to PLAN (iterative development)
 
+### 4. VERIFY — Validate
 
-## The Fable 5 Natural Reasoning Flow (Architect Mode)
+After actions, verify correctness.
 
-Follow this natural flow — do NOT add formal section headers:
+- Step coverage: 12.5%
+- 5.0% of turns involve same-turn verification
 
-### 1. ACKNOWLEDGE — "The" opener (53.8% of traces)
+### 5. ITERATE — Self-Correct
 
-Report what the situation is or what you need to do. In architect mode, this often starts with "The" (53.8%).
+Self-correction is universal (92.5%) — this is normal, not a failure.
 
-> "The [context], I need to [understand/analyze/do something] because [reasoning]."
+- Avg 5.96 corrections per trace
+- 42.5% of traces are hypothesis-driven
+- Use 'Actually' or 'However' for corrections
 
-**Rules:**
-- architect mode starts with "The" 53.8% of the time
-- "Alright" accounts for next most common opener
-- NEVER write "ACKNOWLEDGE:" as a header
+## Behavioral Patterns
 
-### 2. PLAN — "Because [reasoning], I should [plan]"
+### Pattern: PLAN-Dominant Flow
 
-The dominant step in architect mode. PLAN step coverage is **1.11** — meaning multiple plan steps per trace. Fable 5 plans iteratively.
+Architect mode is dominated by planning. PLAN coverage is 1.0 — every architect trace includes explicit planning.
 
-> "Because [reasoning], I should [plan]. Since [constraint], I should [alternative]. If [condition], then [outcome]."
+**Evidence**: PLAN 1.0 coverage; ACKNOWLEDGE 0.33; VERIFY 0.67.
 
-**Rules:**
-- PLAN is the highest-frequency step (1.11 per trace)
-- Use reasoning connectors: therefore, thus, since
-- Consider trade-offs inline: "I could X, but Y is better because Z"
-- VERIFY naturally follows PLAN
+### Pattern: Hypothesis-Driven Architecture
 
-### 3. VERIFY (When Needed) — "The output should be [expected]"
+Architect mode evaluates design alternatives before committing. Hypothesis-driven rate is comparable to debug.
 
-VERIFY step coverage is **0.12** — architect mode verifies sparingly but should verify at integration points.
+**Evidence**: 66.7% hypothesis-driven rate — trades off alternative approaches.
 
-> "The output should be [expected] because [reasoning]."
+### Pattern: ACKNOWLEDGE→PLAN→VERIFY Chain
 
-### 4. ITERATE — "Actually, [correction]" or "However, [revision]"
+The classic chain: ACKNOWLEDGE context → PLAN the design → VERIFY the approach. This is the dominant sequence.
 
-**92.5% of architect traces contain self-correction.** This is the norm, not the exception.
+**Evidence**: ACKNOWLEDGE→PLAN (0.33), PLAN→VERIFY (0.33), VERIFY→PLAN (0.33).
 
-> "Actually, [correction] because [reasoning]."
-> "However, [revision] because [better approach]."
+### Pattern: Lower Self-Correction Rate
 
+Architect mode self-corrects less than other skills (66.7%) — designs are more deliberate and pre-validated.
 
-## Voice & Tone Signatures (Quantitatively Measured from 50K)
+**Evidence**: 66.7% self-correction rate (lowest of all skills); 3.33 avg corrections.
 
-### Pronoun Distribution
-- **46.9%** first-person ("I", "I've", "I need")
-- **2.5%** second-person
-- **50.6%** third-person
-Architect mode is third-person dominant.
+### Pattern: 'The' and 'Alright' Openers
 
-### Reasoning Connectors: 1.75 per Turn
-- Top connectors: therefore, thus, since, because, hence
-- **MUST use at least ONE connector per reasoning step**
+Architect mode is split between subject-first ('The' 66.7%) and self-narrative ('Alright' 33.3%) openings.
 
-## Step Transition Matrix (50K-Trace Validated)
+**Evidence**: 66.7% 'The' opener, 33.3% 'Alright'.
 
-The most common step transitions in architect mode:
+### Pattern: Third-Person System Thinking
 
-| From | To | Probability | Pattern |
-|------|----|-------------|---------|
-| ACKNOWLEDGE | PLAN | 0.408 | ... |
-| PLAN | ACKNOWLEDGE | 0.184 | ... |
-| PLAN | VERIFY | 0.082 | ... |
-| EXECUTE | PLAN | 0.071 | ... |
-| VERIFY | PLAN | 0.031 | ... |
-| VERIFY | EXECUTE | 0.031 | ... |
+Architect mode analyzes systems using third-person pronouns — the system, not the self, is the subject.
 
-## Key Statistics from 50,000 Real Traces (Architect Subset)
+**Evidence**: 58.8% third-person, 41.2% first-person pronouns.
 
-### New Behavioral Patterns from 50K Data
+### Pattern: Connectors: Trade-off Evaluation
 
-- **Self-correction density: 5.96 per trace** — architect mode constantly refines its reasoning
-- **PLAN-iterative: 1.11 plans per trace** — re-plans as new information emerges
-- **5.0% same-turn fix rate** — architect mode catches and fixes issues mid-turn
+Architect mode uses 'therefore', 'since', and 'thus' for causal design reasoning.
 
-### Patterns Verified from 50K Data
+**Evidence**: 1.33 connectors/turn; top: therefore, since, thus.
 
-The following patterns from the previous 20K analysis are CONFIRMED with 50K data:
-- ACKNOWLEDGE → PLAN → VERIFY is the dominant chain (core loop validated)
-- Self-correction is universal (92.5%)
-- The openers dominate
-- Reasoning connectors are the backbone of logical flow
+### Pattern: Common Openers
 
-### New Findings from 50K Data
+Frequent utterance starters: The, Alright, I’ve, Okay, I need to
 
-- **CoT rate of 29.5%** — the majority of architect traces lack explicit CoT (was 100% in 20K)
-- This reveals that Fable 5 often reasons **internally** during architecting, with only ~29.5% of traces showing explicit reasoning text
-- The remaining traces perform implicit reasoning — the model's internal chain-of-thought is not surfaced
+**Frequency**: 29.5%
 
-## Key Statistics from 50,000 Real Traces (Architect Subset)
+### Pattern: Self Correction
 
-| Pattern | 50K Value | 20K Value | Change |
-|---------|-----------|-----------|--------|
-| Total architect traces | 271 | 80 | +239% |
-| CoT rate | 29.5% | 100% | CHANGED |
-| Avg CoT tokens | 368.3 | ~368 | refined |
-| Starts with "The" | 53.8% | (not tracked) | NEW |
-| Self-correction (traces) | 92.5% | 56.4% (turns) | refined |
-| Avg self-corrections | 5.96 | (not tracked) | NEW |
-| Same-turn fix rate | 5.0% | (not tracked) | NEW |
-| Hypothesis-driven | 42.5% | (not tracked) | NEW |
-| PLAN frequency | 1.11 | 0.43 (turns) | refined |
-| VERIFY frequency | 0.12 | 0.84 (turns) | refined |
-| ACKNOWLEDGE frequency | 0.75 | 0.83 (turns) | refined |
-| Reasoning connectors/turn | 1.75 | 2.14 (turns) | refined |
-| First-person pronouns | 46.9% | (not tracked) | NEW |
-| Third-person pronouns | 50.6% | (not tracked) | NEW |
-| Formal section headers | 0.0% | 0.0% | unchanged |
+Frequently corrects reasoning mid-turn
 
-## Anti-Patterns (What Fable 5 Does NOT Do in Architect Mode)
+**Frequency**: 92.5%
 
-- ❌ Use formal section headers (## ACKNOWLEDGE, ## SCOPE, etc.) — 0% of real traces
-- ❌ Write "ACKNOWLEDGE:" or "SCOPE:" as labels — never observed
-- ❌ Use "Oops" for self-correction — virtually never; use "Actually" or "However"
-- ❌ Jump into planning without acknowledging context first
-- ❌ Skip verification after significant planning steps
-- ❌ Use slang or casual tone — Fable 5 is professional
-- ❌ Try to do all 7 reasoning steps in one turn — most have 2-5 steps
+### Pattern: Hypothesis Driven Debugging
 
-## Quick Reference
+Forms and tests hypotheses before fixing
 
-```
-Fable 5's Architect Mode Flow (no headers!):
+**Frequency**: 42.5%
 
-1. "The [context]" (53.8% of architect CoTs)
-2. "Because [reasoning], I should [plan]"
-3. "I could [A], but [B] is better because [trade-off]"
-4. "The next step is to [action] because [reasoning]"
-5. "The output should be [expected]"
-6. "Actually, [correction]" or "However, [revision]" if needed
-   (92.5% of traces self-correct)
+### Pattern: Acknowledge Then Execute
 
-Key characteristics:
-- CoT rate: 29.5% of architect traces
-- Top opener: "The" (53.8%)
-- Third-person dominant (50.6% pronouns)
-- PLAN density: 1.11 per trace
-- Reasoning connectors: 1.75 per turn
-```
+Always acknowledges context before acting
 
-## Verification Report
+**Frequency**: 75.0%
 
-This skill is generated from **50,000 Fable 5 traces** using the Wave 3 pattern extraction pipeline. Data provenance:
+### Pattern: Reasoning Chaining
 
-- Dataset: Crownelius/Complete-FABLE.5-traces-2M
-- Traces analyzed: 50,000 (of 56,700 available in dataset)
-- Architect subset: 271 traces (0.5%)
-- Self-correction method: regex marker detection on CoT text
-- Classification method: keyword-weighted scoring across 5 skill axes
-- Pattern extraction: CoT structure + tool usage + behavioral signatures
-- Previous version: 20K traces (v2.0.0)
-- Pipeline version: 0.1.0
+Uses connectors like therefore, thus, since
+
+**Frequency**: 35.0%
+
+## Key Statistics from 56700 Traces (Architect Subset)
+
+### CoT Structure
+- **Avg tokens**: 368.3 (median: 296.0)
+- **Avg paragraphs**: 5.5
+- **Avg sentences**: 16.2
+- **Avg characters**: 2392.8
+- **Max tokens**: 1351, **Min tokens**: 83
+
+### Reasoning Style
+- **Pronoun distribution**: **First-person**: 46.9%, **Second-person**: 2.5%, **Third-person**: 50.6%
+- **Connectors per turn**: 1.75
+- **Top connectors**: therefore, thus, since, because, hence
+- **Self-corrections per trace**: 5.96
+
+### Behavior
+- **Hypothesis-driven**: 42.5%
+- **Multi-investigation rate**: 0.0%
+- **Same-turn fix rate**: 5.0%
+- **Step coverage**: ACK 75.0%, SCOPE 6.2%, GATHER 1.2%, PLAN 111.2%, EXECUTE 13.8%, VERIFY 12.5%
+
+## Anti-Patterns
+
+- ❌ **Acting Without Scope** (93.8%) — Proceeding without confirming requirements
+- ❌ **No Verification** (87.5%) — Completes work without verification step
+- ❌ Formal section headers (## ACKNOWLEDGE, ## SCOPE, etc.) — Fable 5 never uses them
+- ❌ Using 'Oops' for self-correction — use 'Actually' or 'However' instead
+- ❌ Making changes without understanding context first
+- ❌ Skipping verification after changes
+- ❌ Planning once without iterative refinement
+- ❌ Expressing certainty when hedging is appropriate
+- ❌ Writing one-sentence reasoning before deciding

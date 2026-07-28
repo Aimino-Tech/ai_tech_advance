@@ -1,10 +1,10 @@
 skill: think
-total_traces: 40583
+total_traces: 47283
 stats:
   cot:
-    total_traces: 40583
+    total_traces: 47283
     cot_present: 42
-    cot_rate: 0.001
+    cot_rate: 0.0009
     avg_tokens: 383.45
     avg_paragraphs: 6.38
     avg_sentences: 15.21
@@ -31,14 +31,14 @@ stats:
     - since
     - given that
   tool_usage:
-    total_traces: 40583
+    total_traces: 47283
     traces_with_tools: 41
     tool_calls_per_trace:
-      '0': 0.999
-      '1': 0.001
+      '0': 0.9991
+      '1': 0.0009
     tool_type_frequency:
-      Bash: 0.0005
-      Read: 0.0004
+      Bash: 0.0004
+      Read: 0.0003
       Search: 0.0001
       Glob: 0.0
       Edit: 0.0
@@ -58,7 +58,7 @@ stats:
     avg_tool_calls: 0.0
     max_tool_calls: 1
   behaviors:
-    total_traces: 40583
+    total_traces: 47283
     self_correction_rate: 0.9762
     avg_self_corrections: 5.4286
     hypothesis_driven_rate: 0.2857
@@ -99,7 +99,7 @@ stats:
 patterns:
 - name: common-openers
   description: 'Frequent utterance starters: The, Alright, Okay, I need to, I’ve'
-  frequency: 0.001
+  frequency: 0.0009
 - name: self-correction
   description: Frequently corrects reasoning mid-turn
   frequency: 0.9762

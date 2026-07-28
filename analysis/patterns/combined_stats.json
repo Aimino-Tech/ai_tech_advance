@@ -1,39 +1,39 @@
 {
   "pipeline_version": "0.1.0",
   "dataset": "Crownelius/Complete-FABLE.5-traces-2M",
-  "total_traces": 50000,
-  "max_samples": 50000,
+  "total_traces": 56700,
+  "max_samples": 0,
   "skill_distribution": {
     "think": {
-      "count": 40583,
-      "fraction": 0.8117,
-      "avg_confidence": 0.0033
+      "count": 47283,
+      "fraction": 0.8339,
+      "avg_confidence": 0.0028
     },
     "code": {
       "count": 6835,
-      "fraction": 0.1367,
+      "fraction": 0.1205,
       "avg_confidence": 0.6322
     },
     "debug": {
       "count": 520,
-      "fraction": 0.0104,
+      "fraction": 0.0092,
       "avg_confidence": 0.5074
     },
     "architect": {
       "count": 271,
-      "fraction": 0.0054,
+      "fraction": 0.0048,
       "avg_confidence": 0.5262
     },
     "verify": {
       "count": 1791,
-      "fraction": 0.0358,
+      "fraction": 0.0316,
       "avg_confidence": 0.5005
     }
   },
   "per_skill": {
     "think": {
-      "trace_count": 40583,
-      "cot_rate": 0.001,
+      "trace_count": 47283,
+      "cot_rate": 0.0009,
       "avg_tokens": 383.45,
       "self_correction_rate": 0.9762,
       "avg_tool_calls": 0.0,
