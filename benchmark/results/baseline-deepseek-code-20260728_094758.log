@@ -1,0 +1,14 @@
+Run 9700e7d2-340f-45f2-b05c-3f50fb5ca375: 10 scenarios on deepseek-v4-flash
+  [1/10] Implement function from spec... FAIL (0.00/1.00)
+  [2/10] Refactor — extract method from complex function... FAIL (0.00/1.00)
+  [3/10] Add error handling to existing Go code... FAIL (0.00/1.00)
+  [4/10] Write a Rust unit test suite... FAIL (0.00/1.00)
+  [5/10] Generate a REST API endpoint... FAIL (0.00/1.00)
+  [6/10] Data transformation pipeline... FAIL (0.00/1.00)
+  [7/10] Algorithm implementation — LRU cache... FAIL (0.00/1.00)
+  [8/10] Regex construction — log parser... FAIL (0.00/1.00)
+  [9/10] Code review — find bugs and anti-patterns... FAIL (0.00/1.00)
+  [10/10] Performance optimization — SQL query... FAIL (0.00/1.00)
+
+Run complete: 0/10 passed, score: 0.00/10.00, duration: 0.2s
+Run ID: 9700e7d2-340f-45f2-b05c-3f50fb5ca375

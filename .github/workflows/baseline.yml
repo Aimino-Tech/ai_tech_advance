@@ -9,7 +9,7 @@ on:
 jobs:
   eval:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,15 +20,8 @@ jobs:
           cache: "pip"
       - name: Install deps
         run: pip install -r benchmark/requirements.txt 2>/dev/null || echo "no requirements yet"
-      - name: Run baseline eval
-        run: |
-          if [ -z "$DOJO_API_KEY" ]; then
-            echo "DOJO_API_KEY not set, skipping eval"
-            exit 0
-          fi
-          python -m benchmark.eval run \
-            --course deepseek-baseline \
-            --model "${DOJO_MODEL}"
+      - name: Run full evaluation pipeline
+        run: bash benchmark/evaluate_all.sh
         env:
           DOJO_API_KEY: ${{ secrets.DOJO_API_KEY }}
           DOJO_MODEL: ${{ vars.DOJO_MODEL || 'deepseek-v4-flash' }}
