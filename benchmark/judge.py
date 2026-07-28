@@ -10,7 +10,7 @@ ENV_JUDGE_MODEL: Final = "DOJO_JUDGE_MODEL"
 ENV_API_KEY: Final = "DOJO_API_KEY"
 ENV_JUDGE_MODE: Final = "DOJO_JUDGE_MODE"
 
-_DEFAULT_JUDGE_MODEL: Final = "claude-sonnet-4-6"
+_DEFAULT_JUDGE_MODEL: Final = "deepseek-v4-flash"
 _DEFAULT_JUDGE_MODE: Final = "simple"
 
 
