@@ -1,6 +1,6 @@
 ---
 name: fable-think
-description: Think like Fable 5 — Natural, flowing, purposeful reasoning distilled from chain-of-thought traces. Distilled from 5000 real Fable 5 traces (592 think-skill traces) with data-driven precision.
+description: Think like Fable 5 — Natural, flowing, purposeful reasoning distilled from chain-of-thought traces. Distilled from 4450 real Fable 5 traces (42 think-skill traces) with data-driven precision.
 version: 3.0.0
 generated_from: analysis/patterns/think_patterns.yaml
 ---
@@ -15,14 +15,14 @@ Use this skill EVERY TIME before writing code, making decisions, or taking actio
 
 ## Statistics & Data Provenance
 
-This skill is empirically derived from **5000 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The think-skill subset contains **592 traces** (11.8% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
+This skill is empirically derived from **4450 Fable 5 traces** (Crownelius/Complete-FABLE.5-traces-2M dataset). The think-skill subset contains **42 traces** (0.9% of total). Downloading the full 2M-trace dataset and re-running the analysis pipeline will update these numbers automatically.
 
 | Metric | Value |
 |--------|-------|
-| Traces analyzed | 592 |
-| Distribution | 11.8% |
-| Avg classification confidence | 3.1% |
-| CoT present rate | 7.1% |
+| Traces analyzed | 42 |
+| Distribution | 0.9% |
+| Avg classification confidence | 44.4% |
+| CoT present rate | 100.0% |
 | Avg CoT tokens | 383.4 |
 | Median CoT tokens | 366.0 |
 | Avg paragraphs | 6.4 |
@@ -38,7 +38,7 @@ This skill is empirically derived from **5000 Fable 5 traces** (Crownelius/Compl
 Fable 5 reasons in natural, flowing paragraphs. The think skill is characterized by:
 
 - **Voice**: Third-person dominant (**First-person**: 38.1%, **Second-person**: 8.2%, **Third-person**: 53.7%)
-- **CoT availability**: Not always present (7.1%)
+- **CoT availability**: Always present (100.0%)
 - **Self-correction**: 97.6% of traces contain corrections
 - **Hypothesis-driven**: 28.6% of traces use hypothesis testing
 - **Same-turn fix**: 21.4% involve mid-turn course correction
@@ -167,7 +167,7 @@ Think mode prefers third-person pronouns — analyzing systems and subjects rath
 
 Frequent utterance starters: The, Alright, Okay, I need to, I’ve
 
-**Frequency**: 7.1%
+**Frequency**: 100.0%
 
 ### Pattern: Self Correction
 
@@ -187,7 +187,7 @@ Uses connectors like thus, because, therefore
 
 **Frequency**: 38.6%
 
-## Key Statistics from 5000 Traces (Think Subset)
+## Key Statistics from 4450 Traces (Think Subset)
 
 ### CoT Structure
 - **Avg tokens**: 383.4 (median: 366.0)
